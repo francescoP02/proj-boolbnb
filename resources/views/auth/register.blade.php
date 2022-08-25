@@ -15,13 +15,23 @@
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}">
+                            </div>
+                        </div>
 
-                                @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                        <div class="form-group row">
+                            <label for="surname" class="col-md-4 col-form-label text-md-right">{{ __('Surname') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="surname" type="text" class="form-control" name="surname" value="{{ old('surname') }}">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="birth_date" class="col-md-4 col-form-label text-md-right">{{ __('Birth_date') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="birth_date" type="date" class="form-control" name="birth_date" value="{{ old('birth_date') }}">
                             </div>
                         </div>
 
