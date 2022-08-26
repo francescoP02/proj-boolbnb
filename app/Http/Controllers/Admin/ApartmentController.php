@@ -7,6 +7,8 @@ use App\Apartment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use App\Optional;
 
 class ApartmentController extends Controller
 {
@@ -30,7 +32,8 @@ class ApartmentController extends Controller
      */
     public function create()
     {
-        return view('admin.apartments.create');
+        $optionals = Optional::all();
+        return view('admin.apartments.create', compact('optionals'));
     }
 
     /**
@@ -46,11 +49,19 @@ class ApartmentController extends Controller
         $request->validate($this->getValidationRules());
 
         $data = $request->all();
+        if (isset($data['image'])) {
+            $image_path = Storage::put('apartment_images', $data['image']);
+            $data['image'] = $image_path;
+        }
         $apartment = new Apartment();
         $apartment->fill($data);
         $apartment->slug = Apartment::generateApartmentSlugFromTitle($apartment->title);
         $apartment->user_id = $user->id;
         $apartment->save();
+
+        if (isset($data['optionals'])) {
+            $apartment->optionals()->sync($data['optionals']);
+        }
 
         return redirect()->route('admin.apartments.show', ['apartment' => $apartment->id]);
     }
@@ -76,7 +87,8 @@ class ApartmentController extends Controller
     public function edit($id)
     {
         $apartment = Apartment::findOrFail($id);
-        return view('admin.apartments.edit', compact('apartment'));
+        $optionals = Optional::all();
+        return view('admin.apartments.edit', compact('apartment', 'optionals'));
     }
 
     /**
@@ -93,9 +105,24 @@ class ApartmentController extends Controller
         $data = $request->all();
 
         $apartment = Apartment::findOrFail($id);
+
+        if (isset($data['image'])) {
+            if ($apartment->image) {
+                Storage::delete($apartment->image);
+            }
+            $image_path = Storage::put('apartment_images', $data['image']);
+            $data['image'] = $image_path;
+        }
+
         $apartment->update($data);
         $apartment->slug = Apartment::generateApartmentSlugFromTitle($apartment->title);
         $apartment->save();
+
+        if (isset($data['optionals'])) {
+            $apartment->optionals()->sync($data['optionals']);
+        } else {
+            $apartment->optionals()->sync([]);
+        }
 
         return redirect()->route('admin.apartments.show', ['apartment' => $apartment->id]);
     }
@@ -109,6 +136,10 @@ class ApartmentController extends Controller
     public function destroy($id)
     {
         $apartment = Apartment::findOrFail($id);
+        if($apartment->image) {
+            Storage::delete($apartment->image);
+        }
+        $apartment->optionals()->sync([]);
         $apartment->delete();
         return redirect()->route('admin.apartments.index');
     }
