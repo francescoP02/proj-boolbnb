@@ -22,10 +22,10 @@ class CreateApartmentsTable extends Migration
             $table->unsignedTinyInteger('bathroom_number')->nullable();
             $table->unsignedMediumInteger('square_metres')->nullable();
             $table->string('address', 255)->unique();
-            $table->decimal('latitude', 9, 6);
-            $table->decimal('longitude', 9, 6);
+            $table->decimal('latitude', 9, 6)->nullable();
+            $table->decimal('longitude', 9, 6)->nullable();
             $table->text('images')->nullable();
-            $table->boolean('visible');
+            $table->boolean('visible')->default(0);
             $table->timestamps();
         });
     }
