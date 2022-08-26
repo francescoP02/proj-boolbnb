@@ -12,8 +12,13 @@ class OptionalsSeeder extends Seeder
      */
     public function run()
     {
-        $optional = new Optional();
-        $optional->name = 'WiFi';
-        $optional->save();
+
+        $optionals= ['WiFi','Pool','Spa','Sea View','Animals Allowed'];
+
+        foreach ($optionals as $item) {
+            $optional = new Optional();
+            $optional->name = $item;
+            $optional->save();
+        }
     }
 }

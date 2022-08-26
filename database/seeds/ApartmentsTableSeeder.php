@@ -18,6 +18,7 @@ class ApartmentsTableSeeder extends Seeder
         for ($i=0; $i < 5; $i++) { 
             $apartment = new Apartment();
             $apartment->title = $faker->sentence();
+            $apartment->user_id = 1;
             $apartment->slug = Apartment::generateApartmentSlugFromTitle($apartment->title);
             $apartment->rooms_number = $faker->numberBetween(0, 10);
             $apartment->beds_number = $faker->numberBetween(0, 10);
@@ -26,7 +27,7 @@ class ApartmentsTableSeeder extends Seeder
             $apartment->address = $faker->sentence();
             $apartment->latitude = $faker->randomFloat(6, 1, 999);
             $apartment->longitude = $faker->randomFloat(6, 1, 999);
-            $apartment->images = $faker->paragraph(rand(10, 30));
+            $apartment->image = $faker->paragraph(rand(10, 30));
             $apartment->visible = $faker->numberBetween(0, 1);
             $apartment->save();
         }
