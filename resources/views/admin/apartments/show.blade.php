@@ -9,5 +9,7 @@
     <p>Number of beds: {{$apartment->beds_number}}</p>
     <p>Number of bathrooms: {{$apartment->bathroom_number}}</p>
     <p>Square metres: {{$apartment->square_metres}} square metres</p>
+
+    <a class="btn btn-primary" href="{{ route('admin.apartments.edit', ['apartment' => $apartment->id]) }}">Modify</a>
     
 @endsection
