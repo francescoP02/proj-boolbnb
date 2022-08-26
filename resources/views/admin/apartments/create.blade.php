@@ -57,21 +57,9 @@
             <label for="address" class="form-label">Address:</label>
             <textarea type="text" class="form-control" name="address" id="address"></textarea>
         </div>
-        {{-- <div class="form-check">
-            <input class="form-check-input" type="radio" name="visible" id="visible1" checked value="1">
-            <label class="form-check-label" for="visible1">
-              Default radio
-            </label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="visible" id="visible2" value="0">
-            <label class="form-check-label" for="visible2">
-              Default checked radio
-            </label>
-        </div> --}}
         <div class="form-check form-switch">
             <input class="form-check-input" type="checkbox" role="switch" checked  name="visible" id="visible1" value="1">
-            <label class="form-check-label" for="flexSwitchCheckChecked">Checked switch checkbox input</label>
+            <label class="form-check-label" for="flexSwitchCheckChecked">Visible</label>
           </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>

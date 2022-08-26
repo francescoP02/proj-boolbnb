@@ -69,7 +69,8 @@ class ApartmentController extends Controller
      */
     public function edit($id)
     {
-        //
+        $apartment = Apartment::findOrFail($id);
+        return view('admin.apartments.edit', compact('apartment'));
     }
 
     /**
@@ -81,7 +82,16 @@ class ApartmentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate($this->getValidationRules());
+
+        $data = $request->all();
+
+        $apartment = Apartment::findOrFail($id);
+        $apartment->fill($data);
+        $apartment->slug = Apartment::generateApartmentSlugFromTitle($apartment->title);
+        $apartment->save();
+
+        return redirect()->route('admin.apartments.show', ['apartment' => $apartment->id]);
     }
 
     /**

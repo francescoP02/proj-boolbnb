@@ -12,6 +12,11 @@ class Apartment extends Model
         return $this->belongsToMany('App\Optional');
     }
 
+    public function users()
+    {
+        return $this->belongsTo('App\Users');
+    }
+
     protected $fillable = [
         'title',
         'slug',

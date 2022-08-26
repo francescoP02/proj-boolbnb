@@ -1,5 +1,6 @@
 <?php
 
+use App\Optional;
 use Illuminate\Database\Seeder;
 
 class OptionalsSeeder extends Seeder
