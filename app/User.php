@@ -11,7 +11,7 @@ class User extends Authenticatable
 
     public function apartments()
     {
-        return $this->belongsToMany('App\Apartemnt');
+        return $this->hasMany('App\Apartment');
     }
 
     use Notifiable;

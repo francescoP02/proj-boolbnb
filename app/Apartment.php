@@ -4,17 +4,20 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Apartment extends Model
 {
+    use SoftDeletes;
+    
     public function optionals()
     {
         return $this->belongsToMany('App\Optional');
     }
 
-    public function users()
+    public function user()
     {
-        return $this->belongsTo('App\Users');
+        return $this->belongsTo('App\User');
     }
 
     protected $fillable = [

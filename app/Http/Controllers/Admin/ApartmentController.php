@@ -87,7 +87,7 @@ class ApartmentController extends Controller
         $data = $request->all();
 
         $apartment = Apartment::findOrFail($id);
-        $apartment->fill($data);
+        $apartment->update($data);
         $apartment->slug = Apartment::generateApartmentSlugFromTitle($apartment->title);
         $apartment->save();
 
@@ -102,7 +102,9 @@ class ApartmentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $apartment = Apartment::findOrFail($id);
+        $apartment->delete();
+        return redirect()->route('admin.apartments.index');
     }
 
     private function getValidationRules() {

@@ -11,5 +11,11 @@
     <p>Square metres: {{$apartment->square_metres}} square metres</p>
 
     <a class="btn btn-primary" href="{{ route('admin.apartments.edit', ['apartment' => $apartment->id]) }}">Modify</a>
+
+    <form class="d-inline-block" action="{{ route('admin.apartments.destroy', ['apartment' => $apartment->id]) }}" onClick="return confirm('Confirm delete');" method="POST">
+        @csrf
+        @method('DELETE')
+        <button class="btn btn-danger" type="submit">Delete</button>
+    </form>
     
 @endsection
