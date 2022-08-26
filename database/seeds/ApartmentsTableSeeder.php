@@ -18,7 +18,7 @@ class ApartmentsTableSeeder extends Seeder
         for ($i=0; $i < 5; $i++) { 
             $apartment = new Apartment();
             $apartment->title = $faker->sentence();
-            $apartment->slug = Str::slug($apartment->title, '-');
+            $apartment->slug = Apartment::generateApartmentSlugFromTitle($apartment->title);
             $apartment->rooms_number = $faker->numberBetween(0, 10);
             $apartment->beds_number = $faker->numberBetween(0, 10);
             $apartment->bathroom_number = $faker->numberBetween(0, 10);

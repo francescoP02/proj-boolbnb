@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Apartment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class ApartmentController extends Controller
 {
@@ -26,7 +27,7 @@ class ApartmentController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.apartments.create');
     }
 
     /**
@@ -37,7 +38,15 @@ class ApartmentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate($this->getValidationRules());
+
+        $data = $request->all();
+        $apartment = new Apartment();
+        $apartment->fill($data);
+        $apartment->slug = Apartment::generateApartmentSlugFromTitle($apartment->title);
+        $apartment->save();
+
+        return redirect()->route('admin.apartments.show', ['apartment' => $apartment->id]);
     }
 
     /**
@@ -48,7 +57,8 @@ class ApartmentController extends Controller
      */
     public function show($id)
     {
-        //
+        $apartment = Apartment::findOrFail($id);
+        return view('admin.apartments.show', compact('apartment'));
     }
 
     /**
@@ -83,5 +93,18 @@ class ApartmentController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    private function getValidationRules() {
+        return [
+            'title' => 'required|max:255',
+            'rooms_number' => 'required|numeric',
+            'beds_number' => 'required|numeric',
+            'bathroom_number' => 'nullable|numeric',
+            'square_metres' => 'nullable|numeric',
+            'address' => 'required|max:255',
+            'image' => 'nullable|image|max:512',
+            'visible' => 'nullable',
+        ];
     }
 }
