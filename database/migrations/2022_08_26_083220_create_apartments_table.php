@@ -15,11 +15,6 @@ class CreateApartmentsTable extends Migration
     {
         Schema::create('apartments', function (Blueprint $table) {
             $table->id();
-            // $table->unsignedBigInteger('user_id');
-            // $table->foreign('user_id')
-            //     ->references('id')
-            //     ->on('users')
-            //     ->onDelete('set null');
             $table->string('title', 255);
             $table->string('slug', 255)->unique();
             $table->unsignedTinyInteger('rooms_number');
