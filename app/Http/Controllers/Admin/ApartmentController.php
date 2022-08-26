@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Apartment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 
 class ApartmentController extends Controller
 {
@@ -16,7 +17,9 @@ class ApartmentController extends Controller
      */
     public function index()
     {
-        $apartments = Apartment::all();
+        $user = Auth::user();
+        $apartments=$user->apartments;
+        // $apartments->user_id = $user->id;
         return view('admin.apartments.index', compact('apartments'));
     }
 
@@ -38,12 +41,15 @@ class ApartmentController extends Controller
      */
     public function store(Request $request)
     {
+        $user = Auth::user();
+        
         $request->validate($this->getValidationRules());
 
         $data = $request->all();
         $apartment = new Apartment();
         $apartment->fill($data);
         $apartment->slug = Apartment::generateApartmentSlugFromTitle($apartment->title);
+        $apartment->user_id = $user->id;
         $apartment->save();
 
         return redirect()->route('admin.apartments.show', ['apartment' => $apartment->id]);
