@@ -9,6 +9,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Optional;
+use Illuminate\Support\Facades\Http;
 
 class ApartmentController extends Controller
 {
@@ -56,6 +57,25 @@ class ApartmentController extends Controller
         $apartment = new Apartment();
         $apartment->fill($data);
         $apartment->slug = Apartment::generateApartmentSlugFromTitle($apartment->title);
+        // $geoCode = Http::get("https://api.tomtom.com/search/2/geocode/Via%20Giuseppe%20Fanelli.json?typeahead=false&limit=10&ofs=0&view=Unified&key=Rdcw2GVNiNQGXTWrgewGKq9cwtVYNPRw")->json();
+
+        // $indirizzo = $data['address'];
+        // $geo = Http::get("https://api.tomtom.com/search/2/geocode/{$indirizzo}.json", [
+        //     'key' => 'Rdcw2GVNiNQGXTWrgewGKq9cwtVYNPRw',
+        //     'countrySet' => 'IT'
+        // ]);
+
+        // $geo_json = json_decode($geo);
+
+        $apiQuery = str_replace(' ', '-', $data['address']);
+        $response = file_get_contents('https://api.tomtom.com/search/2/geocode/' . $apiQuery . '.json?key=Rdcw2GVNiNQGXTWrgewGKq9cwtVYNPRw');
+        $response = json_decode($response);
+
+        // dd($response);
+
+        $apartment->latitude = $response->results[0]->position->lat;
+        $apartment->longitude = $response->results[0]->position->lon;
+
         $apartment->user_id = $user->id;
         $apartment->save();
 
@@ -112,6 +132,19 @@ class ApartmentController extends Controller
             }
             $image_path = Storage::put('apartment_images', $data['image']);
             $data['image'] = $image_path;
+        }
+
+        if (isset($data['address'])) {
+
+            $apiQuery = str_replace(' ', '-', $data['address']);
+            $response = file_get_contents('https://api.tomtom.com/search/2/geocode/' . $apiQuery . '.json?key=Rdcw2GVNiNQGXTWrgewGKq9cwtVYNPRw');
+            $response = json_decode($response);
+
+            // dd($response);
+
+            $apartment->latitude = $response->results[0]->position->lat;
+            $apartment->longitude = $response->results[0]->position->lon;
+            
         }
 
         $apartment->update($data);

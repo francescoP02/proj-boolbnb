@@ -68,7 +68,7 @@
             @foreach ($optionals as $optional)
             <div class="form-check">
 
-                <input name="optionals[]" class="form-check-input" type="checkbox" value="{{$optional->id}}" id="optional-{{$optional->id}}" {{ in_array($optional->id, old('optionals', [])) ? 'checked' : '' }}>>
+                <input name="optionals[]" class="form-check-input" type="checkbox" value="{{$optional->id}}" id="optional-{{$optional->id}}" {{ in_array($optional->id, old('optionals', [])) ? 'checked' : '' }}>
                 <label class="form-check-label" for="optional-{{$optional->id}}">
                 {{$optional->name}}
                 </label>
