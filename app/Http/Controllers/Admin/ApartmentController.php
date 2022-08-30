@@ -4,12 +4,14 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Apartment;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Optional;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Gate;
 
 class ApartmentController extends Controller
 {
@@ -86,6 +88,10 @@ class ApartmentController extends Controller
         return redirect()->route('admin.apartments.show', ['apartment' => $apartment->id]);
     }
 
+
+
+
+
     /**
      * Display the specified resource.
      *
@@ -93,9 +99,16 @@ class ApartmentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
+    
+    {   
         $apartment = Apartment::findOrFail($id);
-        return view('admin.apartments.show', compact('apartment'));
+        $response = Gate::inspect('view', $apartment);
+ 
+        if ($response->allowed()) {
+            return view('admin.apartments.show', compact('apartment'));
+        } else {
+            echo $response->message();
+        }
     }
 
     /**

@@ -19,7 +19,7 @@
         @endif
 
         <div class="mb-3">
-            <label for="title" class="form-label">Title:</label>
+            <label for="title" class="form-label">Title(*):</label>
             <input type="text" class="form-control" name="title" id="title">
         </div>
 
@@ -29,7 +29,7 @@
         </div>
         
         <div class="mb-3">
-            <label for="rooms_number">Number of rooms:</label>
+            <label for="rooms_number">Number of rooms(*):</label>
             <select class="form-select" aria-label="Default select example" name="rooms_number" id="rooms_number">
                 <option selected>Open this select menu</option>
                 @for ($i = 1; $i <= 10; $i++)
@@ -38,7 +38,7 @@
             </select>
         </div>
         <div class="mb-3">
-            <label for="beds_number">Number of beds:</label>
+            <label for="beds_number">Number of beds(*):</label>
             <select class="form-select" aria-label="Default select example" name="beds_number" id="beds_number">
                 <option selected>Open this select menu</option>
                 @for ($i = 1; $i <= 10; $i++)
@@ -60,7 +60,7 @@
             <input type="number" class="form-control" name="square_metres" id="square_metres">
         </div>
         <div class="mb-3">
-            <label for="address" class="form-label">Address:</label>
+            <label for="address" class="form-label">Address(*):</label>
             <textarea type="text" class="form-control" name="address" id="address"></textarea>
         </div>
         <div class="my-3">
@@ -82,5 +82,7 @@
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
+
+    <p class="text-center">* Questi campi sono obbligatori</p>
     
 @endsection
