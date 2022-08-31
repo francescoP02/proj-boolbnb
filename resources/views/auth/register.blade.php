@@ -39,7 +39,7 @@
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address(*)') }}</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" onkeyup="checkEmail()" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+                                <input id="email" type="email" onkeydown="checkEmail()" onkeyup="enabled()" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
 
                                 <p id="valid-email"></p>
                                 @error('email')
@@ -54,7 +54,7 @@
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password(*)') }}</label>
 
                             <div class="col-md-6">
-                                <input id="password" type="password" minlenght="8" onkeyup="checkPassword()" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                                <input id="password" type="password" minlenght="8" onkeydown="checkPassword()" onkeyup="enabled()" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
 
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
@@ -68,12 +68,12 @@
                             <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password(*)') }}</label>
 
                             <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" onkeyup="checkPassword()" name="password_confirmation" required autocomplete="new-password">
+                                <input id="password-confirm" type="password" class="form-control" onkeyup="enabled()" name="password_confirmation" required autocomplete="new-password">
                                 <p id="password-matched"></p>
                                 <p id="password-length"></p>
                             </div>
                         </div>
-
+                        
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button disabled type="submit" class="btn btn-primary" id="submitButton">
@@ -91,16 +91,14 @@
 @endsection
 
 <script>
-    const button = document.getElementById('submitButton');
     
     function checkPassword() {
         let passwordFlag = false;
         let passwordLenght = false;
-        const password = "";
-
-        console.log("debug");
+        const password = document.getElementById('password').value;
         const confirmPassword = document.getElementById('password-confirm').value;
-
+        
+        
         if (password.length < 8) {
             document.getElementById('password-length').innerHTML = "Password must be at least 8 characters";
             passwordLenght = false;
@@ -108,7 +106,7 @@
             document.getElementById('password-length').innerHTML = "";
             passwordLenght = true;
         }
-
+        
         if (password === confirmPassword) {
             document.getElementById('password-matched').innerHTML = "Password is correct";
             passwordFlag = true;
@@ -118,17 +116,15 @@
             passwordFlag = false;
             
         }
-
+        
         if (passwordFlag && passwordLenght) {
             return true;
         } else  {
             return false;
         }
-
+        
     }
-
-    console.log(checkPassword());
-
+    
     function checkEmail() {
         let emailFlag = false;
 
@@ -143,19 +139,15 @@
             return false;
         }
     }
-
-    console.log(checkEmail());
-
     
-        
-    if (checkEmail()&&checkPassword() === false) {
+    function enabled() {
+        const button = document.getElementById('submitButton');
 
-        button.removeAttribute('disabled');
 
-    } else {
-
-        button.setAttribute('disabled', '');
-            
+        if (checkEmail() && checkPassword()) {
+            button.removeAttribute('disabled');
+        } else {
+            button.setAttribute('disabled', '');
+        }
     }
-    
 </script>
