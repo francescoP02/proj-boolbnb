@@ -61,7 +61,14 @@
         </div>
         <div class="mb-3">
             <label for="address" class="form-label">Address(*):</label>
-            <textarea type="text" class="form-control" name="address" id="address" onkeyup="controlForm()"></textarea>
+            <input type="text" class="form-control" name="address" id="address">
+            <button type="button" for="address" class="btn btn-primary" onclick="addressApartment()">Cerca</button>
+            <div class="d-none" id="containerAddressResult">
+                <label for="addressResult">Risultati:</label>
+                <select name="addressResult" id="addressResult" class="form-select" onclick="controlForm()">
+                    <option value="">Select your location</option>
+                </select>
+            </div>
         </div>
         <div class="my-3">
             <h4>Optionals:</h4>
@@ -76,6 +83,10 @@
             </div>
         @endforeach
         </div>
+        <div class="d-none">
+            <input id="latApart" name="latitude" readonly>
+            <input id="lonApart" name="longitude" readonly>
+        </div>
         <div class="form-check form-switch">
             <input class="form-check-input" type="checkbox" role="switch" checked  name="visible" id="visible1" value="1">
             <label class="form-check-label" for="flexSwitchCheckChecked">Visible</label>
@@ -84,10 +95,51 @@
     </form>
 
     <p class="text-center">* Questi campi sono obbligatori</p>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     
 @endsection
 
 <script>
+    
+    function addressApartment() {
+        divContainer = document.getElementById('containerAddressResult');
+        
+        divContainer.classList.remove('d-none');
+        
+        let addressApart = document.getElementById('address').value;
+        const linkApi = `https://api.tomtom.com/search/2/geocode/${addressApart}.json?key=Rdcw2GVNiNQGXTWrgewGKq9cwtVYNPRw`;
+
+        axios.get(linkApi).then(resp => {
+            
+            const response = resp.data.results;
+            console.log(response);
+            
+            document.getElementById('addressResult').innerHTML = "";
+            const nullElement = document.createElement('option');
+            nullElement.innerHTML = "Select your location";
+            nullElement.value = "";
+            document.getElementById('addressResult').append(nullElement);
+            response.forEach(element => {
+                
+                const addressElement = document.createElement('option');
+                document.getElementById('addressResult').append(addressElement);
+                // console.log("div", addressElement);
+                addressElement.classList.add('address-result');
+                addressElement.innerHTML = element.address.freeformAddress;
+                addressElement.value = element.address.freeformAddress;
+
+                addressElement.addEventListener('click', function() {
+                    document.getElementById('latApart').value = element.position.lat;
+                    document.getElementById('lonApart').value = element.position.lon;
+                })
+            })
+            
+        })
+        
+    }
+
     function controlForm() {
         let titleFlag = false;
         let roomsFlag = false;
@@ -97,7 +149,8 @@
         let titleApart = document.getElementById('title').value;
         let roomsApart = document.getElementById('rooms_number').value;
         let bedsApart = document.getElementById('beds_number').value;
-        let addressApart = document.getElementById('address').value;
+        let addressApart = document.getElementById('addressResult').value;
+        console.log(addressApart);
 
         const button = document.getElementById('submitButton');
 
@@ -126,9 +179,10 @@
         }
 
         if (titleFlag && roomsFlag && bedsFlag && addressFlag == true) {
-            button.removeAttribute('disabled');
+            button.disabled = false;
         } else {
-            button.setAttribute('disabled', '');
+            button.disabled = true;
         }
+
     }
 </script>
