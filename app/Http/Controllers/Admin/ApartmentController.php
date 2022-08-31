@@ -107,7 +107,7 @@ class ApartmentController extends Controller
         if ($response->allowed()) {
             return view('admin.apartments.show', compact('apartment'));
         } else {
-            echo $response->message();
+            return view('admin.policy',compact('response'));
         }
     }
 
@@ -120,8 +120,15 @@ class ApartmentController extends Controller
     public function edit($id)
     {
         $apartment = Apartment::findOrFail($id);
-        $optionals = Optional::all();
-        return view('admin.apartments.edit', compact('apartment', 'optionals'));
+
+        $response = Gate::inspect('update', $apartment);
+
+        if ($response->allowed()) {
+            $optionals = Optional::all();
+            return view('admin.apartments.edit', compact('apartment', 'optionals'));
+        } else {
+            return view('admin.policy',compact("response"));
+        }
     }
 
     /**
@@ -133,10 +140,11 @@ class ApartmentController extends Controller
      */
     public function update(Request $request, $id)
     {
+        
         $request->validate($this->getValidationRules());
-
+        
         $data = $request->all();
-
+        
         $apartment = Apartment::findOrFail($id);
 
         if (isset($data['image'])) {
@@ -182,20 +190,28 @@ class ApartmentController extends Controller
     public function destroy($id)
     {
         $apartment = Apartment::findOrFail($id);
-        if($apartment->image) {
-            Storage::delete($apartment->image);
+
+        $response = Gate::inspect('update', $apartment);
+
+        if ($response->allowed()) {
+            if($apartment->image) {
+                Storage::delete($apartment->image);
+            }
+            $apartment->optionals()->sync([]);
+            $apartment->delete();
+            return redirect()->route('admin.apartments.index');
+        } else {
+            return view('admin.policy',compact("response"));
         }
-        $apartment->optionals()->sync([]);
-        $apartment->delete();
-        return redirect()->route('admin.apartments.index');
+
     }
 
     private function getValidationRules() {
         return [
             'title' => 'required|max:255',
-            'rooms_number' => 'required|numeric',
-            'beds_number' => 'required|numeric',
-            'bathroom_number' => 'nullable|numeric',
+            'rooms_number' => 'required|numeric|between:1,10',
+            'beds_number' => 'required|numeric|between:1,10',
+            'bathroom_number' => 'nullable|numeric|between:0,10',
             'square_metres' => 'nullable|numeric',
             'address' => 'required|max:255',
             'image' => 'nullable|image|max:512',

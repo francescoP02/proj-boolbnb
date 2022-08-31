@@ -39,7 +39,7 @@
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address(*)') }}</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" onkeydown="checkEmail()" onkeyup="enabled()" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+                                <input id="email" type="email" onkeyup="checkEmail(); enabled()" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
 
                                 <p id="valid-email"></p>
                                 @error('email')
@@ -54,7 +54,7 @@
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password(*)') }}</label>
 
                             <div class="col-md-6">
-                                <input id="password" type="password" minlenght="8" onkeydown="checkPassword()" onkeyup="enabled()" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                                <input id="password" type="password" minlenght="8" onkeyup="checkPassword(); enabled()" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
 
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
@@ -68,7 +68,7 @@
                             <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password(*)') }}</label>
 
                             <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" onkeyup="enabled()" name="password_confirmation" required autocomplete="new-password">
+                                <input id="password-confirm" type="password" class="form-control" onkeyup="checkPassword(); enabled()" name="password_confirmation" required autocomplete="new-password">
                                 <p id="password-matched"></p>
                                 <p id="password-length"></p>
                             </div>
@@ -127,10 +127,11 @@
     
     function checkEmail() {
         let emailFlag = false;
+        let emailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
         const email = document.getElementById('email').value;
 
-        if (email.includes("@") && email.includes(".")) {
+        if (email.match(emailFormat)) {
             document.getElementById('valid-email').innerHTML = "";
             return true;
             
@@ -142,7 +143,6 @@
     
     function enabled() {
         const button = document.getElementById('submitButton');
-
 
         if (checkEmail() && checkPassword()) {
             button.removeAttribute('disabled');

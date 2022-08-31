@@ -56,7 +56,9 @@ class ApartmentPolicy
      */
     public function update(User $user, Apartment $apartment)
     {
-        //
+        return $user->id === $apartment->user_id
+                ? Response::allow()
+                : Response::deny('You do not own this apartment.');
     }
 
     /**
@@ -68,7 +70,9 @@ class ApartmentPolicy
      */
     public function delete(User $user, Apartment $apartment)
     {
-        //
+         return $user->id === $apartment->user_id
+                ? Response::allow()
+                : Response::deny('You do not own this apartment.');
     }
 
     /**
