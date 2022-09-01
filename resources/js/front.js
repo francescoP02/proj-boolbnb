@@ -21,7 +21,9 @@
  // const files = require.context('./', true, /\.vue$/i)
  // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
+
 import App from './views/App.vue';
+import router from './router';
 
  /**
   * Next, we will create a fresh Vue application instance and attach it to
@@ -31,5 +33,6 @@ import App from './views/App.vue';
 
  const app = new Vue({
      el: '#root',
-     render: h => h(App)
+     render: h => h(App),
+     router
  });
