@@ -48,7 +48,6 @@ class ApartmentController extends Controller
     public function store(Request $request)
     {
         $user = Auth::user();
-        
         $request->validate($this->getValidationRules());
 
         $data = $request->all();
@@ -59,24 +58,26 @@ class ApartmentController extends Controller
         $apartment = new Apartment();
         $apartment->fill($data);
         $apartment->slug = Apartment::generateApartmentSlugFromTitle($apartment->title);
-        // $geoCode = Http::get("https://api.tomtom.com/search/2/geocode/Via%20Giuseppe%20Fanelli.json?typeahead=false&limit=10&ofs=0&view=Unified&key=Rdcw2GVNiNQGXTWrgewGKq9cwtVYNPRw")->json();
+        // // $geoCode = Http::get("https://api.tomtom.com/search/2/geocode/Via%20Giuseppe%20Fanelli.json?typeahead=false&limit=10&ofs=0&view=Unified&key=Rdcw2GVNiNQGXTWrgewGKq9cwtVYNPRw")->json();
 
-        // $indirizzo = $data['address'];
-        // $geo = Http::get("https://api.tomtom.com/search/2/geocode/{$indirizzo}.json", [
-        //     'key' => 'Rdcw2GVNiNQGXTWrgewGKq9cwtVYNPRw',
-        //     'countrySet' => 'IT'
-        // ]);
+        // // $indirizzo = $data['address'];
+        // // $geo = Http::get("https://api.tomtom.com/search/2/geocode/{$indirizzo}.json", [
+        // //     'key' => 'Rdcw2GVNiNQGXTWrgewGKq9cwtVYNPRw',
+        // //     'countrySet' => 'IT'
+        // // ]);
 
-        // $geo_json = json_decode($geo);
+        // // $geo_json = json_decode($geo);
 
-        $apiQuery = str_replace(' ', '-', $data['address']);
-        $response = file_get_contents('https://api.tomtom.com/search/2/geocode/' . $apiQuery . '.json?key=Rdcw2GVNiNQGXTWrgewGKq9cwtVYNPRw');
-        $response = json_decode($response);
+        // $apiQuery = str_replace(' ', '-', $data['address']);
+        // $response = file_get_contents('https://api.tomtom.com/search/2/geocode/' . $apiQuery . '.json?key=Rdcw2GVNiNQGXTWrgewGKq9cwtVYNPRw');
+        // $response = json_decode($response);
 
         // dd($response);
 
-        $apartment->latitude = $response->results[0]->position->lat;
-        $apartment->longitude = $response->results[0]->position->lon;
+        // // dd($response);
+
+        // // $apartment->latitude = $response->results[0]->position->lat;
+        // // $apartment->longitude = $response->results[0]->position->lon;
 
         $apartment->user_id = $user->id;
         $apartment->save();
@@ -155,21 +156,26 @@ class ApartmentController extends Controller
             $data['image'] = $image_path;
         }
 
-        if (isset($data['address'])) {
+        // if (isset($data['address'])) {
 
-            $apiQuery = str_replace(' ', '-', $data['address']);
-            $response = file_get_contents('https://api.tomtom.com/search/2/geocode/' . $apiQuery . '.json?key=Rdcw2GVNiNQGXTWrgewGKq9cwtVYNPRw');
-            $response = json_decode($response);
+        //     $apiQuery = str_replace(' ', '-', $data['address']);
+        //     $response = file_get_contents('https://api.tomtom.com/search/2/geocode/' . $apiQuery . '.json?key=Rdcw2GVNiNQGXTWrgewGKq9cwtVYNPRw');
+        //     $response = json_decode($response);
 
-            // dd($response);
+        //     // dd($response);
 
-            $apartment->latitude = $response->results[0]->position->lat;
-            $apartment->longitude = $response->results[0]->position->lon;
+        //     $apartment->latitude = $response->results[0]->position->lat;
+        //     $apartment->longitude = $response->results[0]->position->lon;
             
+        // }
+
+        
+        if ($data['title'] !== $apartment->title) {
+            $apartment->slug = Apartment::generateApartmentSlugFromTitle($data["title"]);
         }
 
         $apartment->update($data);
-        $apartment->slug = Apartment::generateApartmentSlugFromTitle($apartment->title);
+
         $apartment->save();
 
         if (isset($data['optionals'])) {
@@ -214,6 +220,8 @@ class ApartmentController extends Controller
             'bathroom_number' => 'nullable|numeric|between:0,10',
             'square_metres' => 'nullable|numeric',
             'address' => 'required|max:255',
+            'latitude' => 'required|numeric|between:-180,180',
+            'longitude' => 'required|numeric|between:-90,90',
             'image' => 'nullable|image|max:512',
             'visible' => 'nullable',
         ];
