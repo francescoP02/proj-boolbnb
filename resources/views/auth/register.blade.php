@@ -83,7 +83,7 @@
                         </div>
                     </form>   
                 </div>
-                <p class="text-center">* Questi campi sono obbligatori</p>
+                <p class="text-center">* These fields are required</p>
             </div>
         </div>
     </div>

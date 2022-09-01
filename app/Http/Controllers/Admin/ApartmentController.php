@@ -169,8 +169,13 @@ class ApartmentController extends Controller
             
         // }
 
+        
+        if ($data['title'] !== $apartment->title) {
+            $apartment->slug = Apartment::generateApartmentSlugFromTitle($data["title"]);
+        }
+
         $apartment->update($data);
-        $apartment->slug = Apartment::generateApartmentSlugFromTitle($apartment->title);
+
         $apartment->save();
 
         if (isset($data['optionals'])) {

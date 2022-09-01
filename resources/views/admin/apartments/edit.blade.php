@@ -52,7 +52,7 @@
             </select>
         </div>
         <div class="mb-3">
-            <label for="bathroom_number">Number of bathrooms:</label>
+            <label for="address">Number of bathrooms:</label>
             <select class="form-select" aria-label="Default select example" name="bathroom_number" id="bathroom_number">
                 <option value="0">None</option>
                 @for ($i = 1; $i <= 10; $i++)
@@ -64,17 +64,33 @@
             <label for="square_metres" class="form-label">Square metres:</label>
             <input type="number" class="form-control" name="square_metres" id="square_metres" value="{{old('square_metres') ? old('square_metres') : $apartment->square_metres }}">
         </div>
-        <div class="mb-3">
+        {{-- <div class="mb-3">
             <label for="address" class="form-label">Address:</label>
-            <input type="text" class="form-control" name="address" id="address" value="{{old('address') ? old('address') : $apartment->address }}">
-            <button type="button" for="address" class="btn btn-primary" onclick="addressApartment()">Cerca</button>
-            <div class="d-none" id="containerAddressResult">
-                <label for="addressResult">Risultati:</label>
-                <select name="addressResult" id="addressResult" class="form-select" onclick="controlForm()">
-                    <option value="">Select your location</option>
+            <input type="text" class="form-control" name="addressSearch" id="addressSearch" value="{{old('address') ? old('address') : $apartment->address }}" onkeyup="addressApartment()" size="5">
+            <div class="d-none" id="containerAddress">
+                <select name="address" id="address" class="form-select" onclick="controlForm()">
+                </select>
+            </div>
+        </div> --}}
+        {{-- <div class="mb-3">
+            <label for="address" class="form-label">Address:</label>
+            <input type="text" class="form-control" name="address" value="{{old('address') ? old('address') : $apartment->address }}" id="address" onkeyup="addressApartment(); controlForm()">
+            <div class="d-none" id="containerAddress">
+                <select name="addressSelect" id="addressSelect" class="form-select" onclick="controlForm()" size="5">
+                </select>
+            </div>
+
+        </div> --}}
+
+        <div class="mb-3">
+            <label for="addressSearch" class="form-label">Address(*):</label>
+            <input type="text" class="form-control" name="addressSearch" id="addressSearch" onkeyup="addressApartment(); controlForm()" value="{{old('address') ? old('address') : $apartment->address }}">
+            <div class="d-none" id="containerAddress">
+                <select name="address" id="address" class="form-select" onclick="controlForm()">
                 </select>
             </div>
         </div>
+
         <div class="my-3">
             <h4>Optionals:</h4>
             @foreach ($optionals as $optional)
@@ -93,8 +109,8 @@
             <label class="form-check-label" for="flexSwitchCheckChecked">Visible</label>
         </div>
         <div class="d-none">
-            <input id="latApart" name="latitude" readonly>
-            <input id="lonApart" name="longitude" readonly>
+            <input id="latApart" name="latitude" readonly value="{{ old('latitude') ? old('latitude') : $apartment->latitude}}">
+            <input id="lonApart" name="longitude" readonly value="{{ old('longitude') ? old('longitude') : $apartment->longitude}}">
         </div>
         <button type="submit" class="btn btn-primary" id="submitButton">Submit</button>
     </form>
@@ -107,12 +123,12 @@
         let titleFlag = false;
         let roomsFlag = false;
         let bedsFlag = false;
-        let addressFlag = false;
+        let addressFlag = true;
 
         let titleApart = document.getElementById('title').value;
         let roomsApart = document.getElementById('rooms_number').value;
         let bedsApart = document.getElementById('beds_number').value;
-        let addressApart = document.getElementById('addressResult').value;
+        let addressApart = document.getElementById('address').value;
 
         const button = document.getElementById('submitButton');
 
@@ -148,39 +164,55 @@
     }
 
     function addressApartment() {
-        divContainer = document.getElementById('containerAddressResult');
-        
-        divContainer.classList.remove('d-none');
-        
-        let addressApart = document.getElementById('address').value;
-        const linkApi = `https://api.tomtom.com/search/2/geocode/${addressApart}.json?key=Rdcw2GVNiNQGXTWrgewGKq9cwtVYNPRw`;
 
-        axios.get(linkApi).then(resp => {
+        document.getElementById('address').value ="";
+
+        let addressLength = document.getElementById('addressSearch').value.length;
+
+        if (addressLength >= 3) {
+
+            divContainer = document.getElementById('containerAddress');
             
-            const response = resp.data.results;
-            console.log(response);
+            divContainer.classList.remove('d-none');
             
-            document.getElementById('addressResult').innerHTML = "";
-            const nullElement = document.createElement('option');
-            nullElement.innerHTML = "Select your location";
-            nullElement.value = "";
-            document.getElementById('addressResult').append(nullElement);
-            response.forEach(element => {
+            let addressApart = document.getElementById('addressSearch').value;
+            const linkApi = `https://api.tomtom.com/search/2/geocode/${addressApart}.json?key=Rdcw2GVNiNQGXTWrgewGKq9cwtVYNPRw`;
+
+            axios.get(linkApi).then(resp => {
                 
-                const addressElement = document.createElement('option');
-                document.getElementById('addressResult').append(addressElement);
-                // console.log("div", addressElement);
-                addressElement.classList.add('address-result');
-                addressElement.innerHTML = element.address.freeformAddress;
-                addressElement.value = element.address.freeformAddress;
-
-                addressElement.addEventListener('click', function() {
-                    document.getElementById('latApart').value = element.position.lat;
-                    document.getElementById('lonApart').value = element.position.lon;
-                })
-            })
-            
-        })
+                const response = resp.data.results;
+                console.log(response);
+                
+                document.getElementById('address').innerHTML = "";
+                
+                if (response.length == 0) {
+                    const nullElement = document.createElement('option');
+                        nullElement.innerHTML = "No location found";
+                        // nullElement.value = "";
+                        nullElement.setAttribute("disabled","");
+                        document.getElementById('address').setAttribute("size","2");
+                        document.getElementById('address').append(nullElement);
+                } else {
+                    response.forEach(element => {
+                        
+                        const addressElement = document.createElement('option');
+                        document.getElementById('address').append(addressElement);
+                        document.getElementById('address').setAttribute("size","5");
+                        addressElement.classList.add('address-result');
+                        addressElement.innerHTML = element.address.freeformAddress;
+                        addressElement.value = element.address.freeformAddress;
         
+                        addressElement.addEventListener('click', function() {
+                            divContainer.classList.add('d-none');
+                            document.getElementById('latApart').value = element.position.lat;
+                            document.getElementById('lonApart').value = element.position.lon;
+                            document.getElementById('addressSearch').value = element.address.freeformAddress;
+                        })
+                    })
+
+                }
+                
+            })
+        }   
     }
 </script>

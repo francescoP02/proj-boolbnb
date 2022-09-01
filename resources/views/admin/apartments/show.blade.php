@@ -8,6 +8,8 @@
         <img src="{{ asset('storage/' . $apartment->image) }}" alt="">
     @endif
 
+    <p>{{$apartment->address}}</p>
+
     <p>{{$apartment->slug}}</p>
 
     <p>Number of rooms: {{$apartment->rooms_number}}</p>
