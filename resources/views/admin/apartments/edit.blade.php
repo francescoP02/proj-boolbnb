@@ -181,8 +181,7 @@
             axios.get(linkApi).then(resp => {
                 
                 const response = resp.data.results;
-                console.log(response);
-                
+
                 document.getElementById('address').innerHTML = "";
                 
                 if (response.length == 0) {
