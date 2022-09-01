@@ -25,16 +25,16 @@
                 </div>
             </div>
         </nav>
-        <WorkInProgress />
+        <Apartments />
     </div>
 </template>
 
 <script>
-import WorkInProgress from '../components/WorkInProgress.vue';
+import Apartments from '../components/Apartments.vue';
 export default {
     name: 'App',
     components: {
-        WorkInProgress,
+        Apartments,
     }
 }
 </script>
