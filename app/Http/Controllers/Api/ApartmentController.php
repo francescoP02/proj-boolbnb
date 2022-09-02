@@ -10,7 +10,7 @@ class ApartmentController extends Controller
 {
     public function index() {
         
-        $apartments = Apartment::all();
+        $apartments = Apartment::paginate(12);
         foreach ($apartments as $apartment) {
             if($apartment->image) {
                 $apartment->image = url('storage/' . $apartment->image);
