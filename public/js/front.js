@@ -5179,8 +5179,8 @@ __webpack_require__.r(__webpack_exports__);
     return {
       apartments: null,
       optionals: [],
-      // currentPage: 1,
-      // lastPage: 0,
+      currentPage: 1,
+      lastPage: 0,
       numberRooms: 1,
       numberBeds: 1,
       checkedOptionals: [] // totalApartments: 0,

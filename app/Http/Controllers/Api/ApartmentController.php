@@ -22,7 +22,7 @@ class ApartmentController extends Controller
 
         $ap_with_op = [];
         foreach ($apartments as $apartment) {
-            if ($apartment->optionals()->where("id", 1)->first()) {
+            if ($apartment->optionals()->where("id", 1)->first() && $apartment->optionals()->where("id", 2)->first() && $apartment->optionals()->where("id", 3)->first()) {
                 $ap_with_op[] = $apartment;
             }
             if ($apartment->image) {
