@@ -5178,10 +5178,12 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       apartments: [],
+      optionals: [],
       currentPage: 1,
       lastPage: 0,
       numberRooms: 1,
-      numberBeds: 1 // totalApartments: 0,
+      numberBeds: 1,
+      checkedOptionals: [] // totalApartments: 0,
 
     };
   },
@@ -5199,9 +5201,11 @@ __webpack_require__.r(__webpack_exports__);
           beds: this.numberBeds
         }
       }).then(function (resp) {
-        _this.apartments = resp.data.results.data;
-        _this.currentPage = resp.data.results.current_page;
-        _this.lastPage = resp.data.results.last_page; // this.totalApartments = resp.data.results.total;
+        console.log("risposta", resp.data.results);
+        _this.apartments = resp.data.results.apartments.data;
+        _this.currentPage = resp.data.results.apartments.current_page;
+        _this.lastPage = resp.data.results.apartments.last_page;
+        _this.optionals = resp.data.results.optionals; // this.totalApartments = resp.data.results.total;
       });
     }
   }
@@ -5314,7 +5318,11 @@ var render = function render() {
       src: _vm.apartment.image,
       alt: ""
     }
-  })]) : _vm._e()])])]);
+  })]) : _vm._e(), _vm._v(" "), _c("div", [_vm._v("Optional:\n                "), _vm._l(_vm.apartment.optionals, function (optional) {
+    return _c("span", {
+      key: optional.id
+    }, [_vm._v(" " + _vm._s(optional.name))]);
+  })], 2)])])]);
 };
 
 var staticRenderFns = [];
@@ -5476,7 +5484,53 @@ var render = function render() {
         value: i
       }
     }, [_vm._v(_vm._s(i))]);
-  }), 0)])]);
+  }), 0)]), _vm._v(" "), _vm._l(_vm.optionals, function (optional) {
+    return _c("div", {
+      key: optional.id,
+      staticClass: "form-check"
+    }, [_c("input", {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: _vm.checkedOptionals,
+        expression: "checkedOptionals"
+      }],
+      staticClass: "form-check-input",
+      attrs: {
+        type: "checkbox",
+        id: "check" + optional.name
+      },
+      domProps: {
+        value: optional.id,
+        checked: Array.isArray(_vm.checkedOptionals) ? _vm._i(_vm.checkedOptionals, optional.id) > -1 : _vm.checkedOptionals
+      },
+      on: {
+        change: function change($event) {
+          var $$a = _vm.checkedOptionals,
+              $$el = $event.target,
+              $$c = $$el.checked ? true : false;
+
+          if (Array.isArray($$a)) {
+            var $$v = optional.id,
+                $$i = _vm._i($$a, $$v);
+
+            if ($$el.checked) {
+              $$i < 0 && (_vm.checkedOptionals = $$a.concat([$$v]));
+            } else {
+              $$i > -1 && (_vm.checkedOptionals = $$a.slice(0, $$i).concat($$a.slice($$i + 1)));
+            }
+          } else {
+            _vm.checkedOptionals = $$c;
+          }
+        }
+      }
+    }), _vm._v(" "), _c("label", {
+      staticClass: "form-check-label",
+      attrs: {
+        "for": "check" + optional.name
+      }
+    }, [_vm._v("\n            " + _vm._s(optional.name) + "\n        ")])]);
+  })], 2);
 };
 
 var staticRenderFns = [];

@@ -58,6 +58,14 @@
         </div>
 
 
+        <div class="form-check" v-for="optional in optionals" :key="optional.id">
+            <input class="form-check-input" type="checkbox" :value="optional.id" :id="`check` + optional.name" v-model="checkedOptionals">
+            <label class="form-check-label" :for="`check` + optional.name">
+                {{optional.name}}
+            </label>
+        </div>
+
+
     </div>
     
 </template>
@@ -74,10 +82,12 @@ export default {
     data() {
         return {
             apartments: [],
+            optionals: [],
             currentPage: 1,
             lastPage: 0,
             numberRooms: 1,
             numberBeds: 1,
+            checkedOptionals: [],
             // totalApartments: 0,
         }
     },
@@ -95,10 +105,13 @@ export default {
                 }
             })
             .then(resp => {
-    
-                this.apartments = resp.data.results.data;
-                this.currentPage = resp.data.results.current_page;
-                this.lastPage = resp.data.results.last_page;
+
+                console.log("risposta", resp.data.results);
+                
+                this.apartments = resp.data.results.apartments.data;
+                this.currentPage = resp.data.results.apartments.current_page;
+                this.lastPage = resp.data.results.apartments.last_page;
+                this.optionals = resp.data.results.optionals;
             
                     
                 // this.totalApartments = resp.data.results.total;
