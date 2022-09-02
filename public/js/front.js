@@ -5178,8 +5178,12 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       apartments: [],
+      optionals: [],
       currentPage: 1,
-      lastPage: 0 // totalApartments: 0,
+      lastPage: 0,
+      numberRooms: 1,
+      numberBeds: 1,
+      checkedOptionals: [] // totalApartments: 0,
 
     };
   },
@@ -5190,14 +5194,18 @@ __webpack_require__.r(__webpack_exports__);
     getApartments: function getApartments(nPage) {
       var _this = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/apartments", {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/apartments/{rooms}/{beds}", {
         params: {
-          page: nPage
+          page: nPage,
+          rooms: this.numberRooms,
+          beds: this.numberBeds
         }
       }).then(function (resp) {
-        _this.apartments = resp.data.results.data;
-        _this.currentPage = resp.data.results.current_page;
-        _this.lastPage = resp.data.results.last_page; // this.totalApartments = resp.data.results.total;
+        console.log("risposta", resp.data.results);
+        _this.apartments = resp.data.results.apartments.data;
+        _this.currentPage = resp.data.results.apartments.current_page;
+        _this.lastPage = resp.data.results.apartments.last_page;
+        _this.optionals = resp.data.results.optionals; // this.totalApartments = resp.data.results.total;
       });
     }
   }
@@ -5310,7 +5318,11 @@ var render = function render() {
       src: _vm.apartment.image,
       alt: ""
     }
-  })]) : _vm._e()])])]);
+  })]) : _vm._e(), _vm._v(" "), _c("div", [_vm._v("Optional:\n                "), _vm._l(_vm.apartment.optionals, function (optional) {
+    return _c("span", {
+      key: optional.id
+    }, [_vm._v(" " + _vm._s(optional.name))]);
+  })], 2)])])]);
 };
 
 var staticRenderFns = [];
@@ -5400,7 +5412,125 @@ var render = function render() {
         return _vm.getApartments(_vm.currentPage + 1);
       }
     }
-  }, [_vm._v("Next")])])], 2)])]);
+  }, [_vm._v("Next")])])], 2)]), _vm._v(" "), _c("div", [_c("label", {
+    attrs: {
+      "for": "roomsNumberSelector"
+    }
+  }, [_vm._v("Number of rooms")]), _vm._v(" "), _c("select", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.numberRooms,
+      expression: "numberRooms"
+    }],
+    attrs: {
+      name: "roomsNumberSelector",
+      id: "roomsNumberSelector"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.getApartments();
+      },
+      change: function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.numberRooms = $event.target.multiple ? $$selectedVal : $$selectedVal[0];
+      }
+    }
+  }, _vm._l(10, function (i) {
+    return _c("option", {
+      key: i,
+      domProps: {
+        value: i
+      }
+    }, [_vm._v(_vm._s(i))]);
+  }), 0)]), _vm._v(" "), _c("div", [_c("label", {
+    attrs: {
+      "for": "bedsNumberSelector"
+    }
+  }, [_vm._v("Number of beds")]), _vm._v(" "), _c("select", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.numberBeds,
+      expression: "numberBeds"
+    }],
+    attrs: {
+      name: "bedsNumberSelector",
+      id: "bedsNumberSelector"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.getApartments();
+      },
+      change: function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.numberBeds = $event.target.multiple ? $$selectedVal : $$selectedVal[0];
+      }
+    }
+  }, _vm._l(10, function (i) {
+    return _c("option", {
+      key: i,
+      domProps: {
+        value: i
+      }
+    }, [_vm._v(_vm._s(i))]);
+  }), 0)]), _vm._v(" "), _vm._l(_vm.optionals, function (optional) {
+    return _c("div", {
+      key: optional.id,
+      staticClass: "form-check"
+    }, [_c("input", {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: _vm.checkedOptionals,
+        expression: "checkedOptionals"
+      }],
+      staticClass: "form-check-input",
+      attrs: {
+        type: "checkbox",
+        id: "check" + optional.name
+      },
+      domProps: {
+        value: optional.id,
+        checked: Array.isArray(_vm.checkedOptionals) ? _vm._i(_vm.checkedOptionals, optional.id) > -1 : _vm.checkedOptionals
+      },
+      on: {
+        change: function change($event) {
+          var $$a = _vm.checkedOptionals,
+              $$el = $event.target,
+              $$c = $$el.checked ? true : false;
+
+          if (Array.isArray($$a)) {
+            var $$v = optional.id,
+                $$i = _vm._i($$a, $$v);
+
+            if ($$el.checked) {
+              $$i < 0 && (_vm.checkedOptionals = $$a.concat([$$v]));
+            } else {
+              $$i > -1 && (_vm.checkedOptionals = $$a.slice(0, $$i).concat($$a.slice($$i + 1)));
+            }
+          } else {
+            _vm.checkedOptionals = $$c;
+          }
+        }
+      }
+    }), _vm._v(" "), _c("label", {
+      staticClass: "form-check-label",
+      attrs: {
+        "for": "check" + optional.name
+      }
+    }, [_vm._v("\n            " + _vm._s(optional.name) + "\n        ")])]);
+  })], 2);
 };
 
 var staticRenderFns = [];

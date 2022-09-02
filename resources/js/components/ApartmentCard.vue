@@ -11,6 +11,9 @@
                 <div v-if="apartment.image">
                     <img :src="apartment.image" alt="" />
                 </div>
+                <div>Optional:
+                    <span v-for="optional in apartment.optionals" :key="optional.id"> {{optional.name}}</span>
+                </div>
             </div>
         </div>
     </div>
