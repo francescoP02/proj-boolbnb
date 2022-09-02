@@ -26,7 +26,7 @@
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{-- {{ config('app.name', 'BoolBnB') }} --}}
-                    <img style="width: 150px" src="{{ asset('images/logo-boolbnb2.png') }}" alt="">
+                    <img style="width: 150px" src="{{ asset('images/logoboolbnb.png') }}" alt="">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>

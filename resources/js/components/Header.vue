@@ -3,7 +3,7 @@
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">
-                  <img src="images/logo-boolbnb2.png" alt="" style="width:150px">
+                  <img src="images/logoboolbnb.png" alt="" style="width:150px">
                   <!-- boolbnb -->
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
