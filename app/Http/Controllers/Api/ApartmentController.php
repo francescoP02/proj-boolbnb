@@ -8,9 +8,10 @@ use Illuminate\Http\Request;
 
 class ApartmentController extends Controller
 {
-    public function index() {
-        
-        $apartments = Apartment::paginate(12);
+    public function index(Request $request) {
+        $rooms = $request->rooms;
+        $beds = $request->beds;
+        $apartments = Apartment::where("rooms_number", ">=", $rooms)->where("beds_number", ">=", $beds)->paginate(12);
         foreach ($apartments as $apartment) {
             if($apartment->image) {
                 $apartment->image = url('storage/' . $apartment->image);

@@ -43,8 +43,23 @@
             </ul>
         </nav>
 
+        <div>
+            <label for="roomsNumberSelector">Number of rooms</label>
+            <select name="roomsNumberSelector" id="roomsNumberSelector" v-model="numberRooms" @click="getApartments()">
+                <option v-for="i in 10" :key="i" :value="i">{{i}}</option>
+            </select>
+        </div>
+
+        <div>
+            <label for="bedsNumberSelector">Number of beds</label>
+            <select name="bedsNumberSelector" id="bedsNumberSelector" v-model="numberBeds" @click="getApartments()">
+                <option v-for="i in 10" :key="i" :value="i">{{i}}</option>
+            </select>
+        </div>
+
 
     </div>
+    
 </template>
 
 <script>
@@ -61,6 +76,8 @@ export default {
             apartments: [],
             currentPage: 1,
             lastPage: 0,
+            numberRooms: 1,
+            numberBeds: 1,
             // totalApartments: 0,
         }
     },
@@ -68,20 +85,28 @@ export default {
         this.getApartments(1);
     },
     methods: {
+        
         getApartments(nPage) {
-            Axios.get("/api/apartments", {
+            Axios.get("/api/apartments/{rooms}/{beds}", {
                 params: {
                     page: nPage,
+                    rooms: this.numberRooms,
+                    beds: this.numberBeds,
                 }
             })
             .then(resp => {
+    
                 this.apartments = resp.data.results.data;
                 this.currentPage = resp.data.results.current_page;
                 this.lastPage = resp.data.results.last_page;
+            
+                    
                 // this.totalApartments = resp.data.results.total;
             })
-        }
+        },
     },
+
+
 }
 </script>
 

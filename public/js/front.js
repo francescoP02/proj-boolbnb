@@ -5179,7 +5179,9 @@ __webpack_require__.r(__webpack_exports__);
     return {
       apartments: [],
       currentPage: 1,
-      lastPage: 0 // totalApartments: 0,
+      lastPage: 0,
+      numberRooms: 1,
+      numberBeds: 1 // totalApartments: 0,
 
     };
   },
@@ -5190,9 +5192,11 @@ __webpack_require__.r(__webpack_exports__);
     getApartments: function getApartments(nPage) {
       var _this = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/apartments", {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/apartments/{rooms}/{beds}", {
         params: {
-          page: nPage
+          page: nPage,
+          rooms: this.numberRooms,
+          beds: this.numberBeds
         }
       }).then(function (resp) {
         _this.apartments = resp.data.results.data;
@@ -5400,7 +5404,79 @@ var render = function render() {
         return _vm.getApartments(_vm.currentPage + 1);
       }
     }
-  }, [_vm._v("Next")])])], 2)])]);
+  }, [_vm._v("Next")])])], 2)]), _vm._v(" "), _c("div", [_c("label", {
+    attrs: {
+      "for": "roomsNumberSelector"
+    }
+  }, [_vm._v("Number of rooms")]), _vm._v(" "), _c("select", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.numberRooms,
+      expression: "numberRooms"
+    }],
+    attrs: {
+      name: "roomsNumberSelector",
+      id: "roomsNumberSelector"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.getApartments();
+      },
+      change: function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.numberRooms = $event.target.multiple ? $$selectedVal : $$selectedVal[0];
+      }
+    }
+  }, _vm._l(10, function (i) {
+    return _c("option", {
+      key: i,
+      domProps: {
+        value: i
+      }
+    }, [_vm._v(_vm._s(i))]);
+  }), 0)]), _vm._v(" "), _c("div", [_c("label", {
+    attrs: {
+      "for": "bedsNumberSelector"
+    }
+  }, [_vm._v("Number of beds")]), _vm._v(" "), _c("select", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.numberBeds,
+      expression: "numberBeds"
+    }],
+    attrs: {
+      name: "bedsNumberSelector",
+      id: "bedsNumberSelector"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.getApartments();
+      },
+      change: function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.numberBeds = $event.target.multiple ? $$selectedVal : $$selectedVal[0];
+      }
+    }
+  }, _vm._l(10, function (i) {
+    return _c("option", {
+      key: i,
+      domProps: {
+        value: i
+      }
+    }, [_vm._v(_vm._s(i))]);
+  }), 0)])]);
 };
 
 var staticRenderFns = [];
