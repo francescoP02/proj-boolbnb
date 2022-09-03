@@ -5194,11 +5194,12 @@ __webpack_require__.r(__webpack_exports__);
     getApartments: function getApartments() {
       var _this = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/apartments/{rooms}/{beds}", {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/apartments", {
         params: {
           // page: nPage,
           rooms: this.numberRooms,
-          beds: this.numberBeds
+          beds: this.numberBeds,
+          optionals: this.checkedOptionals
         }
       }).then(function (resp) {
         console.log(resp.data.results.apartments);
@@ -5450,7 +5451,7 @@ var render = function render() {
         checked: Array.isArray(_vm.checkedOptionals) ? _vm._i(_vm.checkedOptionals, optional.id) > -1 : _vm.checkedOptionals
       },
       on: {
-        change: function change($event) {
+        change: [function ($event) {
           var $$a = _vm.checkedOptionals,
               $$el = $event.target,
               $$c = $$el.checked ? true : false;
@@ -5467,7 +5468,9 @@ var render = function render() {
           } else {
             _vm.checkedOptionals = $$c;
           }
-        }
+        }, function ($event) {
+          return _vm.getApartments();
+        }]
       }
     }), _vm._v(" "), _c("label", {
       staticClass: "form-check-label",

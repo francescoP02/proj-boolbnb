@@ -15,32 +15,68 @@ class ApartmentController extends Controller
     {
         $rooms = $request->rooms;
         $beds = $request->beds;
+        $req_op = $request->optionals;
         $optionals = Optional::all();
         $apartments = Apartment::where([["rooms_number", ">=", $rooms], ["beds_number", ">=", $beds]])->get();
 
-        // $apartments->optionals()->where("id", 1)->get();
 
-        $ap_with_op = [];
-        foreach ($apartments as $apartment) {
-            if ($apartment->optionals()->where("id", 1)->first() && $apartment->optionals()->where("id", 2)->first() && $apartment->optionals()->where("id", 3)->first()) {
-                $ap_with_op[] = $apartment;
-            }
-            if ($apartment->image) {
-                $apartment->image = url('storage/' . $apartment->image);
-            }
-        }
+        // $ap_with_op = [];
 
-        // foreach ($ap_with_op as $apartment) {
+
+        // // foreach ($apartments as $apartment) {
+        // //     if ($req_op) {
+        // //         if ($apartment->optionals()->where("id", $req_op)->first()) {
+        // //             $ap_with_op[] = $apartment;
+        // //         }
+        // //     } else {
+        // //         $ap_with_op[] = $apartment;
+        // //     }
+        // //     if ($apartment->image) {
+        // //         $apartment->image = url('storage/' . $apartment->image);
+        // //     }
+        // // }
+
+
+
+        // foreach ($apartments as $apartment) {
+        //     if ($req_op) {
+        //         foreach ($req_op as $sing_op) {
+        //             if ($apartment->optionals()->where("id", $sing_op)->first()) {
+        //                 if (!in_array($apartment, $ap_with_op)) {
+        //                     $ap_with_op[] = $apartment;
+        //                 }
+        //             } else {
+        //                 $ap_with_op = array_diff($ap_with_op, [$apartment]);
+        //             }
+        //         }
+        //     } else {
+        //         $ap_with_op[] = $apartment;
+        //     }
         //     if ($apartment->image) {
         //         $apartment->image = url('storage/' . $apartment->image);
         //     }
         // }
 
 
+
+        $ap_with_op = $apartments;
+        foreach ($apartments as $index => $apartment) {
+            if ($req_op) {
+                foreach ($req_op as $sing_op) {
+                    if (!($apartment->optionals()->where("id", $sing_op)->first())) {
+                        unset($ap_with_op[$index]);
+                    }
+                }
+            }
+        }
+
+
+
+
         return response()->json([
             'success' => true,
             'results' => [
-                'apartments' => $ap_with_op,
+                'apartments' => $apartments,
                 'optionals' => $optionals,
             ]
         ]);

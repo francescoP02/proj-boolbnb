@@ -80,6 +80,7 @@
                 :value="optional.id"
                 :id="`check` + optional.name"
                 v-model="checkedOptionals"
+                @change="getApartments()"
             />
             <label class="form-check-label" :for="`check` + optional.name">
                 {{ optional.name }}
@@ -114,11 +115,12 @@ export default {
     },
     methods: {
         getApartments() {
-            Axios.get("/api/apartments/{rooms}/{beds}", {
+            Axios.get("/api/apartments", {
                 params: {
                     // page: nPage,
                     rooms: this.numberRooms,
                     beds: this.numberBeds,
+                    optionals: this.checkedOptionals,
                 },
             }).then((resp) => {
                 console.log(resp.data.results.apartments);
