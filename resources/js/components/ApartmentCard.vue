@@ -1,21 +1,21 @@
 <template>
     <div>
-        <div class="card mb-3" style="width: 18rem">
+        <div class="card mb-3">
             <div class="card-body">
-                <h5 class="card-title">{{ apartment.title }}</h5>
-                <p>{{ apartment.address }}</p>
-                <div class="test">
+                <!-- <div class="test">
                     <span class="d-block"
-                        >Beds number: {{ apartment.beds_number }}</span
+                    >Beds number: {{ apartment.beds_number }}</span
                     >
                     <span class="d-block"
-                        >Rooms number: {{ apartment.rooms_number }}</span
+                    >Rooms number: {{ apartment.rooms_number }}</span
                     >
-                </div>
-                <div v-if="apartment.image">
+                </div> -->
+                <div class="img-wrap" v-if="apartment.image">
                     <img :src="apartment.image" alt="" />
                 </div>
-                <div>
+                <h5 class="card-title text-start mt-2">{{ apartment.title }}</h5>
+                <p class="text-start">{{ apartment.address }}</p>
+                <!-- <div>
                     Optional:
                     <span
                         v-for="optional in apartment.optionals"
@@ -23,7 +23,7 @@
                     >
                         {{ optional.name }}</span
                     >
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
@@ -42,4 +42,32 @@ export default {
 img {
     width: 100%;
 }
+
+.card {
+        border: transparent;
+        background-color: transparent;
+        color: #072c61;
+
+        h5 {
+            font-weight: bold;
+        }
+        .img-wrap {
+            // height: 15vw;
+            width: 100%;
+            // background-image: url('https://a0.muscache.com/im/pictures/miso/Hosting-610511843622686196/original/253bfa1e-8c53-4dc0-a3af-0a75728c0708.jpeg?im_w=720');
+            // background-size: cover;
+            // background-position: center;
+            border-radius: 5%;
+            overflow: hidden;
+
+
+            span {
+                color: white;
+                margin-right: 15px;
+                font-size: 2rem;
+                text-shadow: 1px 1px 5px black;
+                cursor: pointer;
+            }
+        }
+    }
 </style>

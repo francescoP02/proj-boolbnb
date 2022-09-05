@@ -1,6 +1,5 @@
 <template>
     <div>
-        <h1>Questa è la home</h1>
         <ApartmentsContainer />
         <!-- <div>
             <button>Filtra</button>
