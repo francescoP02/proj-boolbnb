@@ -45,7 +45,7 @@ class ApartmentController extends Controller
             $c = 2 * atan2(sqrt($a), sqrt(1-$a)); 
             $d = $R * $c;
 
-            if ($d > $distance){
+            if ($og_lat && $og_lon && $d > $distance){
                 unset($ap_with_op[$index]);
             };
         };
