@@ -19,46 +19,6 @@ class ApartmentController extends Controller
         $optionals = Optional::all();
         $apartments = Apartment::where([["rooms_number", ">=", $rooms], ["beds_number", ">=", $beds]])->get();
 
-
-        // $ap_with_op = [];
-
-
-        // // foreach ($apartments as $apartment) {
-        // //     if ($req_op) {
-        // //         if ($apartment->optionals()->where("id", $req_op)->first()) {
-        // //             $ap_with_op[] = $apartment;
-        // //         }
-        // //     } else {
-        // //         $ap_with_op[] = $apartment;
-        // //     }
-        // //     if ($apartment->image) {
-        // //         $apartment->image = url('storage/' . $apartment->image);
-        // //     }
-        // // }
-
-
-
-        // foreach ($apartments as $apartment) {
-        //     if ($req_op) {
-        //         foreach ($req_op as $sing_op) {
-        //             if ($apartment->optionals()->where("id", $sing_op)->first()) {
-        //                 if (!in_array($apartment, $ap_with_op)) {
-        //                     $ap_with_op[] = $apartment;
-        //                 }
-        //             } else {
-        //                 $ap_with_op = array_diff($ap_with_op, [$apartment]);
-        //             }
-        //         }
-        //     } else {
-        //         $ap_with_op[] = $apartment;
-        //     }
-        //     if ($apartment->image) {
-        //         $apartment->image = url('storage/' . $apartment->image);
-        //     }
-        // }
-
-
-
         $ap_with_op = $apartments;
         foreach ($apartments as $index => $apartment) {
             if ($req_op) {
@@ -68,15 +28,19 @@ class ApartmentController extends Controller
                     }
                 }
             }
-        }
 
+            if ($apartment->image) {
+                $apartment->image = url('storage/' . $apartment->image);
+            }
+            
+        }
 
 
 
         return response()->json([
             'success' => true,
             'results' => [
-                'apartments' => $apartments,
+                'apartments' => $ap_with_op,
                 'optionals' => $optionals,
             ]
         ]);

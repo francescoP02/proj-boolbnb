@@ -5179,8 +5179,8 @@ __webpack_require__.r(__webpack_exports__);
     return {
       apartments: null,
       optionals: [],
-      currentPage: 1,
-      lastPage: 0,
+      // currentPage: 1,
+      // lastPage: 0,
       numberRooms: 1,
       numberBeds: 1,
       checkedOptionals: [] // totalApartments: 0,
@@ -58427,7 +58427,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\mastr\boolean-htdocs\proj-boolbnb\resources\js\front.js */"./resources/js/front.js");
+module.exports = __webpack_require__(/*! C:\Boolean\laravel-project\proj-boolbnb\resources\js\front.js */"./resources/js/front.js");
 
 
 /***/ })
