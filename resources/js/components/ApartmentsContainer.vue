@@ -1,14 +1,16 @@
 <template>
     <div>
         <div class="row row-cols-4">
-            <!-- Single apartemnt -->
-            <div v-for="apartment in apartments" :key="apartment.id" class="col">
+            <div
+                v-for="apartment in apartments"
+                :key="apartment.id"
+                class="col"
+            >
                 <ApartmentCard :apartment="apartment" />
             </div>
         </div>
 
-
-        <nav aria-label="...">
+        <!-- <nav aria-label="...">
             <ul class="pagination">
                 <li class="page-item" :class="{ disabled: currentPage === 1 }">
                     <a
@@ -41,38 +43,55 @@
                     >
                 </li>
             </ul>
-        </nav>
+        </nav> -->
 
         <div>
             <label for="roomsNumberSelector">Number of rooms</label>
-            <select name="roomsNumberSelector" id="roomsNumberSelector" v-model="numberRooms" @click="getApartments()">
-                <option v-for="i in 10" :key="i" :value="i">{{i}}</option>
+            <select
+                name="roomsNumberSelector"
+                id="roomsNumberSelector"
+                v-model="numberRooms"
+                @click="getApartments()"
+            >
+                <option v-for="i in 10" :key="i" :value="i">{{ i }}</option>
             </select>
         </div>
 
         <div>
             <label for="bedsNumberSelector">Number of beds</label>
-            <select name="bedsNumberSelector" id="bedsNumberSelector" v-model="numberBeds" @click="getApartments()">
-                <option v-for="i in 10" :key="i" :value="i">{{i}}</option>
+            <select
+                name="bedsNumberSelector"
+                id="bedsNumberSelector"
+                v-model="numberBeds"
+                @click="getApartments()"
+            >
+                <option v-for="i in 10" :key="i" :value="i">{{ i }}</option>
             </select>
         </div>
 
-
-        <div class="form-check" v-for="optional in optionals" :key="optional.id">
-            <input class="form-check-input" type="checkbox" :value="optional.id" :id="`check` + optional.name" v-model="checkedOptionals">
+        <div
+            class="form-check"
+            v-for="optional in optionals"
+            :key="optional.id"
+        >
+            <input
+                class="form-check-input"
+                type="checkbox"
+                :value="optional.id"
+                :id="`check` + optional.name"
+                v-model="checkedOptionals"
+                @change="getApartments()"
+            />
             <label class="form-check-label" :for="`check` + optional.name">
-                {{optional.name}}
+                {{ optional.name }}
             </label>
         </div>
-
-
     </div>
-    
 </template>
 
 <script>
-import Axios from 'axios';
-import ApartmentCard from './ApartmentCard.vue';
+import Axios from "axios";
+import ApartmentCard from "./ApartmentCard.vue";
 
 export default {
     name: "ApartmentsContainer",
@@ -81,7 +100,7 @@ export default {
     },
     data() {
         return {
-            apartments: [],
+            apartments: null,
             optionals: [],
             currentPage: 1,
             lastPage: 0,
@@ -89,39 +108,32 @@ export default {
             numberBeds: 1,
             checkedOptionals: [],
             // totalApartments: 0,
-        }
+        };
     },
     created() {
-        this.getApartments(1);
+        this.getApartments();
     },
     methods: {
-        
-        getApartments(nPage) {
-            Axios.get("/api/apartments/{rooms}/{beds}", {
+        getApartments() {
+            Axios.get("/api/apartments", {
                 params: {
-                    page: nPage,
+                    // page: nPage,
                     rooms: this.numberRooms,
                     beds: this.numberBeds,
-                }
-            })
-            .then(resp => {
-
-                console.log("risposta", resp.data.results);
-                
-                this.apartments = resp.data.results.apartments.data;
-                this.currentPage = resp.data.results.apartments.current_page;
-                this.lastPage = resp.data.results.apartments.last_page;
+                    optionals: this.checkedOptionals,
+                },
+            }).then((resp) => {
+                console.log(resp.data.results.apartments);
+                this.apartments = resp.data.results.apartments;
+                // this.currentPage = resp.data.results.apartments.current_page;
+                // this.lastPage = resp.data.results.apartments.last_page;
                 this.optionals = resp.data.results.optionals;
-            
-                    
+
                 // this.totalApartments = resp.data.results.total;
-            })
+            });
         },
     },
-
-
-}
+};
 </script>
 
-<style scoped lang="scss">
-</style>
+<style scoped lang="scss"></style>

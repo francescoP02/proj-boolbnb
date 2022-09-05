@@ -18,4 +18,4 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-Route::get('/apartments/{rooms}/{beds}', 'Api\ApartmentController@index')->name('api.apartments.index');
+Route::get('/apartments', 'Api\ApartmentController@index')->name('api.apartments.index');

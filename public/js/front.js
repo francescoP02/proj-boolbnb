@@ -5177,7 +5177,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      apartments: [],
+      apartments: null,
       optionals: [],
       currentPage: 1,
       lastPage: 0,
@@ -5188,23 +5188,24 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   created: function created() {
-    this.getApartments(1);
+    this.getApartments();
   },
   methods: {
-    getApartments: function getApartments(nPage) {
+    getApartments: function getApartments() {
       var _this = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/apartments/{rooms}/{beds}", {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/apartments", {
         params: {
-          page: nPage,
+          // page: nPage,
           rooms: this.numberRooms,
-          beds: this.numberBeds
+          beds: this.numberBeds,
+          optionals: this.checkedOptionals
         }
       }).then(function (resp) {
-        console.log("risposta", resp.data.results);
-        _this.apartments = resp.data.results.apartments.data;
-        _this.currentPage = resp.data.results.apartments.current_page;
-        _this.lastPage = resp.data.results.apartments.last_page;
+        console.log(resp.data.results.apartments);
+        _this.apartments = resp.data.results.apartments; // this.currentPage = resp.data.results.apartments.current_page;
+        // this.lastPage = resp.data.results.apartments.last_page;
+
         _this.optionals = resp.data.results.optionals; // this.totalApartments = resp.data.results.total;
       });
     }
@@ -5318,10 +5319,10 @@ var render = function render() {
       src: _vm.apartment.image,
       alt: ""
     }
-  })]) : _vm._e(), _vm._v(" "), _c("div", [_vm._v("Optional:\n                "), _vm._l(_vm.apartment.optionals, function (optional) {
+  })]) : _vm._e(), _vm._v(" "), _c("div", [_vm._v("\n                Optional:\n                "), _vm._l(_vm.apartment.optionals, function (optional) {
     return _c("span", {
       key: optional.id
-    }, [_vm._v(" " + _vm._s(optional.name))]);
+    }, [_vm._v("\n                    " + _vm._s(optional.name))]);
   })], 2)])])]);
 };
 
@@ -5357,62 +5358,7 @@ var render = function render() {
         apartment: apartment
       }
     })], 1);
-  }), 0), _vm._v(" "), _c("nav", {
-    attrs: {
-      "aria-label": "..."
-    }
-  }, [_c("ul", {
-    staticClass: "pagination"
-  }, [_c("li", {
-    staticClass: "page-item",
-    "class": {
-      disabled: _vm.currentPage === 1
-    }
-  }, [_c("a", {
-    staticClass: "page-link",
-    attrs: {
-      href: "#",
-      tabindex: "-1"
-    },
-    on: {
-      click: function click($event) {
-        return _vm.getApartments(_vm.currentPage - 1);
-      }
-    }
-  }, [_vm._v("Previous")])]), _vm._v(" "), _vm._l(_vm.lastPage, function (n) {
-    return _c("li", {
-      key: n,
-      staticClass: "page-item",
-      "class": {
-        active: _vm.currentPage === n
-      }
-    }, [_c("a", {
-      staticClass: "page-link",
-      attrs: {
-        href: "#"
-      },
-      on: {
-        click: function click($event) {
-          return _vm.getApartments(n);
-        }
-      }
-    }, [_vm._v(_vm._s(n))])]);
-  }), _vm._v(" "), _c("li", {
-    staticClass: "page-item",
-    "class": {
-      disabled: _vm.currentPage === _vm.lastPage
-    }
-  }, [_c("a", {
-    staticClass: "page-link",
-    attrs: {
-      href: "#"
-    },
-    on: {
-      click: function click($event) {
-        return _vm.getApartments(_vm.currentPage + 1);
-      }
-    }
-  }, [_vm._v("Next")])])], 2)]), _vm._v(" "), _c("div", [_c("label", {
+  }), 0), _vm._v(" "), _c("div", [_c("label", {
     attrs: {
       "for": "roomsNumberSelector"
     }
@@ -5505,7 +5451,7 @@ var render = function render() {
         checked: Array.isArray(_vm.checkedOptionals) ? _vm._i(_vm.checkedOptionals, optional.id) > -1 : _vm.checkedOptionals
       },
       on: {
-        change: function change($event) {
+        change: [function ($event) {
           var $$a = _vm.checkedOptionals,
               $$el = $event.target,
               $$c = $$el.checked ? true : false;
@@ -5522,7 +5468,9 @@ var render = function render() {
           } else {
             _vm.checkedOptionals = $$c;
           }
-        }
+        }, function ($event) {
+          return _vm.getApartments();
+        }]
       }
     }), _vm._v(" "), _c("label", {
       staticClass: "form-check-label",
@@ -58479,7 +58427,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Boolean\laravel-project\proj-boolbnb\resources\js\front.js */"./resources/js/front.js");
+module.exports = __webpack_require__(/*! C:\Users\mastr\boolean-htdocs\proj-boolbnb\resources\js\front.js */"./resources/js/front.js");
 
 
 /***/ })
