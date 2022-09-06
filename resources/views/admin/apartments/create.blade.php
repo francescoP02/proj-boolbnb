@@ -47,17 +47,17 @@
             </select>
         </div>
         <div class="mb-3">
-            <label for="bathroom_number">Number of bathrooms:</label>
-            <select class="form-select" aria-label="Default select example" name="bathroom_number" id="bathroom_number">
-                <option value="0" selected>Open this select menu</option>
+            <label for="bathroom_number">Number of bathrooms(*):</label>
+            <select class="form-select" aria-label="Default select example" name="bathroom_number" id="bathroom_number" onclick="controlForm()">
+                <option value="null" selected>Open this select menu</option>
                 @for ($i = 1; $i <= 10; $i++)
                     <option value="{{$i}}">{{$i}}</option>
                 @endfor
             </select>
         </div>
         <div class="mb-3">
-            <label for="square_metres" class="form-label">Square metres:</label>
-            <input type="number" class="form-control" name="square_metres" id="square_metres">
+            <label for="square_metres" class="form-label">Square metres(*):</label>
+            <input type="number" class="form-control" name="square_metres" id="square_metres"  onkeyup="controlForm()">
         </div>
         <div class="mb-3">
             <label for="addressSearch" class="form-label">Address(*):</label>
@@ -78,10 +78,11 @@
 
         <div class="my-3">
             <h4>Optionals:</h4>
+            <p>Select at least one</p>
             @foreach ($optionals as $optional)
             <div class="form-check">
 
-                <input name="optionals[]" class="form-check-input" type="checkbox" value="{{$optional->id}}" id="optional-{{$optional->id}}" {{ in_array($optional->id, old('optionals', [])) ? 'checked' : '' }}>
+                <input name="optionals[]" class="form-check-input opt" type="checkbox" onclick="controlForm()" value="{{$optional->id}}" id="optional-{{$optional->id}}" {{ in_array($optional->id, old('optionals', [])) ? 'checked' : '' }}>
                 <label class="form-check-label" for="optional-{{$optional->id}}">
                 {{$optional->name}}
                 </label>
@@ -166,20 +167,38 @@
             divContainer.classList.add('d-none');
         }
 
-        console.log(document.getElementById('address').value);
     }
 
     function controlForm() {
         let titleFlag = false;
         let roomsFlag = false;
         let bedsFlag = false;
+        let bathroomFlag = false;
+        let squareFlag = false;
         let addressFlag = false;
+        let optionalsFlag = false;
+        let selAddressFlag = false;
 
         let titleApart = document.getElementById('title').value;
         let roomsApart = document.getElementById('rooms_number').value;
         let bedsApart = document.getElementById('beds_number').value;
-        let addressApart = document.getElementById('address').value;
+        let bathroomApart = document.getElementById('bathroom_number').value;
+        let squareApart = document.getElementById('square_metres').value;
+        let addressApart = document.getElementById('addressSearch').value;
+        let selAddressApart = document.getElementById('address').value;
+        let optionalsApart = document.getElementsByClassName('opt');
+            
         // console.log(addressApart);
+
+        let i = 0;
+        do {
+            if(optionalsApart[i].checked){
+                optionalsFlag = true;
+            } else {
+               optionalsFlag =false; 
+            }
+            i++;
+        } while (i < optionalsApart.length && !optionalsFlag);
 
         const button = document.getElementById('submitButton');
 
@@ -189,25 +208,40 @@
             titleFlag = false;
         }
 
+        
         if (roomsApart !== "null") {
             roomsFlag = true;
         } else {
             roomsFlag = false;
         }
-
+        
         if (bedsApart !== "null") {
             bedsFlag = true;
         } else {
             bedsFlag = false;
         }
+        
+        if (bathroomApart !== "null") {
+            bathroomFlag = true;
+        } else {
+            bathroomFlag = false;
+        }
 
-        if (addressApart !== "") {
+        if (squareApart) {
+            squareFlag = true;
+        } else {
+            squareFlag = false;
+        }
+ 
+        if (addressApart && addressApart.length >= 3 && selAddressApart) {
             addressFlag = true;
         } else {
             addressFlag = false;
         }
 
-        if (titleFlag && roomsFlag && bedsFlag && addressFlag == true) {
+
+
+        if (titleFlag && roomsFlag && bedsFlag && bathroomFlag && squareFlag && addressFlag && optionalsFlag) {
             button.disabled = false;
         } else {
             button.disabled = true;

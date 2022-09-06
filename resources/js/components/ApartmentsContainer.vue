@@ -6,7 +6,7 @@
                     <input
                     type="text"
                     name="address"
-                    placeholder="Dove vuoi andare?"
+                    placeholder="Where do you want to go?"
                     id="address"
                     v-model="addressSearched.address.freeformAddress"
 
@@ -38,33 +38,40 @@
             </div>
         </form>
 
-        <div class="d-flex text-start mb-4 pb-2 ps-3 d-none" id="filterSection">
-            <div>
-                <div class="fw-bold my-2">
-                    <label for="roomsNumberSelector">Number of rooms</label>
-                </div>
-                <select
-                    name="roomsNumberSelector"
-                    class="select-style"
-                    id="roomsNumberSelector"
-                    v-model="numberRooms"
-                    @click="getApartments()"
-                >
-                    <option v-for="i in 10" :key="i" :value="i">{{ i }}</option>
-                </select>
+        <div class="d-flex justify-content-evenly mb-4 pb-2 ps-3 d-none" id="filterSection">
+            <div class="d-flex flex-column align-self-center">
+                <div>
 
-                <div class="fw-bold my-2">
-                    <label for="bedsNumberSelector">Number of beds</label>
+                    <div class="fw-bold my-2">
+                        <label for="roomsNumberSelector">Number of rooms</label>
+                    </div>
+                    <select
+                        name="roomsNumberSelector"
+                        class="select-style"
+                        id="roomsNumberSelector"
+                        v-model="numberRooms"
+                        @click="getApartments()"
+                    >
+                        <option v-for="i in 10" :key="i" :value="i">{{ i }}</option>
+                    </select>
                 </div>
-                <select
-                    name="bedsNumberSelector"
-                    class="select-style"
-                    id="bedsNumberSelector"
-                    v-model="numberBeds"
-                    @click="getApartments()"
-                >
-                    <option v-for="i in 10" :key="i" :value="i">{{ i }}</option>
-                </select>
+
+                <div>
+
+                    <div class="fw-bold my-2">
+                        <label for="bedsNumberSelector">Number of beds</label>
+                    </div>
+                    <select
+                        name="bedsNumberSelector"
+                        class="select-style"
+                        id="bedsNumberSelector"
+                        v-model="numberBeds"
+                        @click="getApartments()"
+                    >
+                        <option v-for="i in 10" :key="i" :value="i">{{ i }}</option>
+                    </select>
+                </div>
+
             </div>
 
             <div class="ms-4">
@@ -91,7 +98,7 @@
                 </div>
             </div>
 
-            <div class="rangeSelector" v-if="rangeSelectorFlag">
+            <div class="rangeSelector  align-self-center" v-if="rangeSelectorFlag">
                 <label for="distance" class="form-label">Range distance: {{distance}} km</label>
                 <input type="range" class="form-range" min="5" max="35" step="5" id="distance" v-model="distance" @change="getApartments()">
             </div>
@@ -103,9 +110,9 @@
             <div
                 v-for="apartment in apartments"
                 :key="apartment.id"
-                class="col"
+                class="col"  v-if="apartment.visible == true"
             >
-                <ApartmentCard :apartment="apartment" />
+                <ApartmentCard :apartment="apartment"/>
                 <p>{{ apartment.distance }}</p>
             </div>
         </div>
