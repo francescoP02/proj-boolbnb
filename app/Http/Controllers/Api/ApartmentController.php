@@ -80,4 +80,18 @@ class ApartmentController extends Controller
         
     }
 
+    public function show($slug) {
+        $apartment = Apartment::where('slug', '=', $slug)->with(['optionals'])->first();
+        if ($apartment) {
+            return response()->json([
+                'success' => true,
+                'results' => $apartment,
+            ]);
+        }
+        return response()->json([
+            'success' => false,
+            'results' => 'No apartment found',
+        ]);
+    }
+
 }

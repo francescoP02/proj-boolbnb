@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 
 import Home from './pages/Home.vue'
 import NotFound from "./pages/NotFound.vue";
+import SingleApartment from "./pages/SingleApartment.vue";
 
 Vue.use(VueRouter)
 const router = new VueRouter({
@@ -14,9 +15,15 @@ const router = new VueRouter({
         component: Home
     },
     {
+      path: "/:slug",
+      name: "single-apartment",
+      component: SingleApartment,
+    },
+    {
       path: "/*",
+      name: "not-found",
       component: NotFound
-    }
+    },
   ]
 });
 

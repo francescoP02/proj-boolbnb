@@ -6,7 +6,7 @@
                     <input
                     type="text"
                     name="address"
-                    placeholder="Dove vuoi andare?"
+                    placeholder="Where do you want to go?"
                     id="address"
                     v-model="addressSearched.address.freeformAddress"
 

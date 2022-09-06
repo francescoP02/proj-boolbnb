@@ -15,13 +15,14 @@
                 </div>
                 <h5 class="card-title text-start mt-2">{{ apartment.title }}</h5>
                 <p class="text-start">{{ apartment.address }}</p>
+                <router-link :to="{ name: 'single-apartment', params: { slug: apartment.slug } }" class="card-link">View Details</router-link>
                 <!-- <div>
                     Optional:
                     <span
                         v-for="optional in apartment.optionals"
                         :key="optional.id"
                     >
-                        {{ optional.name }}</span
+                        {{ optional.name }}</span\
                     >
                 </div> -->
             </div>
@@ -53,13 +54,13 @@ img {
             font-weight: bold;
         }
         .img-wrap {
-            // height: 15vw;
             width: 100%;
+            border-radius: 5%;
+            overflow: hidden;
+            // height: 15vw;
             // background-image: url('https://a0.muscache.com/im/pictures/miso/Hosting-610511843622686196/original/253bfa1e-8c53-4dc0-a3af-0a75728c0708.jpeg?im_w=720');
             // background-size: cover;
             // background-position: center;
-            border-radius: 5%;
-            overflow: hidden;
 
 
             span {
