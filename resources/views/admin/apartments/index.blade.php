@@ -12,7 +12,11 @@
                 <div class="card mb-3" style="width: 18rem;">
 
                     @if ($apartment->image)
-                        <img class="card-img-top" src="{{ asset('storage/' . $apartment->image) }}" alt="{{ $apartment->title }}">
+                        <img class="card-img-top" src="{{ asset('storage/' . $apartment->image) }}" alt="{{ $apartment->title }}" style="height: 200px">
+
+                    @else 
+
+                        <img class="card-img-top" src="https://help.iubenda.com/wp-content/plugins/accelerated-mobile-pages/images/SD-default-image.png" alt="" style="height: 200px">
                     @endif
 
                     <div class="card-body">

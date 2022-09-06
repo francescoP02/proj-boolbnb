@@ -5469,10 +5469,12 @@ var render = function render() {
       }
     }, [_vm._v("\n                        " + _vm._s(addOp.address.freeformAddress) + "\n                    ")]);
   }), 0) : _vm._e()]) : _vm._e()])]), _vm._v(" "), _c("div", {
-    staticClass: "d-flex text-start mb-4 pb-2 ps-3 d-none",
+    staticClass: "d-flex justify-content-evenly mb-4 pb-2 ps-3 d-none",
     attrs: {
       id: "filterSection"
     }
+  }, [_c("div", {
+    staticClass: "d-flex flex-column align-self-center"
   }, [_c("div", [_vm._m(0), _vm._v(" "), _c("select", {
     directives: [{
       name: "model",
@@ -5506,7 +5508,7 @@ var render = function render() {
         value: i
       }
     }, [_vm._v(_vm._s(i))]);
-  }), 0), _vm._v(" "), _vm._m(1), _vm._v(" "), _c("select", {
+  }), 0)]), _vm._v(" "), _c("div", [_vm._m(1), _vm._v(" "), _c("select", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -5539,7 +5541,7 @@ var render = function render() {
         value: i
       }
     }, [_vm._v(_vm._s(i))]);
-  }), 0)]), _vm._v(" "), _c("div", {
+  }), 0)])]), _vm._v(" "), _c("div", {
     staticClass: "ms-4"
   }, [_c("div", {
     staticClass: "fw-bold my-2"
@@ -5592,7 +5594,7 @@ var render = function render() {
       }
     }, [_vm._v("\n                    " + _vm._s(optional.name) + "\n                ")])]);
   })], 2), _vm._v(" "), _vm.rangeSelectorFlag ? _c("div", {
-    staticClass: "rangeSelector"
+    staticClass: "rangeSelector align-self-center"
   }, [_c("label", {
     staticClass: "form-label",
     attrs: {
@@ -5627,14 +5629,14 @@ var render = function render() {
   })]) : _vm._e()]), _vm._v(" "), _c("div", {
     staticClass: "row row-cols-4"
   }, _vm._l(_vm.apartments, function (apartment) {
-    return _c("div", {
+    return apartment.visible == true ? _c("div", {
       key: apartment.id,
       staticClass: "col"
     }, [_c("ApartmentCard", {
       attrs: {
         apartment: apartment
       }
-    }), _vm._v(" "), _c("p", [_vm._v(_vm._s(apartment.distance))])], 1);
+    }), _vm._v(" "), _c("p", [_vm._v(_vm._s(apartment.distance))])], 1) : _vm._e();
   }), 0)]);
 };
 
@@ -11055,7 +11057,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "img[data-v-13e9f807] {\n  width: 100%;\n}\n.card[data-v-13e9f807] {\n  border: transparent;\n  background-color: transparent;\n  color: #072c61;\n}\n.card h5[data-v-13e9f807] {\n  font-weight: bold;\n}\n.card .img-wrap[data-v-13e9f807] {\n  width: 100%;\n  border-radius: 5%;\n  overflow: hidden;\n}\n.card .img-wrap span[data-v-13e9f807] {\n  color: white;\n  margin-right: 15px;\n  font-size: 2rem;\n  text-shadow: 1px 1px 5px black;\n  cursor: pointer;\n}", ""]);
+exports.push([module.i, "img[data-v-13e9f807] {\n  width: 100%;\n  height: 200px;\n}\n.card[data-v-13e9f807] {\n  border: transparent;\n  background-color: transparent;\n  color: #072c61;\n}\n.card h5[data-v-13e9f807] {\n  font-weight: bold;\n}\n.card .img-wrap[data-v-13e9f807] {\n  width: 100%;\n  border-radius: 5%;\n  overflow: hidden;\n}\n.card .img-wrap span[data-v-13e9f807] {\n  color: white;\n  margin-right: 15px;\n  font-size: 2rem;\n  text-shadow: 1px 1px 5px black;\n  cursor: pointer;\n}", ""]);
 
 // exports
 

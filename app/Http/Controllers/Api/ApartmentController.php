@@ -34,7 +34,7 @@ class ApartmentController extends Controller
 
             if ($apartment->image) {
                 $apartment->image = url('storage/' . $apartment->image);
-            }
+            } else $apartment->image = url('https://help.iubenda.com/wp-content/plugins/accelerated-mobile-pages/images/SD-default-image.png');
 
             $R = 6371; // km 
             $dLat = ($apartment->latitude - $og_lat) * pi() / 180; 
@@ -47,7 +47,7 @@ class ApartmentController extends Controller
 
             if ($og_lat && $og_lon && $d > $distance){
                 unset($ap_with_op[$index]);
-            };
+            }
         };
 
 
