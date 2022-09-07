@@ -27,6 +27,8 @@ Route::middleware('auth')
         Route::get('/', 'HomeController@index')->name('home');
         Route::resource('apartments', 'ApartmentController');
     });
+    
+// Route::resource('messages', 'MessageController');
 
 Route::get('{any?}', function() {
     return view('guest.home');

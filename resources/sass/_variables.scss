@@ -17,3 +17,16 @@ $yellow: #ffed4a;
 $green: #38c172;
 $teal: #4dc0b5;
 $cyan: #6cb2eb;
+
+:root {
+  --primary-color: #072c61;
+  --secondary-color: #ff5a5f;
+}
+
+._primary_color {
+  color: #072c61;
+}
+
+._secondary_color {
+  color: #ff5a5f;
+}

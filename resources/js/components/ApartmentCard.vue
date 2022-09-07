@@ -1,31 +1,23 @@
 <template>
     <div>
         <div class="card mb-3">
-            <div class="card-body">
-                <!-- <div class="test">
-                    <span class="d-block"
-                    >Beds number: {{ apartment.beds_number }}</span
-                    >
-                    <span class="d-block"
-                    >Rooms number: {{ apartment.rooms_number }}</span
-                    >
-                </div> -->
-                <div class="img-wrap" v-if="apartment.image">
-                    <img :src="apartment.image" alt="" />
+            <router-link :to="{ name: 'single-apartment', params: { slug: apartment.slug } }" class="card-link text-decoration-none">
+                <div class="card-body">
+                    <!-- image -->
+                    <div class="img-wrap" v-if="apartment.image">
+                        <img :src="apartment.image" alt="" />
+                    </div>
+    
+                    <!-- text -->
+                    <div class="_text">
+                        <h5 class="_primary_color card-title text-start mt-3">{{ apartment.title }}</h5>
+                        <p class="_primary_color text-start">{{ apartment.address }}</p>
+                        <!-- <router-link :to="{ name: 'single-apartment', params: { slug: apartment.slug } }" class="card-link">View Details</router-link> -->
+                    </div>
                 </div>
-                <h5 class="card-title text-start mt-2">{{ apartment.title }}</h5>
-                <p class="text-start">{{ apartment.address }}</p>
-                <router-link :to="{ name: 'single-apartment', params: { slug: apartment.slug } }" class="card-link">View Details</router-link>
-                <!-- <div>
-                    Optional:
-                    <span
-                        v-for="optional in apartment.optionals"
-                        :key="optional.id"
-                    >
-                        {{ optional.name }}</span\
-                    >
-                </div> -->
-            </div>
+            
+            </router-link>
+
         </div>
     </div>
 </template>
@@ -46,30 +38,35 @@ img {
 }
 
 .card {
-        border: transparent;
-        background-color: transparent;
-        color: #072c61;
+    border: transparent;
+    background-color: transparent;
+    color: #072c61;
 
+    ._text {
+        
         h5 {
             font-weight: bold;
         }
-        .img-wrap {
-            width: 100%;
+    }
+
+    .img-wrap {
+        width: 100%;
+        // overflow: hidden;
+        height: fit-content;
+
+        img {
             border-radius: 5%;
-            overflow: hidden;
-            // height: 15vw;
-            // background-image: url('https://a0.muscache.com/im/pictures/miso/Hosting-610511843622686196/original/253bfa1e-8c53-4dc0-a3af-0a75728c0708.jpeg?im_w=720');
-            // background-size: cover;
-            // background-position: center;
+            height: 12vw;
+        }
 
 
-            span {
-                color: white;
-                margin-right: 15px;
-                font-size: 2rem;
-                text-shadow: 1px 1px 5px black;
-                cursor: pointer;
-            }
+        span {
+            color: white;
+            margin-right: 15px;
+            font-size: 2rem;
+            text-shadow: 1px 1px 5px black;
+            cursor: pointer;
         }
     }
+}
 </style>

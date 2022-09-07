@@ -1,7 +1,7 @@
 <template>
     <div>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container-fluid">
+            <div class="container-fluid p-0">
                 <a class="navbar-brand" href="/#">
                   <img src="images/logoboolbnb.png" alt="" style="width:150px">
                   <!-- boolbnb -->

@@ -1,13 +1,17 @@
 #_logo {
   width: 150px;
 }
+
+#_book_button {
+  background-color: var(--secondary-color);
+}
   
 ._side_bar_menu {
   a {
-    color: #072c61;
+    color: var(--primary-color);
 
     &:hover {
-      color: #ff5a5f;
+      color: var(--secondary-color);
     }
   }
 }
@@ -19,4 +23,32 @@
   position: fixed;
   top: 0;
   left: 0;
+}
+
+._my_card {
+  border: transparent;
+  background-color: transparent;
+  color: #072c61;
+  min-height: 23vw;
+
+  h5 {
+    font-weight: bold;
+  }
+
+  .img-wrap {
+    width: 100%;
+
+    img {
+      border-radius: 5%;
+      width: 100%;
+    }
+
+    span {
+      color: white;
+      margin-right: 15px;
+      font-size: 2rem;
+      text-shadow: 1px 1px 5px black;
+      cursor: pointer;
+    }
+  }
 }
