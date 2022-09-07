@@ -15,6 +15,11 @@ class Apartment extends Model
         return $this->belongsToMany('App\Optional');
     }
 
+    public function messages()
+        {
+            return $this->hasMany('App\Message');
+        }
+
     public function user()
     {
         return $this->belongsTo('App\User');

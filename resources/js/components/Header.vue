@@ -1,7 +1,7 @@
 <template>
     <div>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container-fluid">
+            <div class="container-fluid p-0">
                 <a class="navbar-brand" href="/#">
                   <img src="images/logoboolbnb.png" alt="" style="width:150px">
                   <!-- boolbnb -->
@@ -11,6 +11,11 @@
                 </button> -->
                 <div class="collapse navbar-collapse right" id="navbarNav">
                     <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <div id="_user_btn" class="px-1">
+                                <a class="nav-link" href="/login"><i class="far fa-user"></i></a>
+                            </div>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/login">Login</a>
                         </li>
@@ -34,5 +39,21 @@ export default {
 
     .right {
         justify-content: flex-end;
+    }
+
+    #_user_btn {
+        border: 1px solid transparent;
+        border-radius: 50%;
+        transition: .3s;
+
+        a {
+            color: var(--secondary-color);
+            font-size: 1rem;
+
+            &:hover {
+                color: var(--primary-color);
+            }
+        }
+
     }
 </style>

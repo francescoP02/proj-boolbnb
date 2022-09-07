@@ -11,7 +11,7 @@
                     v-model="addressSearched.address.freeformAddress"
 
                     />
-                    <button type="button" class="btn ms-2" id="filterButton" @click="getFilter()">Filter <span id="angleDown">▼</span></button>
+                    <button type="button" class="btn ms-2" id="filterButton" @click="getFilter()">Filter <span id="angleDown"><i class="fas fa-angle-down"></i></span></button>
                     <button type="button" class="btn ms-2" @click="searchAddress()">Search</button>
                 </div>
                 <div
@@ -38,9 +38,9 @@
             </div>
         </form>
 
-        <div class="d-flex justify-content-evenly mb-4 pb-2 ps-3 d-none" id="filterSection">
-            <div class="d-flex flex-column align-self-center">
-                <div>
+        <div class="d-flex  mb-4 pb-2 ps-3 d-none" id="filterSection">
+            <div class="d-flex flex-column mx-5">
+                <div class=" mt-2">
 
                     <div class="fw-bold my-2">
                         <label for="roomsNumberSelector">Number of rooms</label>
@@ -56,7 +56,7 @@
                     </select>
                 </div>
 
-                <div>
+                <div  class=" mt-2">
 
                     <div class="fw-bold my-2">
                         <label for="bedsNumberSelector">Number of beds</label>
@@ -74,7 +74,7 @@
 
             </div>
 
-            <div class="ms-4">
+            <div class="mx-5">
                 <div class="fw-bold my-2">Optionals</div>
                 <div
                     class="form-check"
@@ -98,7 +98,7 @@
                 </div>
             </div>
 
-            <div class="rangeSelector  align-self-center" v-if="rangeSelectorFlag">
+            <div class="rangeSelector  align-self-center mx-5" v-if="rangeSelectorFlag">
                 <label for="distance" class="form-label">Range distance: {{distance}} km</label>
                 <input type="range" class="form-range" min="5" max="35" step="5" id="distance" v-model="distance" @change="getApartments()">
             </div>
@@ -210,7 +210,7 @@ export default {
             border-bottom: 2px solid lightgray;
             padding-left: 2%;
             &:focus-visible {
-                border-bottom: 3px solid #072c61;
+                border-bottom: 3px solid var(--primary-color);
                 outline: transparent;
             }
         }
@@ -219,7 +219,7 @@ export default {
         }
         button {
             color: white;
-            background-color: #ff5a5f;
+            background-color: var(--secondary-color);
             transition: .2s;
             &:hover {
                 background-color: rgba(255, 90, 95, 0.7);
@@ -228,12 +228,12 @@ export default {
         }
     }
     #filterSection {
-        color: #072c61;
-        border: 2px solid #072c61;
+        color: var(--primary-color);
+        border: 2px solid var(--primary-color);
         border-radius: 5px;
 
         select {
-            border: .5px solid #072c61;
+            border: .5px solid var(--primary-color);
             border-radius: 5px;
 
             .select-style {

@@ -1,5 +1,18 @@
 @import url(https://fonts.googleapis.com/css?family=Nunito);@charset "UTF-8";
 
+:root {
+  --primary-color: #072c61;
+  --secondary-color: #ff5a5f;
+}
+
+._primary_color {
+  color: #072c61;
+}
+
+._secondary_color {
+  color: #ff5a5f;
+}
+
 /*!
  * Bootstrap  v5.2.0 (https://getbootstrap.com/)
  * Copyright 2011-2022 The Bootstrap Authors
@@ -12639,11 +12652,11 @@ fieldset:disabled .btn {
 }
 
 ._side_bar_menu a {
-  color: #072c61;
+  color: var(--primary-color);
 }
 
 ._side_bar_menu a:hover {
-  color: #ff5a5f;
+  color: var(--secondary-color);
 }
 
 ._bg_wrap {
@@ -12653,6 +12666,35 @@ fieldset:disabled .btn {
   position: fixed;
   top: 0;
   left: 0;
+}
+
+._my_card {
+  border: transparent;
+  background-color: transparent;
+  color: var(--primary-color);
+  min-height: 23vw;
+}
+
+._my_card h5,
+._my_card .h5 {
+  font-weight: bold;
+}
+
+._my_card .img-wrap {
+  width: 100%;
+}
+
+._my_card .img-wrap img {
+  border-radius: 5%;
+  width: 100%;
+}
+
+._my_card .img-wrap span {
+  color: white;
+  margin-right: 15px;
+  font-size: 2rem;
+  text-shadow: 1px 1px 5px black;
+  cursor: pointer;
 }
 
 /*!

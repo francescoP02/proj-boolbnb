@@ -3,13 +3,13 @@
 @section('content')
 
     <div>
-        <h1>Apartment name: {{$apartment->title}}</h1>
+        <h1>{{$apartment->title}}</h1>
+        <p>{{$apartment->address}}</p>
 
         @if ($apartment->image)
             <img src="{{ asset('storage/' . $apartment->image) }}" style="width: 70%" alt="">
         @endif
 
-        <p>{{$apartment->address}}</p>
 
         <p>{{$apartment->slug}}</p>
 
@@ -27,23 +27,25 @@
 
         </p>
 
-        <button class="btn btn-primary text-white" href="{{ route('admin.apartments.edit', ['apartment' => $apartment->id]) }}">Modify</button>
+        <a class="btn btn-primary text-white" href="{{ route('admin.apartments.edit', ['apartment' => $apartment->id]) }}">Modify</a>
 
-        <button class="btn btn-danger text-white" type="button" onclick="sureOfDelete()">Delete</button>
+        <button class="btn btn-danger text-white" type="button" onclick="sureOfDelete()">Delete</i></button>
+
+        <a class="btn btn-primary text-white" href="{{ route('admin.messages', ['apartment' => $apartment->id]) }}">Messages</a>
         
     </div>
 
-    <div id="_deleteBox" class="_bg_wrap">
+    <div id="_deleteBox" class="_bg_wrap d-none">
         <div class="bg-light d-inline-block p-4 fw-bold rounded position-absolute bottom-50 end-50 text-center">
             <p class="text-black">Sure you want to delete?</p>
             <div>
+                <button id="_cancelButton" class="btn btn-primary text-white" onclick="sureOfDelete()">Cancel</button>
                 <form class="d-inline-block" action="{{ route('admin.apartments.destroy', ['apartment' => $apartment->id]) }}" method="POST">
     
                     @csrf
                     @method('DELETE')
-                    <button class="btn btn-danger text-white" type="submit" >Delete</button>
+                    <button class="btn btn-danger text-white" type="submit" >Delete</i></button>
                 </form>
-                <button id="_cancelButton" class="btn btn-primary text-white" onclick="sureOfDelete()">Cancel</button>
             </div>
         </div>
     </div>
