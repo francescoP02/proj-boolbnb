@@ -1,5 +1,5 @@
 <template>
-    <div class="text-start">
+    <div class="text-start pb-3">
         <h1>{{apartment.title}}</h1>
         <p class="">{{ apartment.address }}</p>
 
@@ -15,7 +15,7 @@
                 <p>Number of beds: <span class="fw-bold">{{ apartment.beds_number }} </span><i class="fas fa-bed"></i></p>
                 <p>Number of bathroom: <span class="fw-bold">{{ apartment.bathroom_number }} </span><i class="fas fa-bath"></i></p>
                 <p>Square metres: <span class="fw-bold">{{ apartment.square_metres }} m²</span></p>
-                <p>inserito da: <span class="fw-bold">Gino</span></p>
+                <p v-if="user && user.name && user.surname">inserito da: <span class="fw-bold">{{user.name}} {{user.surname}}</span></p>
                 <a id="_contact_us_button" class="btn" href="#_contact_us_section" @click="showMeContactSection()">Contact us</a>
             </div>
         </div>
@@ -90,6 +90,7 @@ export default {
                 surname: "",
                 email: "",
                 text: "",
+                apartment_id: null,
             },
 
             
@@ -97,6 +98,9 @@ export default {
             surnameFlag: false,
             emailFlag: false,
             textFlag: false,
+
+            user: null,
+            logged_user: null,
 
         };
     },
@@ -110,7 +114,7 @@ export default {
         optionalName() {
             return this.apartment.optional ? this.apartment.optional.name : "nessuna";
         },
-        apartment_id() { 
+        apartment_number() { 
             return this.apartment.id;
         }
     },
@@ -124,18 +128,22 @@ export default {
                 
                 Axios.get(`/api/apartments/${slug}`).then((resp) => {
                     if (resp.data.success) {
-                        this.apartment = resp.data.results;
+                        console.log(resp.data.results);
+                        this.apartment = resp.data.results.apartment;
+                        this.user = resp.data.results.user;
+                        this.logged_user = resp.data.result.logged_user;
                     } else {
                         this.$router.push({ name: "not-found" });
                     }
                 });
             },
 
-            sendMail() {
+        sendMail() {
+            this.messageForm.apartment_id = this.apartment_number;
                 Axios
                 .post(
                     // `/api/messages?apartment_id=${this.apartment.id}&name=${this.messageForm.name}&surname=${this.messageForm.surname}&email=${this.messageForm.email}&text=${this.messageForm.text}`
-                    'api/messages', { form:this.messageForm, ap_id: this.apartment_id }
+                    'api/messages', this.messageForm
                     // ,
                     // this.messageForm
                     // ,
@@ -208,12 +216,6 @@ export default {
 
                 &:hover {
                 border-color: var(--primary-color);
-                color: var(--primary-color);
-
-                &:hover #info-box {
-                    // border: 2px solid var(--primary-color);
-                    display: none;
-                }
             }
         }
     }

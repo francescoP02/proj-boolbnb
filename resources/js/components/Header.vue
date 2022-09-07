@@ -12,6 +12,11 @@
                 <div class="collapse navbar-collapse right" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
+                            <div id="_user_btn" class="px-1">
+                                <a class="nav-link" href="/login"><i class="far fa-user"></i></a>
+                            </div>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="/login">Login</a>
                         </li>
                         <li class="nav-item">
@@ -34,5 +39,21 @@ export default {
 
     .right {
         justify-content: flex-end;
+    }
+
+    #_user_btn {
+        border: 1px solid transparent;
+        border-radius: 50%;
+        transition: .3s;
+
+        a {
+            color: var(--secondary-color);
+            font-size: 1rem;
+
+            &:hover {
+                color: var(--primary-color);
+            }
+        }
+
     }
 </style>

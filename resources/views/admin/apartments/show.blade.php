@@ -29,7 +29,7 @@
 
         <a class="btn btn-primary text-white" href="{{ route('admin.apartments.edit', ['apartment' => $apartment->id]) }}">Modify</a>
 
-        <button class="btn btn-danger text-white" type="button" onclick="sureOfDelete()">Delete</button>
+        <button class="btn btn-danger text-white" type="button" onclick="sureOfDelete()">Delete</i></button>
 
         <a class="btn btn-primary text-white" href="{{ route('admin.messages', ['apartment' => $apartment->id]) }}">Messages</a>
         
@@ -44,7 +44,7 @@
     
                     @csrf
                     @method('DELETE')
-                    <button class="btn btn-danger text-white" type="submit" >Delete</button>
+                    <button class="btn btn-danger text-white" type="submit" >Delete</i></button>
                 </form>
             </div>
         </div>

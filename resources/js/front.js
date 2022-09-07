@@ -27,6 +27,7 @@
 
 
 import App from './views/App.vue';
+import AppLogged from './views/AppLogged.vue';
 import router from './router';
 
  /**
@@ -40,3 +41,9 @@ import router from './router';
      render: h => h(App),
      router
  });
+
+const appLogged = new Vue({
+    el: '#root-logged',
+    render: h => h(AppLogged),
+    router
+});

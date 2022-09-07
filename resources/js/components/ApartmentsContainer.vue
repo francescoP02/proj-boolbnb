@@ -210,7 +210,7 @@ export default {
             border-bottom: 2px solid lightgray;
             padding-left: 2%;
             &:focus-visible {
-                border-bottom: 3px solid #072c61;
+                border-bottom: 3px solid var(--primary-color);
                 outline: transparent;
             }
         }
@@ -219,7 +219,7 @@ export default {
         }
         button {
             color: white;
-            background-color: #ff5a5f;
+            background-color: var(--secondary-color);
             transition: .2s;
             &:hover {
                 background-color: rgba(255, 90, 95, 0.7);
@@ -228,12 +228,12 @@ export default {
         }
     }
     #filterSection {
-        color: #072c61;
-        border: 2px solid #072c61;
+        color: var(--primary-color);
+        border: 2px solid var(--primary-color);
         border-radius: 5px;
 
         select {
-            border: .5px solid #072c61;
+            border: .5px solid var(--primary-color);
             border-radius: 5px;
 
             .select-style {

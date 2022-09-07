@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Apartment;
 use App\Optional;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class ApartmentController extends Controller
 {
@@ -82,10 +84,16 @@ class ApartmentController extends Controller
 
     public function show($slug) {
         $apartment = Apartment::where('slug', '=', $slug)->with(['optionals'])->first();
+        $user = $apartment->user;
+        $logged_user = Auth::check();
         if ($apartment) {
             return response()->json([
                 'success' => true,
-                'results' => $apartment,
+                'results' => [
+                    'apartment' => $apartment,
+                    'user'=> $user, 
+                    'logged_user' => $logged_user
+                ]
             ]);
         }
         return response()->json([
