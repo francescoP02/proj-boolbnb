@@ -12651,10 +12651,6 @@ fieldset:disabled .btn {
   width: 150px;
 }
 
-#_book_button {
-  background-color: var(--secondary-color);
-}
-
 ._side_bar_menu a {
   color: var(--primary-color);
 }
@@ -12675,7 +12671,7 @@ fieldset:disabled .btn {
 ._my_card {
   border: transparent;
   background-color: transparent;
-  color: #072c61;
+  color: var(--primary-color);
   min-height: 23vw;
 }
 

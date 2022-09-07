@@ -30,6 +30,8 @@
         <a class="btn btn-primary text-white" href="{{ route('admin.apartments.edit', ['apartment' => $apartment->id]) }}">Modify</a>
 
         <button class="btn btn-danger text-white" type="button" onclick="sureOfDelete()">Delete</button>
+
+        <a class="btn btn-primary text-white" href="{{ route('admin.messages', ['apartment' => $apartment->id]) }}">Messages</a>
         
     </div>
 

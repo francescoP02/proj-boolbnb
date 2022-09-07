@@ -7,13 +7,16 @@
             <div class="img-wrap-single-apt" v-if="apartment.image">
                 <img :src=" `storage/` + apartment.image " alt="" />
             </div>
+            <div class="img-wrap-single-apt" v-else="apartment.image">
+                <img :src="`https://help.iubenda.com/wp-content/plugins/accelerated-mobile-pages/images/SD-default-image.png`" alt="" />
+            </div>
             <div id="info-box" class="ms-3">
                 <p>Number of rooms: <span class="fw-bold">{{ apartment.rooms_number }} </span><i class="fas fa-door-open"></i></p>
                 <p>Number of beds: <span class="fw-bold">{{ apartment.beds_number }} </span><i class="fas fa-bed"></i></p>
                 <p>Number of bathroom: <span class="fw-bold">{{ apartment.bathroom_number }} </span><i class="fas fa-bath"></i></p>
                 <p>Square metres: <span class="fw-bold">{{ apartment.square_metres }} m²</span></p>
-                <p>inserito da: <span class="fw-bold">{{ apartment.square_metres }} m²</span></p>
-                <button id="_book_button" class="btn text-white" type="button">Book</button>
+                <p>inserito da: <span class="fw-bold">Gino</span></p>
+                <a id="_contact_us_button" class="btn" href="#_contact_us_section" @click="showMeContactSection()">Contact us</a>
             </div>
         </div>
 
@@ -21,13 +24,13 @@
 
         <div class="my-4">
             <h4>You will find</h4>
-            <span v-for="optional in apartment.optionals" :key="optional.id" class="me-2 d-inline-block rounded-pill text-dark mr-3 p-1 fs-4">
+            <span v-for="(optional,index) in apartment.optionals" :key="optional.id" class="me-2 d-inline-block rounded-pill text-dark mr-3 p-1 fs-4">
                 <span v-if="optional.id == 1"><i class="fas fa-wifi"></i></span>
                 <span v-if="optional.id == 2"><i class="fas fa-swimmer"></i></span>
                 <span v-if="optional.id == 3"><i class="fas fa-spa"></i></span>
                 <span v-if="optional.id == 4"><i class="fas fa-water"></i></span>
                 <span v-if="optional.id == 5"><i class="fas fa-dog"></i></span>
-                <span>{{ optional.name }} | </span>
+                <span>{{ optional.name }} <span v-if="index != (apartment.optionals).length - 1"> | </span></span>
             </span>
         </div>
 
@@ -43,26 +46,26 @@
 
         <!-- <router-link :to="{ name: 'contact-single-apartment', params: { slug: apartment.slug } }" class="btn btn-primary">Contact</router-link> -->
 
-        <div>
+        <div id="_contact_us_section" class="d-none">
         <form class="row g-3">
             <div class="col-md-6">
                 <label class="form-label" for="name">Name(*):</label>
-                <input class="form-control" type="text" id="name" name="name" v-model="messageForm.name" required>
+                <input class="form-control" @keyup="controlDataForm()" type="text" id="name" name="name" v-model="messageForm.name" required>
             </div>
             <div class="col-md-6">
                 <label class="form-label" for="surname">Surname(*):</label>
-                <input class="form-control" type="text" id="surname" name="surname" v-model="messageForm.surname" required>
+                <input class="form-control" @keyup="controlDataForm()" type="text" id="surname" name="surname" v-model="messageForm.surname" required>
             </div>
             <div class="col-md-12">
                 <label class="form-label" for="email">Email(*):</label>
-                <input class="form-control" type="email" id="email" name="email" v-model="messageForm.email" required>
+                <input class="form-control" @keyup="controlDataForm()" type="email" id="email" name="email" v-model="messageForm.email" required>
             </div>
             <div class="col-md-12">
                 <label class="form-label" for="message">Message(*):</label>
-                <textarea class="form-control" name="message" id="message" cols="30" rows="10" v-model="messageForm.text" required></textarea>
+                <textarea class="form-control" @keyup="controlDataForm()" name="message" id="message" cols="30" rows="10" v-model="messageForm.text" required></textarea>
             </div>
             <div class="col-12">
-                <button @click="sendMail()" class="btn btn-primary" type="button">Submit form</button>
+                <button id="messageButton" @click="sendMail()" class="btn btn-primary" disabled type="button">Send</button>
             </div>
         </form>
     </div>
@@ -74,13 +77,10 @@
 
 <script>
 import Axios from 'axios';
-// import ContactPage from './ContactPage.vue';
+
 
 export default {
     name: 'SingleApartment',
-    // components: {
-    //     ContactPage,
-    // },
     data() {
         return {
             apartment: Object, 
@@ -90,7 +90,14 @@ export default {
                 surname: "",
                 email: "",
                 text: "",
-            }
+            },
+
+            
+            nameFlag: false,
+            surnameFlag: false,
+            emailFlag: false,
+            textFlag: false,
+
         };
     },
     // props: {
@@ -108,6 +115,10 @@ export default {
         }
     },
     methods: {
+            showMeContactSection() {
+                const ContactSection = document.getElementById('_contact_us_section');
+                ContactSection.classList.remove('d-none');
+            },
             getApartmentDetails() {
                 const slug = this.$route.params.slug;
                 
@@ -142,6 +153,36 @@ export default {
                 .catch(function (error) {
                     console.log(error);
                 });
+            },
+
+            controlDataForm() {
+
+                if (this.messageForm.name !== "") {
+                    this.nameFlag = true;
+                } else {
+                    this.nameFlag = false;
+                }
+                if (this.messageForm.surname !== "") {
+                    this.surnameFlag = true;
+                } else {
+                    this.surnameFlag = false;
+                }
+                if (this.messageForm.email !== "" && this.messageForm.email.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)) {
+                    this.emailFlag = true;
+                } else {
+                    this.emailFlag = false;
+                }
+                if (this.messageForm.text !== "") {
+                    this.textFlag = true;
+                } else {
+                    this.textFlag = false;
+                }
+
+                if (this.nameFlag && this.surnameFlag && this.emailFlag && this.textFlag) {
+                    document.getElementById('messageButton').disabled = false;
+                } else {
+                    document.getElementById('messageButton').disabled = true;
+                }
             }
         }
 }
@@ -151,14 +192,33 @@ export default {
 
     #info-box {
         padding: 2rem;
-        width: 30%;
+        width: 25%;
         height: fit-content;
         border: 2px solid var(--secondary-color);
         border-radius: 4%;
         box-shadow: 1px 1px 15px rgba(128, 128, 128, .6);
+        background-color: rgb(240, 240, 240);
+        color: var(--primary-color); 
+
+        #_contact_us_button {
+            background-color: var(--secondary-color);
+            border: 2px solid var(--secondary-color);
+            transition: .4s;
+            color: white;
+
+                &:hover {
+                border-color: var(--primary-color);
+                color: var(--primary-color);
+
+                &:hover #info-box {
+                    // border: 2px solid var(--primary-color);
+                    display: none;
+                }
+            }
+        }
     }
     .img-wrap-single-apt {
-        width: 70%;
+        width: 75%;
         
         img {
             width: 100%;
