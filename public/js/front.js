@@ -6016,7 +6016,7 @@ var render = function render() {
     staticClass: "fas fa-bath"
   })]), _vm._v(" "), _c("p", [_vm._v("Square metres: "), _c("span", {
     staticClass: "fw-bold"
-  }, [_vm._v(_vm._s(_vm.apartment.square_metres) + " m²")])]), _vm._v(" "), _vm.user && _vm.user.name && _vm.user.surname ? _c("p", [_vm._v("inserito da: "), _c("span", {
+  }, [_vm._v(_vm._s(_vm.apartment.square_metres) + " m²")])]), _vm._v(" "), _vm.user && _vm.user.name && _vm.user.surname ? _c("p", [_vm._v("Inserted by: "), _c("span", {
     staticClass: "fw-bold"
   }, [_vm._v(_vm._s(_vm.user.name) + " " + _vm._s(_vm.user.surname))])]) : _vm._e(), _vm._v(" "), _c("a", {
     staticClass: "btn",
@@ -6208,7 +6208,7 @@ var render = function render() {
     attrs: {
       id: "messageButton",
       disabled: "",
-      type: "button"
+      type: "submit"
     },
     on: {
       click: function click($event) {

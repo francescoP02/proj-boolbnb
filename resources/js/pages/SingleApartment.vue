@@ -15,7 +15,7 @@
                 <p>Number of beds: <span class="fw-bold">{{ apartment.beds_number }} </span><i class="fas fa-bed"></i></p>
                 <p>Number of bathroom: <span class="fw-bold">{{ apartment.bathroom_number }} </span><i class="fas fa-bath"></i></p>
                 <p>Square metres: <span class="fw-bold">{{ apartment.square_metres }} m²</span></p>
-                <p v-if="user && user.name && user.surname">inserito da: <span class="fw-bold">{{user.name}} {{user.surname}}</span></p>
+                <p v-if="user && user.name && user.surname">Inserted by: <span class="fw-bold">{{user.name}} {{user.surname}}</span></p>
                 <a id="_contact_us_button" class="btn" href="#_contact_us_section" @click="showMeContactSection()">Contact us</a>
             </div>
         </div>
@@ -65,7 +65,7 @@
                 <textarea class="form-control" @keyup="controlDataForm()" name="message" id="message" cols="30" rows="10" v-model="messageForm.text" required></textarea>
             </div>
             <div class="col-12">
-                <button id="messageButton" @click="sendMail()" class="btn btn-primary" disabled type="button">Send</button>
+                <button id="messageButton" @click="sendMail()" class="btn btn-primary" disabled type="submit">Send</button>
             </div>
         </form>
     </div>
