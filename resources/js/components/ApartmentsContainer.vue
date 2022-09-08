@@ -4,19 +4,32 @@
             <div class="form-group">
                 <div class="d-flex pt-1">
                     <input
-                    type="text"
-                    name="address"
-                    placeholder="Where do you want to go?"
-                    id="address"
-                    v-model="addressSearched.address.freeformAddress"
-
+                        type="text"
+                        name="address"
+                        placeholder="Where do you want to go?"
+                        id="address"
+                        v-model="addressSearched.address.freeformAddress"
                     />
-                    <button type="button" class="btn ms-2" id="filterButton" @click="getFilter()">Filter <span id="angleDown"><i class="fas fa-angle-down"></i></span></button>
-                    <button type="button" class="btn ms-2" @click="searchAddress()">Search</button>
+                    <button
+                        type="button"
+                        class="btn ms-2"
+                        id="filterButton"
+                        @click="getFilter()"
+                    >
+                        Filter
+                        <span id="angleDown"
+                            ><i class="fas fa-angle-down"></i
+                        ></span>
+                    </button>
+                    <button
+                        type="button"
+                        class="btn ms-2"
+                        @click="searchAddress()"
+                    >
+                        Search
+                    </button>
                 </div>
-                <div
-                    id="containerAddress" v-if="dropdownSearchFlag"
-                >
+                <div id="containerAddress" v-if="dropdownSearchFlag">
                     <select
                         name="addressOpt"
                         id="addressOpt"
@@ -38,10 +51,9 @@
             </div>
         </form>
 
-        <div class="d-flex  mb-4 pb-2 ps-3 d-none" id="filterSection">
+        <div class="d-flex mb-4 pb-2 ps-3 d-none" id="filterSection">
             <div class="d-flex flex-column mx-5">
-                <div class=" mt-2">
-
+                <div class="mt-2">
                     <div class="fw-bold my-2">
                         <label for="roomsNumberSelector">Number of rooms</label>
                     </div>
@@ -52,12 +64,13 @@
                         v-model="numberRooms"
                         @click="getApartments()"
                     >
-                        <option v-for="i in 10" :key="i" :value="i">{{ i }}</option>
+                        <option v-for="i in 10" :key="i" :value="i">
+                            {{ i }}
+                        </option>
                     </select>
                 </div>
 
-                <div  class=" mt-2">
-
+                <div class="mt-2">
                     <div class="fw-bold my-2">
                         <label for="bedsNumberSelector">Number of beds</label>
                     </div>
@@ -68,10 +81,11 @@
                         v-model="numberBeds"
                         @click="getApartments()"
                     >
-                        <option v-for="i in 10" :key="i" :value="i">{{ i }}</option>
+                        <option v-for="i in 10" :key="i" :value="i">
+                            {{ i }}
+                        </option>
                     </select>
                 </div>
-
             </div>
 
             <div class="mx-5">
@@ -98,11 +112,24 @@
                 </div>
             </div>
 
-            <div class="rangeSelector  align-self-center mx-5" v-if="rangeSelectorFlag">
-                <label for="distance" class="form-label">Range distance: {{distance}} km</label>
-                <input type="range" class="form-range" min="5" max="35" step="5" id="distance" v-model="distance" @change="getApartments()">
+            <div
+                class="rangeSelector align-self-center mx-5"
+                v-if="rangeSelectorFlag"
+            >
+                <label for="distance" class="form-label"
+                    >Range distance: {{ distance }} km</label
+                >
+                <input
+                    type="range"
+                    class="form-range"
+                    min="5"
+                    max="35"
+                    step="5"
+                    id="distance"
+                    v-model="distance"
+                    @change="getApartments()"
+                />
             </div>
-
         </div>
 
         <div class="row row-cols-4">
@@ -110,13 +137,13 @@
             <div
                 v-for="apartment in apartments"
                 :key="apartment.id"
-                class="col"  v-if="apartment.visible == true"
+                class="col"
+                v-if="apartment.visible"
             >
-                <ApartmentCard :apartment="apartment"/>
+                <ApartmentCard :apartment="apartment" />
                 <p>{{ apartment.distance }}</p>
             </div>
         </div>
-
     </div>
 </template>
 
@@ -159,9 +186,9 @@ export default {
 
     methods: {
         getFilter() {
-            const filterSection = document.getElementById('filterSection');
-            const angleDown = document.getElementById('angleDown');
-            filterSection.classList.toggle('d-none');
+            const filterSection = document.getElementById("filterSection");
+            const angleDown = document.getElementById("angleDown");
+            filterSection.classList.toggle("d-none");
         },
         getApartments() {
             this.dropdownSearchFlag = false;
@@ -202,43 +229,43 @@ export default {
 </script>
 
 <style scoped lang="scss">
-    .searchSection {
-        #address {
-            width: 100%;
-            border: transparent;
-            background-color: transparent;
-            border-bottom: 2px solid lightgray;
-            padding-left: 2%;
-            &:focus-visible {
-                border-bottom: 3px solid var(--primary-color);
-                outline: transparent;
-            }
-        }
-        #filterButton {
-            width: 100px;
-        }
-        button {
-            color: white;
-            background-color: var(--secondary-color);
-            transition: .2s;
-            &:hover {
-                background-color: rgba(255, 90, 95, 0.7);
-                // background-color: rgba(7, 44, 97, 0.7);
-            }
+.searchSection {
+    #address {
+        width: 100%;
+        border: transparent;
+        background-color: transparent;
+        border-bottom: 2px solid lightgray;
+        padding-left: 2%;
+        &:focus-visible {
+            border-bottom: 3px solid var(--primary-color);
+            outline: transparent;
         }
     }
-    #filterSection {
-        color: var(--primary-color);
-        border: 2px solid var(--primary-color);
+    #filterButton {
+        width: 100px;
+    }
+    button {
+        color: white;
+        background-color: var(--secondary-color);
+        transition: 0.2s;
+        &:hover {
+            background-color: rgba(255, 90, 95, 0.7);
+            // background-color: rgba(7, 44, 97, 0.7);
+        }
+    }
+}
+#filterSection {
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+    border-radius: 5px;
+
+    select {
+        border: 0.5px solid var(--primary-color);
         border-radius: 5px;
 
-        select {
-            border: .5px solid var(--primary-color);
-            border-radius: 5px;
-
-            .select-style {
-                background-color: red;
-            }
+        .select-style {
+            background-color: red;
         }
     }
+}
 </style>
