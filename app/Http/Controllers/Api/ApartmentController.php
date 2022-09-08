@@ -39,15 +39,15 @@ class ApartmentController extends Controller
             } else $apartment->image = url('https://help.iubenda.com/wp-content/plugins/accelerated-mobile-pages/images/SD-default-image.png');
 
             $R = 6371; // km 
-            $dLat = ($apartment->latitude - $og_lat) * pi() / 180; 
-            $dLon = ($apartment->longitude - $og_lon) * pi() / 180; 
-            $lat1 = ($og_lat) * pi() / 180; 
-            $lat2 = ($apartment->latitude) * pi() / 180; 
-            $a = sin($dLat/2) * sin($dLat/2) +sin($dLon/2) * sin($dLon/2) * cos($lat1) * cos($lat2); 
-            $c = 2 * atan2(sqrt($a), sqrt(1-$a)); 
+            $dLat = ($apartment->latitude - $og_lat) * pi() / 180;
+            $dLon = ($apartment->longitude - $og_lon) * pi() / 180;
+            $lat1 = ($og_lat) * pi() / 180;
+            $lat2 = ($apartment->latitude) * pi() / 180;
+            $a = sin($dLat / 2) * sin($dLat / 2) + sin($dLon / 2) * sin($dLon / 2) * cos($lat1) * cos($lat2);
+            $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
             $d = $R * $c;
 
-            if ($og_lat && $og_lon && $d > $distance){
+            if ($og_lat && $og_lon && $d > $distance) {
                 unset($ap_with_op[$index]);
             }
         };
@@ -66,7 +66,7 @@ class ApartmentController extends Controller
         //     $d = $R * $c;
         //     return $d; 
         // };
-    
+
         // Converts numbersc degrees to radians 
         // function toRad($Value) { 
         //     return $Value * pi() / 180; 
@@ -79,10 +79,10 @@ class ApartmentController extends Controller
                 'optionals' => $optionals,
             ]
         ]);
-        
     }
 
-    public function show($slug) {
+    public function show($slug)
+    {
         $apartment = Apartment::where('slug', '=', $slug)->with(['optionals'])->first();
         $user = $apartment->user;
         $logged_user = Auth::check();
@@ -91,7 +91,7 @@ class ApartmentController extends Controller
                 'success' => true,
                 'results' => [
                     'apartment' => $apartment,
-                    'user'=> $user, 
+                    'user' => $user,
                     'logged_user' => $logged_user
                 ]
             ]);
@@ -101,5 +101,4 @@ class ApartmentController extends Controller
             'results' => 'No apartment found',
         ]);
     }
-
 }

@@ -1,5 +1,5 @@
 <template>
-    <div id="root">
+    <div>
         <div class="container text-center mt-4">
             <router-view></router-view>
         </div>
@@ -8,9 +8,8 @@
 
 <script>
 export default {
-    name: 'AppLogged',
-}
+    name: "AppLogged",
+};
 </script>
 
-<style>
-</style>
+<style></style>
