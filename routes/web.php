@@ -32,6 +32,11 @@ Route::middleware('auth')
 
 // Route::resource('messages', 'MessageController');
 
+Route::get('admin/{any?}', function () {
+    return view('admin.home');
+})->where('any', '.*');
+
+
 Route::get('{any?}', function () {
     return view('guest.home');
 })->where('any', '.*');

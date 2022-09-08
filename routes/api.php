@@ -20,6 +20,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/apartments', 'Api\ApartmentController@index')->name('api.apartments.index');
 
-Route::get('/apartments/{slug}', 'Api\ApartmentController@show')->name('api.apartments.show');
+// Route::get('/apartments/{slug}', 'Api\ApartmentController@show')->name('api.apartment.show');
 
 Route::post('/messages', 'Api\MessageController@store');
+
+Route::middleware('api')
+->prefix('admin')
+->group(function () {
+        Route::post('/messages', 'Api\MessageController@store');
+        Route::get('/apartments/{slug}', 'Api\ApartmentController@show')->name('admin.apartment.show');
+    });

@@ -27,12 +27,17 @@ const router = new VueRouter({
     },
     {
       path: "/admin/:slug",
-      name: "single-apartment",
+      name: "admin-single-apartment",
       component: SingleApartment,
     },
     {
       path: "/*",
       name: "not-found",
+      component: NotFound
+    },
+    {
+      path: "/admin/*",
+      name: "admin-not-found",
       component: NotFound
     },
   ]
