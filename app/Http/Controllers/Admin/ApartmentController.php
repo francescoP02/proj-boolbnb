@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Apartment;
 use App\User;
+use App\Plan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
@@ -12,6 +13,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Optional;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Database\Eloquent\Relations;
 
 class ApartmentController extends Controller
 {
@@ -36,7 +38,8 @@ class ApartmentController extends Controller
     public function create()
     {
         $optionals = Optional::all();
-        return view('admin.apartments.create', compact('optionals'));
+        $plans = Plan::all();
+        return view('admin.apartments.create', compact('optionals', 'plans'));
     }
 
     /**
@@ -86,7 +89,11 @@ class ApartmentController extends Controller
             $apartment->optionals()->sync($data['optionals']);
         }
 
-        return redirect()->route('admin.apartments.show', ['apartment' => $apartment->id]);
+        if (isset($data['plan'])) {
+            $apartment->plans()->sync($data[('plan')]);
+        }
+
+        return redirect()->route('admin.apartments.index', ['apartment' => $apartment->id]);
     }
 
 

@@ -25,6 +25,10 @@ class Apartment extends Model
         return $this->belongsTo('App\User');
     }
 
+    public function plans() {
+        return $this->belongsToMany('App\Plan');
+    }
+
     protected $fillable = [
         'title',
         'slug',

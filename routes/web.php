@@ -26,11 +26,12 @@ Route::middleware('auth')
     ->group(function () {
         Route::get('/', 'HomeController@index')->name('home');
         Route::resource('apartments', 'ApartmentController');
-        Route::get('/apartments/{apartment}/messages', 'MessageController@index')->name('messages');
+        // Route::get('/apartments/{apartment}', 'ApartmentController@index')->name('messages.index');
+        Route::get('/apartments/{apartment}/messages', 'MessageController@index')->name('messages.index');
     });
-    
+
 // Route::resource('messages', 'MessageController');
 
-Route::get('{any?}', function() {
+Route::get('{any?}', function () {
     return view('guest.home');
 })->where('any', '.*');
