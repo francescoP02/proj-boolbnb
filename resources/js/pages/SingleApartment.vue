@@ -15,7 +15,9 @@
                     <p>Number of beds: <span class="fw-bold">{{ apartment.beds_number }} </span><i class="fas fa-bed"></i></p>
                     <p>Number of bathroom: <span class="fw-bold">{{ apartment.bathroom_number }} </span><i class="fas fa-bath"></i></p>      
                     <p>Square metres: <span class="fw-bold">{{ apartment.square_metres }} m²</span></p>
-                    <p v-if="user && user.name && user.surname">inserito da: <span class="fw-bold">{{user.name}} {{user.surname}}</span></p>
+                    <p v-if="user && user.name && user.surname">inserito da: 
+                        <span class="fw-bold">{{user.name}} {{user.surname}}</span>
+                    </p>
                 <div class="ms-sm-3 ms-md-0">
                     <a id="_contact_us_button" class="btn" href="#_contact_us_section" @click="showMeContactSection()">Contact us</a>
                 </div>
@@ -199,69 +201,4 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
-#_img_info_section {
-    display: flex;
-}
-
-#_info_box {
-    padding: 2rem;
-    width: 25%;
-    height: fit-content;
-    border: 2px solid var(--secondary-color);
-    border-radius: 4%;
-    box-shadow: 1px 1px 15px rgba(128, 128, 128, .6);
-    background-color: rgb(240, 240, 240);
-    color: var(--primary-color); 
-
-    #_contact_us_button {
-        background-color: var(--secondary-color);
-        border: 2px solid var(--secondary-color);
-        transition: .4s;
-        color: white;
-
-            &:hover {
-            border-color: var(--primary-color);
-        }
-    }
-}
-.img-wrap-single-apt {
-    width: 75%;
-    
-    img {
-        width: 100%;
-    }
-}
-.img-container {
-    position: relative;
-    width: 100%;
-    img {
-        width: 100%;
-    }
-
-    .span-img {
-        color: red;
-        text-shadow: 1px 1px 10px rgba(0, 0, 0, .3);
-        position:absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%,-50%);
-    }
-}
-
-@media screen and (max-width: 991px) {
-    #_img_info_section {
-        display: block;
-
-        .img-wrap-single-apt {
-            width: 100%;
-        }
-
-        #_info_box {
-            width: 100%;
-            margin-top: 1rem;
-            border-radius: 2rem;
-        }
-    }
-}
 </style>

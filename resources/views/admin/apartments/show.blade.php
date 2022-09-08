@@ -3,6 +3,34 @@
 @section('content')
 
     <div>
+        {{-- <h1>
+            <span class="fw-bold">{{$apartment->title}}</span>
+            @if ($apartment->visible === 1)
+            <span class="text-success fw-bold fs-6">Visible</span>            
+            @elseif ($apartment->visible === 0)
+            <span class="text-danger fw-bold fs-6">Not Visible</span>            
+            @endif
+        </h1> --}}
+
+        {{-- <p>{{$apartment->address}}</p> --}}
+
+
+        {{-- @if ($apartment->image)
+            <img src="{{ asset('storage/' . $apartment->image) }}" style="width: 70%" alt="">
+        @endif --}}
+
+
+        {{-- <p>{{$apartment->slug}}</p> --}}
+
+        {{-- <p>Number of rooms: {{$apartment->rooms_number}}</p> --}}
+        {{-- <p>Number of beds: {{$apartment->beds_number}}</p> --}}
+        {{-- <p>Number of bathrooms: {{$apartment->bathroom_number}}</p>
+        <p>Square metres: {{$apartment->square_metres}} square metres</p> --}}
+        
+        
+
+        {{-- test --}}
+
         <h1>
             <span class="fw-bold">{{$apartment->title}}</span>
             @if ($apartment->visible === 1)
@@ -11,36 +39,63 @@
             <span class="text-danger fw-bold fs-6">Not Visible</span>            
             @endif
         </h1>
+
         <p>{{$apartment->address}}</p>
 
 
-        @if ($apartment->image)
-            <img src="{{ asset('storage/' . $apartment->image) }}" style="width: 70%" alt="">
-        @endif
+        <div id="_img_info_section" class="">
+            <div class="img-wrap-single-apt">
+                @if ($apartment->image)
+                <img src="{{ asset('storage/' . $apartment->image) }}" alt="">
+                @endif
+            </div>
+            
+            <div id="_info_box" class="ms-lg-3">
+                    <p>Number of rooms: <span class="fw-bold">{{$apartment->rooms_number}} </span><i class="fas fa-door-open"></i></p>
+                    <p>Number of beds: <span class="fw-bold">{{$apartment->beds_number}} </span><i class="fas fa-bed"></i></p>
+                    <p>Number of bathroom: <span class="fw-bold">{{ $apartment->bathroom_number }} </span><i class="fas fa-bath"></i></p>      
+                    <p>Square metres: <span class="fw-bold">{{ $apartment->square_metres }} m²</span></p>
+                    {{-- @if ($user && $user->name && $user->surname)
+                    <p>
+                        <span>inserito da: </span>
+                        <span class="fw-bold">{{$user->name}} {{$user->surname}}</span>
+                    </p>
+                    @endif --}}
+            </div>
+        </div>
 
-
-        <p>{{$apartment->slug}}</p>
-
-        <p>Number of rooms: {{$apartment->rooms_number}}</p>
-        <p>Number of beds: {{$apartment->beds_number}}</p>
-        <p>Number of bathrooms: {{$apartment->bathroom_number}}</p>
-        <p>Square metres: {{$apartment->square_metres}} square metres</p>
-        <p><strong>Optionals:</strong>
-
+        <div class="my-4"> 
+            <h4>You will find</h4>
             @forelse ($apartment->optionals as $optional)
-                {{$optional->name}} {{$loop->last ? '' : ', '}}
+            <span class="fs-4">
+                @if ($optional->id == 1)
+                <i class="fas fa-wifi"></i>
+                @endif
+                @if ($optional->id == 2)
+                <i class="fas fa-swimmer"></i>
+                @endif
+                @if ($optional->id == 3)
+                <i class="fas fa-spa"></i>
+                @endif
+                @if ($optional->id == 4)
+                <i class="fas fa-water"></i>
+                @endif
+                @if ($optional->id == 5)
+                <i class="fas fa-dog"></i>
+                @endif
+                {{$optional->name}} {{$loop->last ? '' : ' | '}}
+            </span>
             @empty
                 nessun optional
             @endforelse
 
-        </p>
+        </div>
 
-
-        <a class="btn btn-primary text-white" href="{{ route('admin.apartments.edit', ['apartment' => $apartment->id]) }}">Modify</a>
-
-        <button class="btn btn-danger text-white" type="button" onclick="sureOfDelete()">Delete</i></button>
-
-        <a class="btn btn-primary text-white" href="{{ route('admin.messages', ['apartment' => $apartment->id]) }}">Messages</a>
+        <div>
+            <a class="btn btn-primary text-white" href="{{ route('admin.apartments.edit', ['apartment' => $apartment->id]) }}">Modify</a>
+            <button class="btn btn-danger text-white" type="button" onclick="sureOfDelete()">Delete</i></button>
+            <a class="btn btn-primary text-white" href="{{ route('admin.messages', ['apartment' => $apartment->id]) }}">Messages</a>
+        </div>
         
     </div>
 
