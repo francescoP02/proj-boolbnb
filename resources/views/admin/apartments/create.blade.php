@@ -90,6 +90,16 @@
             </div>
         @endforeach
         </div>
+        <div>
+            <label for="plan">Promotional Plan:</label>
+            <select name="plan[]" id="plan">
+                <option value="0">None</option>
+                @foreach ($plans as $plan)
+                    <option value="{{$plan->id}}">{{$plan->name}}</option>
+                @endforeach
+            </select>
+
+        </div>
         <div class="form-check form-switch">
             <input class="form-check-input" type="checkbox" role="switch" checked  name="visible" id="visible1" value="1">
             <label class="form-check-label" for="flexSwitchCheckChecked">Visible</label>
