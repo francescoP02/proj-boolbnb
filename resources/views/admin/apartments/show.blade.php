@@ -3,8 +3,16 @@
 @section('content')
 
     <div>
-        <h1>{{$apartment->title}}</h1>
+        <h1>
+            <span class="fw-bold">{{$apartment->title}}</span>
+            @if ($apartment->visible === 1)
+            <span class="text-success fw-bold fs-6">Visible</span>            
+            @elseif ($apartment->visible === 0)
+            <span class="text-danger fw-bold fs-6">Not Visible</span>            
+            @endif
+        </h1>
         <p>{{$apartment->address}}</p>
+
 
         @if ($apartment->image)
             <img src="{{ asset('storage/' . $apartment->image) }}" style="width: 70%" alt="">
@@ -26,6 +34,7 @@
             @endforelse
 
         </p>
+
 
         <a class="btn btn-primary text-white" href="{{ route('admin.apartments.edit', ['apartment' => $apartment->id]) }}">Modify</a>
 

@@ -5487,7 +5487,7 @@ var render = function render() {
   }, [_c("div", {
     staticClass: "card-body"
   }, [_vm.apartment.image ? _c("div", {
-    staticClass: "img-wrap"
+    staticClass: "_img_wrap"
   }, [_c("img", {
     attrs: {
       src: _vm.apartment.image,
@@ -5615,12 +5615,14 @@ var render = function render() {
       }
     }, [_vm._v("\n                        " + _vm._s(addOp.address.freeformAddress) + "\n                    ")]);
   }), 0) : _vm._e()]) : _vm._e()])]), _vm._v(" "), _c("div", {
-    staticClass: "d-flex mb-4 pb-2 ps-3 d-none",
+    staticClass: "mb-4 pb-2 px-3 d-none",
     attrs: {
       id: "filterSection"
     }
   }, [_c("div", {
-    staticClass: "d-flex flex-column mx-5"
+    staticClass: "d-sm-flex"
+  }, [_c("div", {
+    staticClass: "d-flex flex-column mx-sm-5"
   }, [_c("div", {
     staticClass: "mt-2"
   }, [_vm._m(1), _vm._v(" "), _c("select", {
@@ -5692,7 +5694,7 @@ var render = function render() {
       }
     }, [_vm._v(_vm._s(i))]);
   }), 0)])]), _vm._v(" "), _c("div", {
-    staticClass: "mx-5"
+    staticClass: "mx-sm-5 mt-sm-0 mt-3"
   }, [_c("div", {
     staticClass: "fw-bold my-2"
   }, [_vm._v("Optionals")]), _vm._v(" "), _vm._l(_vm.optionals, function (optional) {
@@ -5742,15 +5744,15 @@ var render = function render() {
       attrs: {
         "for": "check" + optional.name
       }
-    }, [_vm._v("\n                    " + _vm._s(optional.name) + "\n                ")])]);
+    }, [_vm._v("\n                        " + _vm._s(optional.name) + "\n                    ")])]);
   })], 2), _vm._v(" "), _vm.rangeSelectorFlag ? _c("div", {
-    staticClass: "rangeSelector align-self-center mx-5"
-  }, [_c("label", {
+    staticClass: "rangeSelector align-self-center mx-sm-5 mt-sm-0 mt-3"
+  }, [_vm._m(3), _vm._v(" "), _c("label", {
     staticClass: "form-label",
     attrs: {
       "for": "distance"
     }
-  }, [_vm._v("Range distance: " + _vm._s(_vm.distance) + " km")]), _vm._v(" "), _c("input", {
+  }, [_vm._v(_vm._s(_vm.distance) + " km")]), _vm._v(" "), _c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -5776,8 +5778,8 @@ var render = function render() {
         _vm.distance = $event.target.value;
       }
     }
-  })]) : _vm._e()]), _vm._v(" "), _c("div", {
-    staticClass: "row row-cols-4"
+  })]) : _vm._e()])]), _vm._v(" "), _c("div", {
+    staticClass: "row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 row-cols-xxl-5"
   }, _vm._l(_vm.apartments, function (apartment) {
     return apartment.visible == true ? _c("div", {
       key: apartment.id,
@@ -5823,6 +5825,16 @@ var staticRenderFns = [function () {
       "for": "bedsNumberSelector"
     }
   }, [_vm._v("Number of beds")])]);
+}, function () {
+  var _vm = this,
+      _c = _vm._self._c;
+
+  return _c("div", [_c("label", {
+    staticClass: "form-label fw-bold",
+    attrs: {
+      "for": "distance"
+    }
+  }, [_vm._v("Range distance:")])]);
 }];
 render._withStripped = true;
 
@@ -5868,6 +5880,18 @@ var staticRenderFns = [function () {
       src: "images/logoboolbnb.png",
       alt: ""
     }
+  })]), _vm._v(" "), _c("button", {
+    staticClass: "navbar-toggler",
+    attrs: {
+      type: "button",
+      "data-bs-toggle": "collapse",
+      "data-bs-target": "#navbarNav",
+      "aria-controls": "navbarNav",
+      "aria-expanded": "false",
+      "aria-label": "Toggle navigation"
+    }
+  }, [_c("span", {
+    staticClass: "navbar-toggler-icon"
   })]), _vm._v(" "), _c("div", {
     staticClass: "collapse navbar-collapse right",
     attrs: {
@@ -5876,20 +5900,6 @@ var staticRenderFns = [function () {
   }, [_c("ul", {
     staticClass: "navbar-nav"
   }, [_c("li", {
-    staticClass: "nav-item"
-  }, [_c("div", {
-    staticClass: "px-1",
-    attrs: {
-      id: "_user_btn"
-    }
-  }, [_c("a", {
-    staticClass: "nav-link",
-    attrs: {
-      href: "/login"
-    }
-  }, [_c("i", {
-    staticClass: "far fa-user"
-  })])])]), _vm._v(" "), _c("li", {
     staticClass: "nav-item"
   }, [_c("a", {
     staticClass: "nav-link",
@@ -5982,7 +5992,9 @@ var render = function render() {
   return _c("div", {
     staticClass: "text-start pb-3"
   }, [_c("h1", [_vm._v(_vm._s(_vm.apartment.title))]), _vm._v(" "), _c("p", {}, [_vm._v(_vm._s(_vm.apartment.address))]), _vm._v(" "), _c("div", {
-    staticClass: "d-flex"
+    attrs: {
+      id: "_img_info_section"
+    }
   }, [_vm.apartment.image ? _c("div", {
     staticClass: "img-wrap-single-apt"
   }, [_c("img", {
@@ -5998,9 +6010,9 @@ var render = function render() {
       alt: ""
     }
   })]), _vm._v(" "), _c("div", {
-    staticClass: "ms-3",
+    staticClass: "ms-lg-3",
     attrs: {
-      id: "info-box"
+      id: "_info_box"
     }
   }, [_c("p", [_vm._v("Number of rooms: "), _c("span", {
     staticClass: "fw-bold"
@@ -6018,7 +6030,9 @@ var render = function render() {
     staticClass: "fw-bold"
   }, [_vm._v(_vm._s(_vm.apartment.square_metres) + " m²")])]), _vm._v(" "), _vm.user && _vm.user.name && _vm.user.surname ? _c("p", [_vm._v("inserito da: "), _c("span", {
     staticClass: "fw-bold"
-  }, [_vm._v(_vm._s(_vm.user.name) + " " + _vm._s(_vm.user.surname))])]) : _vm._e(), _vm._v(" "), _c("a", {
+  }, [_vm._v(_vm._s(_vm.user.name) + " " + _vm._s(_vm.user.surname))])]) : _vm._e(), _vm._v(" "), _c("div", {
+    staticClass: "ms-sm-3 ms-md-0"
+  }, [_c("a", {
     staticClass: "btn",
     attrs: {
       id: "_contact_us_button",
@@ -6029,7 +6043,7 @@ var render = function render() {
         return _vm.showMeContactSection();
       }
     }
-  }, [_vm._v("Contact us")])])]), _vm._v(" "), _c("div", {
+  }, [_vm._v("Contact us")])])])]), _vm._v(" "), _c("div", {
     staticClass: "my-4"
   }, [_c("h4", [_vm._v("You will find")]), _vm._v(" "), _vm._l(_vm.apartment.optionals, function (optional, index) {
     return _c("span", {
@@ -11531,7 +11545,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "img[data-v-13e9f807] {\n  width: 100%;\n  height: 200px;\n}\n.card[data-v-13e9f807] {\n  border: transparent;\n  background-color: transparent;\n  color: #072c61;\n}\n.card ._text h5[data-v-13e9f807] {\n  font-weight: bold;\n}\n.card .img-wrap[data-v-13e9f807] {\n  width: 100%;\n  height: -webkit-fit-content;\n  height: -moz-fit-content;\n  height: fit-content;\n}\n.card .img-wrap img[data-v-13e9f807] {\n  border-radius: 5%;\n  height: 12vw;\n}\n.card .img-wrap span[data-v-13e9f807] {\n  color: white;\n  margin-right: 15px;\n  font-size: 2rem;\n  text-shadow: 1px 1px 5px black;\n  cursor: pointer;\n}", ""]);
+exports.push([module.i, "img[data-v-13e9f807] {\n  width: 100%;\n}\n.card[data-v-13e9f807] {\n  border: transparent;\n  background-color: transparent;\n  color: #072c61;\n}\n.card ._text h5[data-v-13e9f807] {\n  font-weight: bold;\n}\n.card ._img_wrap[data-v-13e9f807] {\n  width: 100%;\n  height: -webkit-fit-content;\n  height: -moz-fit-content;\n  height: fit-content;\n}\n.card ._img_wrap img[data-v-13e9f807] {\n  border-radius: 5%;\n}\n.card ._img_wrap span[data-v-13e9f807] {\n  color: white;\n  margin-right: 15px;\n  font-size: 2rem;\n  text-shadow: 1px 1px 5px black;\n  cursor: pointer;\n}", ""]);
 
 // exports
 
@@ -11588,7 +11602,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "#info-box[data-v-4fd40851] {\n  padding: 2rem;\n  width: 25%;\n  height: -webkit-fit-content;\n  height: -moz-fit-content;\n  height: fit-content;\n  border: 2px solid var(--secondary-color);\n  border-radius: 4%;\n  box-shadow: 1px 1px 15px rgba(128, 128, 128, 0.6);\n  background-color: rgb(240, 240, 240);\n  color: var(--primary-color);\n}\n#info-box #_contact_us_button[data-v-4fd40851] {\n  background-color: var(--secondary-color);\n  border: 2px solid var(--secondary-color);\n  transition: 0.4s;\n  color: white;\n}\n#info-box #_contact_us_button[data-v-4fd40851]:hover {\n  border-color: var(--primary-color);\n}\n.img-wrap-single-apt[data-v-4fd40851] {\n  width: 75%;\n}\n.img-wrap-single-apt img[data-v-4fd40851] {\n  width: 100%;\n}\n.img-container[data-v-4fd40851] {\n  position: relative;\n  width: 100%;\n}\n.img-container img[data-v-4fd40851] {\n  width: 100%;\n}\n.img-container .span-img[data-v-4fd40851] {\n  color: red;\n  text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.3);\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n}", ""]);
+exports.push([module.i, "#_img_info_section[data-v-4fd40851] {\n  display: flex;\n}\n#_info_box[data-v-4fd40851] {\n  padding: 2rem;\n  width: 25%;\n  height: -webkit-fit-content;\n  height: -moz-fit-content;\n  height: fit-content;\n  border: 2px solid var(--secondary-color);\n  border-radius: 4%;\n  box-shadow: 1px 1px 15px rgba(128, 128, 128, 0.6);\n  background-color: rgb(240, 240, 240);\n  color: var(--primary-color);\n}\n#_info_box #_contact_us_button[data-v-4fd40851] {\n  background-color: var(--secondary-color);\n  border: 2px solid var(--secondary-color);\n  transition: 0.4s;\n  color: white;\n}\n#_info_box #_contact_us_button[data-v-4fd40851]:hover {\n  border-color: var(--primary-color);\n}\n.img-wrap-single-apt[data-v-4fd40851] {\n  width: 75%;\n}\n.img-wrap-single-apt img[data-v-4fd40851] {\n  width: 100%;\n}\n.img-container[data-v-4fd40851] {\n  position: relative;\n  width: 100%;\n}\n.img-container img[data-v-4fd40851] {\n  width: 100%;\n}\n.img-container .span-img[data-v-4fd40851] {\n  color: red;\n  text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.3);\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n}\n@media screen and (max-width: 991px) {\n#_img_info_section[data-v-4fd40851] {\n    display: block;\n}\n#_img_info_section .img-wrap-single-apt[data-v-4fd40851] {\n    width: 100%;\n}\n#_img_info_section #_info_box[data-v-4fd40851] {\n    width: 100%;\n    margin-top: 1rem;\n    border-radius: 2rem;\n}\n}", ""]);
 
 // exports
 
@@ -59429,7 +59443,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Boolean\laravel-project\proj-boolbnb\resources\js\front.js */"./resources/js/front.js");
+module.exports = __webpack_require__(/*! C:\boolean-laravel\proj-boolbnb\resources\js\front.js */"./resources/js/front.js");
 
 
 /***/ })

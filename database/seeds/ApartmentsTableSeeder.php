@@ -39,7 +39,7 @@ class ApartmentsTableSeeder extends Seeder
 
             // $apartment->latitude = $faker->randomFloat(6, -90, 90);
             // $apartment->longitude = $faker->randomFloat(6, -180, 180);
-            $apartment->image ="/apartment_images/23GJ3FltaKMEmPiflBE9CyhdG11TjRBYU1yF6PEe.jpg";
+            $apartment->image ="/apartment_images/YOtDMv1XZqIoeTXrVTP86Sohi7ktQpSPVq0TaGYz.jpg";
             $apartment->visible = $faker->numberBetween(0, 1);
             $apartment->save();
             $pippo = [];
