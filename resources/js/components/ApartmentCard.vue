@@ -4,7 +4,7 @@
             <router-link :to="{ name: 'single-apartment', params: { slug: apartment.slug } }" class="card-link text-decoration-none">
                 <div class="card-body">
                     <!-- image -->
-                    <div class="img-wrap" v-if="apartment.image">
+                    <div class="_img_wrap" v-if="apartment.image">
                         <img :src="apartment.image" alt="" />
                     </div>
     
@@ -34,7 +34,6 @@ export default {
 <style scoped lang="scss">
 img {
     width: 100%;
-    height: 200px;
 }
 
 .card {
@@ -49,14 +48,14 @@ img {
         }
     }
 
-    .img-wrap {
+    ._img_wrap {
         width: 100%;
         // overflow: hidden;
         height: fit-content;
 
         img {
             border-radius: 5%;
-            height: 12vw;
+            // height: 12vw;
         }
 
 
@@ -69,4 +68,13 @@ img {
         }
     }
 }
+
+    // Responsive
+// @media screen and (max-width: 768px) {
+//     ._img_wrap {
+//         img {
+//             height: 25vw;
+//         }
+//     }
+// }
 </style>

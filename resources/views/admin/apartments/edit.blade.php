@@ -29,7 +29,7 @@
 
             @if ($apartment->image)
                 <h5>Immagine attuale</h5>
-                <img src="{{ asset('storage/' . $apartment->image) }}" alt="">
+                <img src="{{ asset('storage/' . $apartment->image) }}"  style="width: 70%" alt="">
             @endif
         </div>
 

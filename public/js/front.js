@@ -5472,7 +5472,7 @@ var render = function render() {
   }, [_c("div", {
     staticClass: "card-body"
   }, [_vm.apartment.image ? _c("div", {
-    staticClass: "img-wrap"
+    staticClass: "_img_wrap"
   }, [_c("img", {
     attrs: {
       src: _vm.apartment.image,
@@ -5853,6 +5853,18 @@ var staticRenderFns = [function () {
       src: "images/logoboolbnb.png",
       alt: ""
     }
+  })]), _vm._v(" "), _c("button", {
+    staticClass: "navbar-toggler",
+    attrs: {
+      type: "button",
+      "data-bs-toggle": "collapse",
+      "data-bs-target": "#navbarNav",
+      "aria-controls": "navbarNav",
+      "aria-expanded": "false",
+      "aria-label": "Toggle navigation"
+    }
+  }, [_c("span", {
+    staticClass: "navbar-toggler-icon"
   })]), _vm._v(" "), _c("div", {
     staticClass: "collapse navbar-collapse right",
     attrs: {
@@ -5861,20 +5873,6 @@ var staticRenderFns = [function () {
   }, [_c("ul", {
     staticClass: "navbar-nav"
   }, [_c("li", {
-    staticClass: "nav-item"
-  }, [_c("div", {
-    staticClass: "px-1",
-    attrs: {
-      id: "_user_btn"
-    }
-  }, [_c("a", {
-    staticClass: "nav-link",
-    attrs: {
-      href: "/login"
-    }
-  }, [_c("i", {
-    staticClass: "far fa-user"
-  })])])]), _vm._v(" "), _c("li", {
     staticClass: "nav-item"
   }, [_c("a", {
     staticClass: "nav-link",
@@ -11486,7 +11484,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "img[data-v-13e9f807] {\n  width: 100%;\n  height: 200px;\n}\n.card[data-v-13e9f807] {\n  border: transparent;\n  background-color: transparent;\n  color: #072c61;\n}\n.card ._text h5[data-v-13e9f807] {\n  font-weight: bold;\n}\n.card .img-wrap[data-v-13e9f807] {\n  width: 100%;\n  height: -webkit-fit-content;\n  height: -moz-fit-content;\n  height: fit-content;\n}\n.card .img-wrap img[data-v-13e9f807] {\n  border-radius: 5%;\n  height: 12vw;\n}\n.card .img-wrap span[data-v-13e9f807] {\n  color: white;\n  margin-right: 15px;\n  font-size: 2rem;\n  text-shadow: 1px 1px 5px black;\n  cursor: pointer;\n}", ""]);
+exports.push([module.i, "img[data-v-13e9f807] {\n  width: 100%;\n}\n.card[data-v-13e9f807] {\n  border: transparent;\n  background-color: transparent;\n  color: #072c61;\n}\n.card ._text h5[data-v-13e9f807] {\n  font-weight: bold;\n}\n.card ._img_wrap[data-v-13e9f807] {\n  width: 100%;\n  height: -webkit-fit-content;\n  height: -moz-fit-content;\n  height: fit-content;\n}\n.card ._img_wrap img[data-v-13e9f807] {\n  border-radius: 5%;\n}\n.card ._img_wrap span[data-v-13e9f807] {\n  color: white;\n  margin-right: 15px;\n  font-size: 2rem;\n  text-shadow: 1px 1px 5px black;\n  cursor: pointer;\n}", ""]);
 
 // exports
 
@@ -59314,7 +59312,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Boolean\laravel-project\proj-boolbnb\resources\js\front.js */"./resources/js/front.js");
+module.exports = __webpack_require__(/*! C:\Users\mastr\boolean-htdocs\proj-boolbnb\resources\js\front.js */"./resources/js/front.js");
 
 
 /***/ })
