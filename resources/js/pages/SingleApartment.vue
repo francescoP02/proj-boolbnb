@@ -3,20 +3,24 @@
         <h1>{{apartment.title}}</h1>
         <p class="">{{ apartment.address }}</p>
 
-        <div class="d-flex">
+        <div id="_img_info_section" class="">
             <div class="img-wrap-single-apt" v-if="apartment.image">
                 <img :src=" `storage/` + apartment.image " alt="" />
             </div>
             <div class="img-wrap-single-apt" v-else="apartment.image">
                 <img :src="`https://help.iubenda.com/wp-content/plugins/accelerated-mobile-pages/images/SD-default-image.png`" alt="" />
             </div>
-            <div id="info-box" class="ms-3">
-                <p>Number of rooms: <span class="fw-bold">{{ apartment.rooms_number }} </span><i class="fas fa-door-open"></i></p>
-                <p>Number of beds: <span class="fw-bold">{{ apartment.beds_number }} </span><i class="fas fa-bed"></i></p>
-                <p>Number of bathroom: <span class="fw-bold">{{ apartment.bathroom_number }} </span><i class="fas fa-bath"></i></p>
-                <p>Square metres: <span class="fw-bold">{{ apartment.square_metres }} m²</span></p>
-                <p v-if="user && user.name && user.surname">inserito da: <span class="fw-bold">{{user.name}} {{user.surname}}</span></p>
-                <a id="_contact_us_button" class="btn" href="#_contact_us_section" @click="showMeContactSection()">Contact us</a>
+            <div id="_info_box" class="ms-lg-3">
+                    <p>Number of rooms: <span class="fw-bold">{{ apartment.rooms_number }} </span><i class="fas fa-door-open"></i></p>
+                    <p>Number of beds: <span class="fw-bold">{{ apartment.beds_number }} </span><i class="fas fa-bed"></i></p>
+                    <p>Number of bathroom: <span class="fw-bold">{{ apartment.bathroom_number }} </span><i class="fas fa-bath"></i></p>      
+                    <p>Square metres: <span class="fw-bold">{{ apartment.square_metres }} m²</span></p>
+                    <p v-if="user && user.name && user.surname">inserito da: 
+                        <span class="fw-bold">{{user.name}} {{user.surname}}</span>
+                    </p>
+                <div class="ms-sm-3 ms-md-0">
+                    <a id="_contact_us_button" class="btn" href="#_contact_us_section" @click="showMeContactSection()">Contact us</a>
+                </div>
             </div>
         </div>
 
@@ -197,49 +201,4 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
-    #info-box {
-        padding: 2rem;
-        width: 25%;
-        height: fit-content;
-        border: 2px solid var(--secondary-color);
-        border-radius: 4%;
-        box-shadow: 1px 1px 15px rgba(128, 128, 128, .6);
-        background-color: rgb(240, 240, 240);
-        color: var(--primary-color); 
-
-        #_contact_us_button {
-            background-color: var(--secondary-color);
-            border: 2px solid var(--secondary-color);
-            transition: .4s;
-            color: white;
-
-                &:hover {
-                border-color: var(--primary-color);
-            }
-        }
-    }
-    .img-wrap-single-apt {
-        width: 75%;
-        
-        img {
-            width: 100%;
-        }
-    }
-    .img-container {
-        position: relative;
-        width: 100%;
-        img {
-            width: 100%;
-        }
-
-        .span-img {
-            color: red;
-            text-shadow: 1px 1px 10px rgba(0, 0, 0, .3);
-            position:absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%,-50%);
-        }
-    }
 </style>
