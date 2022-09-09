@@ -1,6 +1,6 @@
 <template>
     <div>
-        <ApartmentsContainer />
+        <ApartmentsContainer :logged="isLogged"/>
         <!-- <div>
             <button>Filtra</button>
             <div>
@@ -31,7 +31,8 @@ export default {
     name: 'Home',
     components: {
         ApartmentsContainer,
-    }
+    },
+    props: { isLogged: Boolean },
 }
 </script>
 

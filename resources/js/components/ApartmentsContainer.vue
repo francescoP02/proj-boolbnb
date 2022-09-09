@@ -117,10 +117,17 @@
             <div
                 v-for="apartment in apartments"
                 :key="apartment.id"
-                class="col"  v-if="apartment.visible == true"
+                class="col"  v-if="apartment.visible"
             >
-                <ApartmentCard :apartment="apartment"/>
-                <p>{{ apartment.distance }}</p>
+
+                <router-link v-if="logged" :to="{ name: 'admin-single-apartment', params: { slug: apartment.slug } }" class="card-link text-decoration-none">
+                    <ApartmentCard :apartment="apartment"/>
+                </router-link>
+
+                <router-link v-else :to="{ name: 'single-apartment', params: { slug: apartment.slug } }" class="card-link text-decoration-none">
+                    <ApartmentCard :apartment="apartment"/>
+                </router-link>
+
             </div>
         </div>
 
@@ -135,6 +142,9 @@ export default {
     name: "ApartmentsContainer",
     components: {
         ApartmentCard,
+    },
+    props: {
+        logged: Boolean,
     },
     data() {
         return {

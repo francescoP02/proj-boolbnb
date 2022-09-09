@@ -4,6 +4,7 @@ import VueRouter from 'vue-router'
 import Home from './pages/Home.vue'
 import NotFound from "./pages/NotFound.vue";
 import SingleApartment from "./pages/SingleApartment.vue";
+import MessageResult from "./pages/MessageResult.vue";
 
 
 Vue.use(VueRouter)
@@ -17,7 +18,8 @@ const router = new VueRouter({
     },
     {
         path: '/admin',
-        name: 'home',
+        name: 'admin-home',
+        props: { default:true},
         component: Home
     },
     {
@@ -29,6 +31,11 @@ const router = new VueRouter({
       path: "/admin/:slug",
       name: "admin-single-apartment",
       component: SingleApartment,
+    },
+    {
+      path: "/result",
+      name: "message-result",
+      component: MessageResult,
     },
     {
       path: "/*",

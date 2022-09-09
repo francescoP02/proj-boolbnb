@@ -21,16 +21,14 @@
 </head>
 <body>
     <div class="container">
-        <nav class="navbar navbar-expand-md navbar-dark bg-light d-flex py-0 px-3 justify-content-between">
+        {{-- <nav class="navbar navbar-expand-md navbar-dark bg-light d-flex py-0 px-3 justify-content-between">
             <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">
                 <img id="_logo" src="{{ asset('images/logoboolbnb.png') }}" alt="">
             </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
             <ul class="navbar-nav px-3 ml-auto">
-                {{-- <li class="nav-item">
-                    <a class="nav-link" href="{{ route('home') }}">
-                        Visita il sito
-                    </a>
-                </li> --}}
                 <li class="nav-item">
                     <a class="nav-link text-black" href="{{ route('logout') }}"
                        onclick="event.preventDefault();
@@ -42,22 +40,62 @@
                     </form>
                 </li>
             </ul>
+        </nav> --}}
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid p-0">
+                <a class="navbar-brand" href="{{route('admin.home')}}">
+                  <img src="images/logoboolbnb.png" alt="" style="width:150px">
+                  <!-- boolbnb -->
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link active _primary_color" href="{{route('admin.home')}}">
+                                <i class="fas fa-home"></i>
+                                Homepage
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="{{ route('admin.apartments.index') }}">
+                                <i class="fas fa-building"></i>
+                                Your Apartments
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="{{ route('admin.apartments.create') }}">
+                                <i class="far fa-building"></i>
+                                Create new Apartment
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-black" href="{{ route('logout') }}"
+                               onclick="event.preventDefault();
+                                document.getElementById('logout-form').submit();">
+                                <i class="fas fa-power-off"></i>
+                                Logout
+                            </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </nav>
+
         <div class="container-fluid">
             <div class="d-flex">
-                <nav class="_side_bar_menu col-md-2 d-md-block bg-light sidebar py-4">
+                {{-- <nav class="_side_bar_menu col-md-2 d-md-block bg-light sidebar py-4">
                     <div class="sidebar-sticky">
                         <ul class="nav flex-column">
                             <li class="nav-item">
                                 <a class="nav-link active _primary_color" href="{{route('admin.home')}}">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
                                     Homepage
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link active" href="/#">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
-                                    View Apartments
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -71,8 +109,8 @@
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
                                     Create new Apartment
                                 </a>
-                            </li>
-                            {{-- <li class="nav-item">
+                            </li> 
+                          <li class="nav-item">
                                 <a class="nav-link" href="#">
                                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
                                   Users
@@ -89,13 +127,13 @@
                                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-activity"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg>
                                   Tags
                                 </a>
-                            </li> --}}
+                            </li>
                         </ul>
     
                     </div>
-                </nav>
+                </nav> --}}
     
-                <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4 py-4">
+                <main role="main">
                     @yield('content')
                 </main>
             </div>

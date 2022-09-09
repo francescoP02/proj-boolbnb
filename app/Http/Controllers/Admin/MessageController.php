@@ -18,7 +18,7 @@ class MessageController extends Controller
         // $response = Gate::inspect('viewAny');
 
         if ($response->allowed()) {
-            $messages = Message::query()->where('apartment_id', $apartment->id)->get();
+            $messages = Message::query()->where('apartment_id', $apartment->id)->orderBy("created_at", "DESC")->get();
             return view('admin.messages.index', compact('messages'));
         } else {
             return view('admin.policy',compact("response"));

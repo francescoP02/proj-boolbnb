@@ -16,7 +16,7 @@ class MessageController extends Controller
         $newMessage = new Message();
         $newMessage->fill($data);
         $newMessage->save();
-        return $request;
+        return redirect()->route('guest.sended');
     }
 
     private function validationRules(){

@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="card mb-3">
-            <router-link :to="{ name: 'admin-single-apartment', params: { slug: apartment.slug } }" class="card-link text-decoration-none">
+           
                 <div class="card-body">
                     <!-- image -->
                     <div class="_img_wrap" v-if="apartment.image">
@@ -16,7 +16,7 @@
                     </div>
                 </div>
             
-            </router-link>
+            
 
         </div>
     </div>

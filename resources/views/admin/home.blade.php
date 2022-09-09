@@ -8,9 +8,9 @@
         Questa è la pagina home di back office
     </h2> --}}
 
-
-    <div class="" id="rootLogged">
+    <div class="" id="rootLogged" :user="{{$user}}">
     </div>
+
 
 
     <script src="{{ asset('js/back.js') }}"></script>

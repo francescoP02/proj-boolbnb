@@ -24,7 +24,7 @@
         </div>
 
         <div>
-            <label for="image">Immagine:</label>
+            <label for="image">Image:</label>
             <input type="file" id="image" name="image">
         </div>
         
@@ -77,7 +77,7 @@
 
 
         <div class="my-3">
-            <h4>Optionals:</h4>
+            <h4>Optionals(*):</h4>
             <p>Select at least one</p>
             @foreach ($optionals as $optional)
             <div class="form-check">

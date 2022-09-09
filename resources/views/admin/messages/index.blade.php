@@ -6,6 +6,9 @@
     <div class="container">
         @if (count($messages) !== 0)
             <ul class="list-group mb-4">
+                {{-- @php
+                    $result = $messages::orderBy('created_at')
+                @endphp --}}
                 @foreach ($messages as $message)
                 
                 <li class="list-group-item">

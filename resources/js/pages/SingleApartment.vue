@@ -7,7 +7,7 @@
             <div class="img-wrap-single-apt" v-if="apartment.image">
                 <img :src=" `storage/` + apartment.image " alt="" />
             </div>
-            <div class="img-wrap-single-apt" v-else="apartment.image">
+            <div class="img-wrap-single-apt" v-else>
                 <img :src="`https://help.iubenda.com/wp-content/plugins/accelerated-mobile-pages/images/SD-default-image.png`" alt="" />
             </div>
             <div id="_info_box" class="ms-lg-3">
@@ -69,7 +69,7 @@
                 <textarea class="form-control" @keyup="controlDataForm()" name="message" id="message" cols="30" rows="10" v-model="messageForm.text" required></textarea>
             </div>
             <div class="col-12">
-                <button id="messageButton" @click="sendMail()" class="btn btn-primary" disabled type="submit">Send</button>
+                <router-link :to="{ name: 'message-result'}"><button id="messageButton" @click="sendMail()" class="btn btn-primary" disabled type="submit">Send</button></router-link>
             </div>
         </form>
     </div>

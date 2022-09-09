@@ -37,7 +37,7 @@ import router from './router';
 
 
 const appLogged = new Vue({
-    el: '#rootLogged',
+  el: '#rootLogged',
     render: h => h(AppLogged),
     router
 });

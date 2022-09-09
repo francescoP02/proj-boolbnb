@@ -24,11 +24,11 @@
         </div>
 
         <div class="mb-3">
-            <label for="image">Immagine di copertina</label>
+            <label for="image">Cover image</label>
             <input type="file" id="image" name="image">
 
             @if ($apartment->image)
-                <h5>Immagine attuale</h5>
+                <h5>Actual image</h5>
                 <img src="{{ asset('storage/' . $apartment->image) }}"  style="width: 70%" alt="">
             @endif
         </div>
@@ -64,35 +64,20 @@
             <label for="square_metres" class="form-label">Square metres:</label>
             <input type="number" class="form-control" name="square_metres" id="square_metres" value="{{old('square_metres') ? old('square_metres') : $apartment->square_metres }}">
         </div>
-        {{-- <div class="mb-3">
-            <label for="address" class="form-label">Address:</label>
-            <input type="text" class="form-control" name="addressSearch" id="addressSearch" value="{{old('address') ? old('address') : $apartment->address }}" onkeyup="addressApartment()" size="5">
-            <div class="d-none" id="containerAddress">
-                <select name="address" id="address" class="form-select" onclick="controlForm()">
-                </select>
-            </div>
-        </div> --}}
-        {{-- <div class="mb-3">
-            <label for="address" class="form-label">Address:</label>
-            <input type="text" class="form-control" name="address" value="{{old('address') ? old('address') : $apartment->address }}" id="address" onkeyup="addressApartment(); controlForm()">
-            <div class="d-none" id="containerAddress">
-                <select name="addressSelect" id="addressSelect" class="form-select" onclick="controlForm()" size="5">
-                </select>
-            </div>
-
-        </div> --}}
 
         <div class="mb-3">
             <label for="addressSearch" class="form-label">Address(*):</label>
             <input type="text" class="form-control" name="addressSearch" id="addressSearch" onkeyup="addressApartment(); controlForm()" value="{{old('address') ? old('address') : $apartment->address }}">
             <div class="d-none" id="containerAddress">
                 <select name="address" id="address" class="form-select" onclick="controlForm()">
+                    {{-- {{old('address') ? old('address') : <option value="$apartment->address" selected></option> }} --}}
+                    <option value="{{$apartment->address}}" {{ (old('address', $apartment->address) == $i) ? 'selected' : ''}}></option>
                 </select>
             </div>
         </div>
 
         <div class="my-3">
-            <h4>Optionals:</h4>
+            <h4>Optionals(*):</h4>
             <p>Select at least one</p>
             @foreach ($optionals as $optional)
             <div class="form-check">
