@@ -18,15 +18,15 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-Route::get('/apartments', 'Api\ApartmentController@index')->name('api.apartments.index');
+Route::get('/apartments', 'Api\ApartmentController@showAll')->name('api.apartment.showAll');
 
-// Route::get('/apartments/{slug}', 'Api\ApartmentController@show')->name('api.apartment.show');
+Route::get('/{slug}', 'Api\ApartmentController@showOne')->name('api.apartment.showOne');
 
 Route::post('/messages', 'Api\MessageController@store');
 
 Route::middleware('api')
-->prefix('admin')
-->group(function () {
+    ->prefix('admin')
+    ->group(function () {
         Route::post('/messages', 'Api\MessageController@store');
-        Route::get('/apartments/{slug}', 'Api\ApartmentController@show')->name('admin.apartment.show');
+        Route::get('/{slug}', 'Api\ApartmentController@showOne')->name('admin.apartment.showOne');
     });

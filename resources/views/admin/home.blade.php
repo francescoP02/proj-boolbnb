@@ -8,7 +8,6 @@
         Questa è la pagina home di back office
     </h2> --}}
 
-    <div class="" id="rootLogged" :user="{{$user}}">
+    <div class="" id="rootLogged">
     </div>
-
 @endsection

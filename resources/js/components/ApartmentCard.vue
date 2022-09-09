@@ -1,23 +1,22 @@
 <template>
     <div>
         <div class="card mb-3">
-           
-                <div class="card-body">
-                    <!-- image -->
-                    <div class="_img_wrap" v-if="apartment.image">
-                        <img :src="apartment.image" alt="" />
-                    </div>
-    
-                    <!-- text -->
-                    <div class="_text">
-                        <h5 class="_primary_color card-title text-start mt-3">{{ apartment.title }}</h5>
-                        <p class="_primary_color text-start">{{ apartment.address }}</p>
-                        <!-- <router-link :to="{ name: 'single-apartment', params: { slug: apartment.slug } }" class="card-link">View Details</router-link> -->
-                    </div>
+            <div class="card-body">
+                <!-- image -->
+                <div class="_img_wrap" v-if="apartment.image">
+                    <img :src="apartment.image" alt="" />
                 </div>
-            
-            
 
+                <!-- text -->
+                <div class="_text">
+                    <h5 class="_primary_color card-title text-start mt-3">
+                        {{ apartment.title }}
+                    </h5>
+                    <p class="_primary_color text-start">
+                        {{ apartment.address }}
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -42,7 +41,6 @@ img {
     color: #072c61;
 
     ._text {
-        
         h5 {
             font-weight: bold;
         }
@@ -58,7 +56,6 @@ img {
             // height: 12vw;
         }
 
-
         span {
             color: white;
             margin-right: 15px;
@@ -69,7 +66,7 @@ img {
     }
 }
 
-    // Responsive
+// Responsive
 // @media screen and (max-width: 768px) {
 //     ._img_wrap {
 //         img {

@@ -14,6 +14,7 @@ const router = new VueRouter({
     {
         path: '/',
         name: 'home',
+        props: { default:true},
         component: Home
     },
     {
@@ -25,16 +26,25 @@ const router = new VueRouter({
     {
       path: "/:slug",
       name: "single-apartment",
+      props: { default:true},
       component: SingleApartment,
     },
     {
       path: "/admin/:slug",
       name: "admin-single-apartment",
+      props: { default:true},
       component: SingleApartment,
     },
     {
       path: "/result",
       name: "message-result",
+      props: { default:true},
+      component: MessageResult,
+    },
+    {
+      path: "/admin/result",
+      name: "admin-message-result",
+      props: { default:true},
       component: MessageResult,
     },
     {

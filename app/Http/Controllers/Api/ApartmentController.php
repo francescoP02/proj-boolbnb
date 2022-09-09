@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Auth;
 
 class ApartmentController extends Controller
 {
-    public function index(Request $request)
+    public function showAll(Request $request)
     {
         $rooms = $request->rooms;
         $beds = $request->beds;
@@ -81,18 +81,18 @@ class ApartmentController extends Controller
         ]);
     }
 
-    public function show($slug)
+    public function showOne($slug)
     {
         $apartment = Apartment::where('slug', '=', $slug)->with(['optionals'])->first();
         $user = $apartment->user;
-        $logged_user = Auth::check();
+        // $logged_user = Auth::check();
         if ($apartment) {
             return response()->json([
                 'success' => true,
                 'results' => [
                     'apartment' => $apartment,
                     'user' => $user,
-                    'logged_user' => $logged_user
+                    // 'logged_user' => $logged_user
                 ]
             ]);
         }
