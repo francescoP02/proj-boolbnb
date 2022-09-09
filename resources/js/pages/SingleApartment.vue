@@ -1,5 +1,8 @@
 <template>
     <div class="text-start pb-3">
+        <div class="_wrap_mess_sent text-center text-white">
+            <p class="p-2">Messaggio inviato!</p>
+        </div>
         <h1>{{apartment.title}}</h1>
         <p class="">{{ apartment.address }}</p>
 
@@ -204,5 +207,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-    
+    ._wrap_mess_sent {
+        background-color: rgb(81, 170, 81);
+    }
 </style>

@@ -11,7 +11,4 @@
     <div class="" id="rootLogged" :user="{{$user}}">
     </div>
 
-
-
-    <script src="{{ asset('js/back.js') }}"></script>
 @endsection
