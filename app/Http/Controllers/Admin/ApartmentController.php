@@ -54,7 +54,7 @@ class ApartmentController extends Controller
 
         $data = $request->all();
         if (isset($data['image'])) {
-            $image_path = Storage::putFileAs('apartment_images', $data['image'], $data['address']);
+            $image_path = Storage::put('apartment_images', $data['image']);
             $data['image'] = $image_path;
         }
         $apartment = new Apartment();
@@ -112,7 +112,7 @@ class ApartmentController extends Controller
         $response = Gate::inspect('view', $apartment);
 
         if ($response->allowed()) {
-            return view('admin.apartments.show', compact('apartment','plans'));
+            return view('admin.apartments.show', compact('apartment', 'plans'));
         } else {
             return view('admin.policy', compact('response'));
         }

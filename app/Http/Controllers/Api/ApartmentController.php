@@ -52,6 +52,15 @@ class ApartmentController extends Controller
             }
         };
 
+        $ap_sp = [];
+
+        foreach ($ap_with_op as $index => $apartment) {
+            if ($apartment->plans()->exists()) {
+                $ap_sp[] = $apartment;
+                unset($ap_with_op[$index]);
+            }
+        };
+
 
         // $prova = calcCrow(12, 22, 11, 21);
 
@@ -76,6 +85,7 @@ class ApartmentController extends Controller
             'success' => true,
             'results' => [
                 'apartments' => $ap_with_op,
+                'sposoredApartments' => $ap_sp,
                 'optionals' => $optionals,
             ]
         ]);

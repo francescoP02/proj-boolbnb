@@ -5,11 +5,11 @@
 
         <div id="_img_info_section" class="">
             <div class="img-wrap-single-apt" v-if="apartment.image">
-                <img :src="`storage/` + apartment.image" alt="" />
+                <img :src="apartment.image" alt="" />
             </div>
             <div class="img-wrap-single-apt" v-else>
                 <img
-                    :src="`https://help.iubenda.com/wp-content/plugins/accelerated-mobile-pages/images/SD-default-image.png`"
+                    src="`https://help.iubenda.com/wp-content/plugins/accelerated-mobile-pages/images/SD-default-image.png`"
                     alt=""
                 />
             </div>
@@ -36,7 +36,7 @@
                     >
                 </p>
                 <p v-if="user && user.name && user.surname">
-                    inserito da:
+                    inserted by:
                     <span class="fw-bold"
                         >{{ user.name }} {{ user.surname }}</span
                     >

@@ -5181,6 +5181,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       apartments: null,
+      apartmentsSp: null,
       optionals: [],
       numberRooms: 1,
       dropdownSearchFlag: false,
@@ -5207,9 +5208,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     getFilter: function getFilter() {
-      var filterSection = document.getElementById('filterSection');
-      var angleDown = document.getElementById('angleDown');
-      filterSection.classList.toggle('d-none');
+      var filterSection = document.getElementById("filterSection");
+      var angleDown = document.getElementById("angleDown");
+      filterSection.classList.toggle("d-none");
     },
     getApartments: function getApartments() {
       var _this = this;
@@ -5225,9 +5226,12 @@ __webpack_require__.r(__webpack_exports__);
           dist: this.distance
         }
       }).then(function (resp) {
-        console.log(resp.data.results.apartments);
+        console.log("normali", resp.data.results.apartments);
+        console.log("premium", resp.data.results.sposoredApartments);
         _this.apartments = resp.data.results.apartments;
         _this.optionals = resp.data.results.optionals;
+        _this.apartmentsSp = resp.data.results.sposoredApartments;
+        console.log(_this.apartmentsSp);
       });
     },
     searchAddress: function searchAddress() {
@@ -5512,7 +5516,7 @@ var render = function render() {
   return _c("div", [_c("div", {
     staticClass: "card mb-3"
   }, [_c("div", {
-    staticClass: "card-body"
+    staticClass: "card"
   }, [_vm.apartment.image ? _c("div", {
     staticClass: "_img_wrap"
   }, [_c("img", {
@@ -5593,7 +5597,7 @@ var render = function render() {
         return _vm.getFilter();
       }
     }
-  }, [_vm._v("Filter "), _vm._m(0)]), _vm._v(" "), _c("button", {
+  }, [_vm._v("\n                    Filter\n                    "), _vm._m(0)]), _vm._v(" "), _c("button", {
     staticClass: "btn ms-2",
     attrs: {
       type: "button"
@@ -5603,7 +5607,7 @@ var render = function render() {
         return _vm.searchAddress();
       }
     }
-  }, [_vm._v("Search")])]), _vm._v(" "), _vm.dropdownSearchFlag ? _c("div", {
+  }, [_vm._v("\n                    Search\n                ")])]), _vm._v(" "), _vm.dropdownSearchFlag ? _c("div", {
     attrs: {
       id: "containerAddress"
     }
@@ -5647,7 +5651,7 @@ var render = function render() {
       id: "filterSection"
     }
   }, [_c("div", {
-    staticClass: "d-sm-flex"
+    staticClass: "d-sm-flex justify-content-center"
   }, [_c("div", {
     staticClass: "d-flex flex-column mx-sm-5"
   }, [_c("div", {
@@ -5684,7 +5688,7 @@ var render = function render() {
       domProps: {
         value: i
       }
-    }, [_vm._v(_vm._s(i))]);
+    }, [_vm._v("\n                            " + _vm._s(i) + "\n                        ")]);
   }), 0)]), _vm._v(" "), _c("div", {
     staticClass: "mt-2"
   }, [_vm._m(2), _vm._v(" "), _c("select", {
@@ -5719,7 +5723,7 @@ var render = function render() {
       domProps: {
         value: i
       }
-    }, [_vm._v(_vm._s(i))]);
+    }, [_vm._v("\n                            " + _vm._s(i) + "\n                        ")]);
   }), 0)])]), _vm._v(" "), _c("div", {
     staticClass: "mx-sm-5 mt-sm-0 mt-3"
   }, [_c("div", {
@@ -5806,6 +5810,46 @@ var render = function render() {
       }
     }
   })]) : _vm._e()])]), _vm._v(" "), _c("div", {
+    staticClass: "position-relative mt-5"
+  }, [_vm._m(4), _vm._v(" "), _c("div", {
+    staticClass: "row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 row-cols-xxl-5 pt-4 mb-4",
+    attrs: {
+      id: "sponsoredSection"
+    }
+  }, _vm._l(_vm.apartmentsSp, function (apartment) {
+    return apartment.visible ? _c("div", {
+      key: apartment.id,
+      staticClass: "col"
+    }, [_vm.logged ? _c("router-link", {
+      staticClass: "card-link text-decoration-none",
+      attrs: {
+        to: {
+          name: "admin-single-apartment",
+          params: {
+            slug: apartment.slug
+          }
+        }
+      }
+    }, [_c("ApartmentCard", {
+      attrs: {
+        apartment: apartment
+      }
+    })], 1) : _c("router-link", {
+      staticClass: "card-link text-decoration-none",
+      attrs: {
+        to: {
+          name: "single-apartment",
+          params: {
+            slug: apartment.slug
+          }
+        }
+      }
+    }, [_c("ApartmentCard", {
+      attrs: {
+        apartment: apartment
+      }
+    })], 1)], 1) : _vm._e();
+  }), 0)]), _vm._v(" "), _c("div", {
     staticClass: "row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 row-cols-xxl-5"
   }, _vm._l(_vm.apartments, function (apartment) {
     return apartment.visible ? _c("div", {
@@ -5886,6 +5930,15 @@ var staticRenderFns = [function () {
       "for": "distance"
     }
   }, [_vm._v("Range distance:")])]);
+}, function () {
+  var _vm = this,
+      _c = _vm._self._c;
+
+  return _c("div", {
+    staticClass: "sponsored-section-title"
+  }, [_c("span", {
+    staticClass: "text-light fw-bold fs-5"
+  }, [_vm._v("Sponsored Apartment")])]);
 }];
 render._withStripped = true;
 
@@ -6099,14 +6152,14 @@ var render = function render() {
     staticClass: "img-wrap-single-apt"
   }, [_c("img", {
     attrs: {
-      src: "storage/" + _vm.apartment.image,
+      src: _vm.apartment.image,
       alt: ""
     }
   })]) : _c("div", {
     staticClass: "img-wrap-single-apt"
   }, [_c("img", {
     attrs: {
-      src: "https://help.iubenda.com/wp-content/plugins/accelerated-mobile-pages/images/SD-default-image.png",
+      src: "`https://help.iubenda.com/wp-content/plugins/accelerated-mobile-pages/images/SD-default-image.png`",
       alt: ""
     }
   })]), _vm._v(" "), _c("div", {
@@ -6128,7 +6181,7 @@ var render = function render() {
     staticClass: "fas fa-bath"
   })]), _vm._v(" "), _c("p", [_vm._v("\n                Square metres:\n                "), _c("span", {
     staticClass: "fw-bold"
-  }, [_vm._v(_vm._s(_vm.apartment.square_metres) + " m²")])]), _vm._v(" "), _vm.user && _vm.user.name && _vm.user.surname ? _c("p", [_vm._v("\n                inserito da:\n                "), _c("span", {
+  }, [_vm._v(_vm._s(_vm.apartment.square_metres) + " m²")])]), _vm._v(" "), _vm.user && _vm.user.name && _vm.user.surname ? _c("p", [_vm._v("\n                inserted by:\n                "), _c("span", {
     staticClass: "fw-bold"
   }, [_vm._v(_vm._s(_vm.user.name) + " " + _vm._s(_vm.user.surname))])]) : _vm._e(), _vm._v(" "), _c("div", {
     staticClass: "ms-sm-3 ms-md-0"
@@ -11639,7 +11692,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "img[data-v-13e9f807] {\n  width: 100%;\n}\n.card[data-v-13e9f807] {\n  border: transparent;\n  background-color: transparent;\n  color: #072c61;\n}\n.card ._text h5[data-v-13e9f807] {\n  font-weight: bold;\n}\n.card ._img_wrap[data-v-13e9f807] {\n  width: 100%;\n  height: -webkit-fit-content;\n  height: -moz-fit-content;\n  height: fit-content;\n}\n.card ._img_wrap img[data-v-13e9f807] {\n  border-radius: 5%;\n}\n.card ._img_wrap span[data-v-13e9f807] {\n  color: white;\n  margin-right: 15px;\n  font-size: 2rem;\n  text-shadow: 1px 1px 5px black;\n  cursor: pointer;\n}", ""]);
+exports.push([module.i, "img[data-v-13e9f807] {\n  width: 100%;\n}\n.card[data-v-13e9f807] {\n  border: transparent;\n  background-color: transparent;\n  color: #072c61;\n}\n.card ._text h5[data-v-13e9f807] {\n  font-weight: bold;\n}", ""]);
 
 // exports
 
@@ -11658,7 +11711,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".searchSection #address[data-v-a0adc836] {\n  width: 100%;\n  border: transparent;\n  background-color: transparent;\n  border-bottom: 2px solid lightgray;\n  padding-left: 2%;\n}\n.searchSection #address[data-v-a0adc836]:focus-visible {\n  border-bottom: 3px solid var(--primary-color);\n  outline: transparent;\n}\n.searchSection #filterButton[data-v-a0adc836] {\n  width: 100px;\n}\n.searchSection button[data-v-a0adc836] {\n  color: white;\n  background-color: var(--secondary-color);\n  transition: 0.2s;\n}\n.searchSection button[data-v-a0adc836]:hover {\n  background-color: rgba(255, 90, 95, 0.7);\n}\n#filterSection[data-v-a0adc836] {\n  color: var(--primary-color);\n  border: 2px solid var(--primary-color);\n  border-radius: 5px;\n}\n#filterSection select[data-v-a0adc836] {\n  border: 0.5px solid var(--primary-color);\n  border-radius: 5px;\n}\n#filterSection select .select-style[data-v-a0adc836] {\n  background-color: red;\n}", ""]);
+exports.push([module.i, ".searchSection #address[data-v-a0adc836] {\n  width: 100%;\n  border: transparent;\n  background-color: transparent;\n  border-bottom: 2px solid lightgray;\n  padding-left: 2%;\n}\n.searchSection #address[data-v-a0adc836]:focus-visible {\n  border-bottom: 3px solid var(--primary-color);\n  outline: transparent;\n}\n.searchSection #filterButton[data-v-a0adc836] {\n  width: 100px;\n}\n.searchSection button[data-v-a0adc836] {\n  color: white;\n  background-color: var(--secondary-color);\n  transition: 0.2s;\n}\n.searchSection button[data-v-a0adc836]:hover {\n  background-color: rgba(255, 90, 95, 0.7);\n}\n#filterSection[data-v-a0adc836] {\n  color: var(--primary-color);\n  border: 3px solid var(--primary-color);\n  border-radius: 5px;\n}\n#filterSection select[data-v-a0adc836] {\n  border: 0.5px solid var(--primary-color);\n  border-radius: 5px;\n}\n#filterSection select .select-style[data-v-a0adc836] {\n  background-color: red;\n}\n#sponsoredSection[data-v-a0adc836] {\n  border: 3px solid var(--primary-color);\n  border-radius: 10px;\n}\n.sponsored-section-title[data-v-a0adc836] {\n  background-color: var(--primary-color);\n  position: absolute;\n  top: -36px;\n  padding: 5px 10px;\n  border-radius: 10px 10px 0 0;\n}", ""]);
 
 // exports
 
@@ -59568,7 +59621,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Boolean\laravel-project\proj-boolbnb\resources\js\front.js */"./resources/js/front.js");
+module.exports = __webpack_require__(/*! C:\Users\mastr\boolean-htdocs\proj-boolbnb\resources\js\front.js */"./resources/js/front.js");
 
 
 /***/ })

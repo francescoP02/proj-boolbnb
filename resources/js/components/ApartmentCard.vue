@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="card mb-3">
-            <div class="card-body">
+            <div class="card">
                 <!-- image -->
                 <div class="_img_wrap" v-if="apartment.image">
                     <img :src="apartment.image" alt="" />
@@ -46,24 +46,26 @@ img {
         }
     }
 
-    ._img_wrap {
-        width: 100%;
-        // overflow: hidden;
-        height: fit-content;
+    // ._img_wrap {
+    //     width: 100%;
+    //     // overflow: hidden;
+    //     height: fit-content;
 
-        img {
-            border-radius: 5%;
-            // height: 12vw;
-        }
+    //     img {
+    //         border-radius: 5%;
+    //         border-radius: 5%;
+    //         height: 180px;
+    //         object-fit: cover;
+    //     }
 
-        span {
-            color: white;
-            margin-right: 15px;
-            font-size: 2rem;
-            text-shadow: 1px 1px 5px black;
-            cursor: pointer;
-        }
-    }
+    //     span {
+    //         color: white;
+    //         margin-right: 15px;
+    //         font-size: 2rem;
+    //         text-shadow: 1px 1px 5px black;
+    //         cursor: pointer;
+    //     }
+    // }
 }
 
 // Responsive

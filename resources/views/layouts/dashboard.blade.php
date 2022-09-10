@@ -57,25 +57,25 @@
                 <div class="collapse navbar-collapse justify-content-end text-center" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link text-black _primary_color" href="{{ route('admin.home') }}">
+                            <a class="nav-link" style="color: #072c61;" href="{{ route('admin.home') }}">
                                 <i class="fas fa-home"></i>
                                 Homepage
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-black" href="{{ route('admin.apartments.index') }}">
+                            <a class="nav-link" style="color: #072c61;" href="{{ route('admin.apartments.index') }}">
                                 <i class="fas fa-building"></i>
                                 Your Apartments
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-black" href="{{ route('admin.apartments.create') }}">
+                            <a class="nav-link" style="color: #072c61;" href="{{ route('admin.apartments.create') }}">
                                 <i class="far fa-building"></i>
                                 Create new Apartment
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-black" href="{{ route('logout') }}"
+                            <a class="nav-link" style="color: #072c61;" href="{{ route('logout') }}"
                                 onclick="event.preventDefault();
                                 document.getElementById('logout-form').submit();">
                                 <i class="fas fa-power-off"></i>

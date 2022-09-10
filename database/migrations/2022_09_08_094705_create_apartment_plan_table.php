@@ -26,8 +26,8 @@ class CreateApartmentPlanTable extends Migration
                 ->on('plans');
 
             $table->primary(['apartment_id', 'plan_id']);
-            $table->date('date_of_purchase')->nullable();
-            $table->date('date_of_expiration')->nullable();
+            $table->dateTime('date_of_purchase');
+            $table->dateTime('date_of_expiration');
         });
     }
 
