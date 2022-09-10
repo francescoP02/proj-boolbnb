@@ -107,16 +107,6 @@
             @endforeach
         </div>
 
-        <div>
-            <label for="plan">Promotional Plan:</label>
-            <select name="plan" id="plan">
-                <option value="">None</option>
-                @foreach ($plans as $plan)
-                    <option value="{{ $plan->id }}">{{ $plan->name }}</option>
-                @endforeach
-            </select>
-
-        </div>
 
         <div class="form-check form-switch">
             <input class="form-check-input" type="checkbox" role="switch" name="visible" id="visible" value="1"

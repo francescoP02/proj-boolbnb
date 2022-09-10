@@ -28,6 +28,8 @@ Route::middleware('auth')
         Route::resource('/apartments', 'ApartmentController');
         // Route::get('/apartments/{apartment}', 'ApartmentController@index')->name('messages.index');
         Route::get('/apartments/{apartment}/messages', 'MessageController@index')->name('messages.index');
+        Route::get('/apartments/{apartment}/sponsor', 'PlanController@index')->name('sponsored.index');
+        Route::post('/apartments/{apartment}/sponsor', 'PlanController@store')->name('sponsored.store');
     });
 
 // Route::resource('messages', 'MessageController');

@@ -38,8 +38,7 @@ class ApartmentController extends Controller
     public function create()
     {
         $optionals = Optional::all();
-        $plans = Plan::all();
-        return view('admin.apartments.create', compact('optionals', 'plans'));
+        return view('admin.apartments.create', compact('optionals'));
     }
 
     /**
@@ -92,10 +91,6 @@ class ApartmentController extends Controller
         }
 
 
-        if (isset($data['plan'])) {
-            $apartment->plans()->sync($data[('plan')]);
-        }
-
         return redirect()->route('admin.apartments.index', ['apartment' => $apartment->id]);
     }
 
@@ -113,10 +108,11 @@ class ApartmentController extends Controller
 
     {
         $apartment = Apartment::findOrFail($id);
+        $plans = Plan::all();
         $response = Gate::inspect('view', $apartment);
 
         if ($response->allowed()) {
-            return view('admin.apartments.show', compact('apartment'));
+            return view('admin.apartments.show', compact('apartment','plans'));
         } else {
             return view('admin.policy', compact('response'));
         }
@@ -136,8 +132,7 @@ class ApartmentController extends Controller
 
         if ($response->allowed()) {
             $optionals = Optional::all();
-            $plans = Plan::all();
-            return view('admin.apartments.edit', compact('apartment', 'optionals', 'plans'));
+            return view('admin.apartments.edit', compact('apartment', 'optionals'));
         } else {
             return view('admin.policy', compact("response"));
         }
@@ -200,10 +195,6 @@ class ApartmentController extends Controller
             $apartment->optionals()->sync([]);
         }
 
-        if (isset($data['plan'])) {
-            $apartment->plans()->attach()($data[('plan')]);
-        }
-
         return redirect()->route('admin.apartments.show', ['apartment' => $apartment->id]);
     }
 
@@ -230,6 +221,9 @@ class ApartmentController extends Controller
             return view('admin.policy', compact("response"));
         }
     }
+
+
+
 
     private function getValidationRules()
     {

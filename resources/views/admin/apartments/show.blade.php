@@ -94,7 +94,8 @@
         <div>
             <a class="btn btn-primary text-white" href="{{ route('admin.apartments.edit', ['apartment' => $apartment->id]) }}">Modify</a>
             <button class="btn btn-danger text-white" type="button" onclick="sureOfDelete()">Delete</i></button>
-            <a class="btn btn-primary text-white" href="{{ route('admin.messages.index', ['apartment' => $apartment->id]) }}">Messages</a>
+            <a class="btn btn-info text-white" href="{{ route('admin.messages.index', ['apartment' => $apartment->id]) }}">Messages</a>
+            <a class="btn btn-success" href="{{route('admin.sponsored.index', ['apartment' => $apartment->id])}}">Sponsor</a>
         </div>
         
     </div>
