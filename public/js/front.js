@@ -5345,9 +5345,9 @@ __webpack_require__.r(__webpack_exports__);
     return {
       apartment: Object,
       messageForm: {
-        name: "",
-        surname: "",
-        email: "",
+        name: this.user.name,
+        surname: this.user.surname,
+        email: this.user.email,
         text: "",
         apartment_id: null
       },
@@ -5360,11 +5360,9 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   props: {
-    isLogged: Boolean
+    isLogged: Boolean,
+    user: Object
   },
-  // props: {
-  //     apartmentInfo: Object,
-  // },
   created: function created() {
     this.getApartmentDetails();
   },

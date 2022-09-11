@@ -5330,9 +5330,9 @@ __webpack_require__.r(__webpack_exports__);
     return {
       apartment: Object,
       messageForm: {
-        name: "",
-        surname: "",
-        email: "",
+        name: this.user.name,
+        surname: this.user.surname,
+        email: this.user.email,
         text: "",
         apartment_id: null
       },
@@ -5345,11 +5345,9 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   props: {
-    isLogged: Boolean
+    isLogged: Boolean,
+    user: Object
   },
-  // props: {
-  //     apartmentInfo: Object,
-  // },
   created: function created() {
     this.getApartmentDetails();
   },
@@ -5473,7 +5471,12 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "AppLogged"
+  name: "AppLogged",
+  data: function data() {
+    return {
+      user: window.user
+    };
+  }
 });
 
 /***/ }),
@@ -6344,7 +6347,8 @@ var render = function render() {
     staticClass: "container text-center mt-4"
   }, [_c("router-view", {
     attrs: {
-      isLogged: true
+      isLogged: true,
+      user: _vm.user
     }
   })], 1)]);
 };
