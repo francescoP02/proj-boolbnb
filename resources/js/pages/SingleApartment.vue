@@ -189,9 +189,9 @@ export default {
             apartment: Object,
 
             messageForm: {
-                name: this.user.name,
-                surname: this.user.surname,
-                email: this.user.email,
+                name: this.userLogged.name,
+                surname: this.userLogged.surname,
+                email: this.userLogged.email,
                 text: "",
                 apartment_id: null,
             },
@@ -207,7 +207,7 @@ export default {
     },
     props: {
         isLogged: Boolean,
-        user: Object,
+        userLogged: Object,
     },
     created() {
         this.getApartmentDetails();
