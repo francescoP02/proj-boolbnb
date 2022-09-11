@@ -11,7 +11,12 @@
                 <a href="{{ route('admin.apartments.show', ['apartment' => $apartment->id]) }}"
                     class="card-link text-decoration-none">
                     <div class="_my_card bg-transparent mb-3 position-relative">
-                        <div class="card-body ">
+                        <div class="card-body">
+                            @if ($apartment->plans()->exists())
+                                <div class="_bg_dollar_icon">
+                                    <span class="_dollar_icon"><i class="fas fa-dollar-sign"></i></span>
+                                </div>
+                            @endif
                             <!-- image -->
                             <div class="img-wrap">
                                 @if ($apartment->image)

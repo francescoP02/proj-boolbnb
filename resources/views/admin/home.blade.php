@@ -11,3 +11,7 @@
     <div class="" id="rootLogged">
     </div>
 @endsection
+
+<script>
+    window.user = @json($user);
+</script>

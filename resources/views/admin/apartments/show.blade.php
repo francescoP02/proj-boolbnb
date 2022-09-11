@@ -94,12 +94,16 @@
 
         <div>
             <a class="btn btn-primary text-white"
-                href="{{ route('admin.apartments.edit', ['apartment' => $apartment->id]) }}">Modify</a>
-            <button class="btn btn-danger text-white" type="button" onclick="sureOfDelete()">Delete</i></button>
+                href="{{ route('admin.apartments.edit', ['apartment' => $apartment->id]) }}"><span class="text-white"><i
+                        class="fas fa-edit"></i></span></a>
+            <button class="btn btn-danger text-white" type="button" onclick="sureOfDelete()"><span class="text-white"><i
+                        class="fas fa-trash-alt"></i></span></button>
             <a class="btn btn-info text-white"
-                href="{{ route('admin.messages.index', ['apartment' => $apartment->id]) }}">Messages</a>
-            <a class="btn btn-success"
-                href="{{ route('admin.sponsored.index', ['apartment' => $apartment->id]) }}">Sponsor</a>
+                href="{{ route('admin.messages.index', ['apartment' => $apartment->id]) }}"><span class="text-white"><i
+                        class="fas fa-envelope"></i></span></a>
+            <a class="btn btn-success text-white"
+                href="{{ route('admin.sponsored.index', ['apartment' => $apartment->id]) }}"><span class="text-white"><i
+                        class="fas fa-dollar-sign"></i></span></a>
         </div>
 
     </div>

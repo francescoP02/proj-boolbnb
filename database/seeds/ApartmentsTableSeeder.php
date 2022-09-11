@@ -41,7 +41,7 @@ class ApartmentsTableSeeder extends Seeder
             $apartment->rooms_number = $faker->numberBetween(1, 10);
             $apartment->beds_number = $faker->numberBetween(1, 10);
             $apartment->bathroom_number = $faker->numberBetween(1, 10);
-            $apartment->square_metres = $faker->numberBetween(30, 999);
+            $apartment->square_metres = $faker->numberBetween(30, 200);
             $apartment->address = $faker->streetAddress();
             $apiQuery = str_replace(' ', '-', $apartment->address);
             $response = file_get_contents('https://api.tomtom.com/search/2/geocode/' . $apiQuery . '.json?key=Rdcw2GVNiNQGXTWrgewGKq9cwtVYNPRw');
