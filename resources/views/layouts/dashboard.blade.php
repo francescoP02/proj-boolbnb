@@ -22,7 +22,7 @@
 </head>
 
 <body>
-    <div class="container">
+    <div class="container _min_width">
         {{-- <nav class="navbar navbar-expand-md navbar-dark bg-light d-flex py-0 px-3 justify-content-between">
             <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">
                 <img id="_logo" src="{{ asset('images/logoboolbnb.png') }}" alt="">

@@ -1,7 +1,6 @@
 @extends('layouts.dashboard')
 
 @section('content')
-    <h1>Modify apartment</h1>
 
     @if ($errors->any())
         <div class="alert alert-danger">
@@ -20,64 +19,70 @@
         @csrf
 
         <div class="mb-3">
-            <label for="title" class="form-label">Title:</label>
+            <label for="title" class="form-label fw-bold">Title *:</label>
             <input type="text" class="form-control" onkeyup="controlForm()" name="title" id="title"
                 value="{{ old('title') ? old('title') : $apartment->title }}">
         </div>
 
-        <div class="mb-3">
-            <label for="image">Cover image</label>
-            <input type="file" id="image" name="image">
+        <div class="_choose_file">
+            <label for="image" class="btn text-light">Choose image</label>
+            <input type="file" id="image" name="image" onchange="imageupLoaded()" class="d-none">
+            <span id="uploaded" class="d-none"></span>
 
             @if ($apartment->image)
-                <h5>Actual image</h5>
+                <h6 class="mt-2 fw-bold">Actual image</h6>
                 <img src="{{ asset('storage/' . $apartment->image) }}" style="width: 70%" alt="">
             @endif
         </div>
 
-        <div class="mb-3">
-            <label for="rooms_number">Number of rooms:</label>
-            <select class="form-select" aria-label="Default select example" name="rooms_number" id="rooms_number"
-                onclick="controlForm()">
-                <option value="null">None</option>
-                @for ($i = 1; $i <= 10; $i++)
-                    <option value="{{ $i }}"
-                        {{ old('rooms_number', $apartment->rooms_number) == $i ? 'selected' : '' }}>{{ $i }}
-                    </option>
-                @endfor
-            </select>
-        </div>
-        <div class="mb-3">
-            <label for="beds_number">Number of beds:</label>
-            <select class="form-select" aria-label="Default select example" name="beds_number" id="beds_number"
-                onclick="controlForm()">
-                <option value="null">None</option>
-                @for ($i = 1; $i <= 10; $i++)
-                    <option value="{{ $i }}"
-                        {{ old('beds_number', $apartment->beds_number) == $i ? 'selected' : '' }}>{{ $i }}
-                    </option>
-                @endfor
-            </select>
-        </div>
-        <div class="mb-3">
-            <label for="address">Number of bathrooms:</label>
-            <select class="form-select" aria-label="Default select example" name="bathroom_number" id="bathroom_number">
-                <option value="0">None</option>
-                @for ($i = 1; $i <= 10; $i++)
-                    <option value="{{ $i }}"
-                        {{ old('bathroom_number', $apartment->bathroom_number) == $i ? 'selected' : '' }}>
-                        {{ $i }}</option>
-                @endfor
-            </select>
-        </div>
-        <div class="mb-3">
-            <label for="square_metres" class="form-label">Square metres:</label>
-            <input type="number" class="form-control" name="square_metres" id="square_metres"
-                value="{{ old('square_metres') ? old('square_metres') : $apartment->square_metres }}">
+        <div class="d-flex flex-wrap mt-2">
+
+            <div class="mb-3 me-2">
+                <label class="form-label fw-bold" for="rooms_number">Number of rooms *:</label>
+                <select class="form-select" aria-label="Default select example" name="rooms_number" id="rooms_number"
+                    onclick="controlForm()">
+                    <option value="null">None</option>
+                    @for ($i = 1; $i <= 10; $i++)
+                        <option value="{{ $i }}"
+                            {{ old('rooms_number', $apartment->rooms_number) == $i ? 'selected' : '' }}>
+                            {{ $i }}
+                        </option>
+                    @endfor
+                </select>
+            </div>
+            <div class="mb-3 me-2">
+                <label class="form-label fw-bold" for="beds_number">Number of beds *:</label>
+                <select class="form-select" aria-label="Default select example" name="beds_number" id="beds_number"
+                    onclick="controlForm()">
+                    <option value="null">None</option>
+                    @for ($i = 1; $i <= 10; $i++)
+                        <option value="{{ $i }}"
+                            {{ old('beds_number', $apartment->beds_number) == $i ? 'selected' : '' }}>
+                            {{ $i }}
+                        </option>
+                    @endfor
+                </select>
+            </div>
+            <div class="mb-3 me-2">
+                <label class="form-label fw-bold" for="address">Number of bathrooms *:</label>
+                <select class="form-select" aria-label="Default select example" name="bathroom_number" id="bathroom_number">
+                    <option value="0">None</option>
+                    @for ($i = 1; $i <= 10; $i++)
+                        <option value="{{ $i }}"
+                            {{ old('bathroom_number', $apartment->bathroom_number) == $i ? 'selected' : '' }}>
+                            {{ $i }}</option>
+                    @endfor
+                </select>
+            </div>
+            <div class="mb-3 me-2">
+                <label for="square_metres" class="fw-bold form-label">Square metres *:</label>
+                <input type="number" class="form-control" name="square_metres" id="square_metres"
+                    value="{{ old('square_metres') ? old('square_metres') : $apartment->square_metres }}">
+            </div>
         </div>
 
         <div class="mb-3">
-            <label for="addressSearch" class="form-label">Address(*):</label>
+            <label for="addressSearch" class="form-label fw-bold">Address*:</label>
             <input type="text" class="form-control" name="addressSearch" id="addressSearch"
                 onkeyup="addressApartment(); controlForm()"
                 value="{{ old('address') ? old('address') : $apartment->address }}">
@@ -91,8 +96,8 @@
         </div>
 
         <div class="my-3">
-            <h4>Optionals(*):</h4>
-            <p>Select at least one</p>
+            <span class="fw-bold">Optionals *:</span>
+            <p class="text-secondary">Select at least one</p>
             @foreach ($optionals as $optional)
                 <div class="form-check">
 
@@ -107,12 +112,12 @@
             @endforeach
         </div>
 
-
-        <div class="form-check form-switch">
+        <div class="form-check form-switch mb-2">
             <input class="form-check-input" type="checkbox" role="switch" name="visible" id="visible" value="1"
-                {{ old('visible', $apartment->visible) == 1 ? 'checked' : '' }}>
+                onclick="changeVisible()" {{ old('visible', $apartment->visible) == 1 ? 'checked' : '' }}>
             <label class="form-check-label" for="visble">Visible</label>
         </div>
+
         <div class="d-none">
             <input id="latApart" name="latitude" readonly
                 value="{{ old('latitude') ? old('latitude') : $apartment->latitude }}">
@@ -130,6 +135,18 @@
 @endsection
 
 <script>
+    function imageupLoaded() {
+        span = document.getElementById('uploaded');
+        if (document.getElementById('image').value) {
+            uploadFile = document.getElementById('image').value;
+            span.classList.remove('d-none');
+            span.innerHTML = `File ${uploadFile} uploaded`;
+        } else {
+            span.innerHTML = "";
+            span.classList.add('d-none');
+        }
+    }
+
     function controlForm() {
         let titleFlag = false;
         let roomsFlag = false;

@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="_min_width">
         <div class="container text-center mt-4">
             <Header />
             <router-view></router-view>
@@ -8,14 +8,13 @@
 </template>
 
 <script>
-import Header from '../components/Header.vue';
+import Header from "../components/Header.vue";
 export default {
-    name: 'App',
+    name: "App",
     components: {
         Header,
     },
-}
+};
 </script>
 
-<style>
-</style>
+<style></style>

@@ -5326,13 +5326,20 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "SingleApartment",
+  props: {
+    isLogged: Boolean,
+    userLogged: Object
+  },
   data: function data() {
     return {
       apartment: Object,
       messageForm: {
-        name: this.userLogged.name,
-        surname: this.userLogged.surname,
-        email: this.userLogged.email,
+        // name: this.userLogged.name,
+        // surname: this.userLogged.surname,
+        // email: this.userLogged.email,
+        name: "",
+        surname: "",
+        email: "",
         text: "",
         apartment_id: null
       },
@@ -5344,12 +5351,9 @@ __webpack_require__.r(__webpack_exports__);
 
     };
   },
-  props: {
-    isLogged: Boolean,
-    userLogged: Object
-  },
   created: function created() {
     this.getApartmentDetails();
+    this.ifLogged();
   },
   computed: {
     optionalName: function optionalName() {
@@ -5360,6 +5364,13 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    ifLogged: function ifLogged() {
+      if (this.userLogged) {
+        this.messageForm.name = this.userLogged.name;
+        this.messageForm.surname = this.userLogged.surname;
+        this.messageForm.email = this.userLogged.email;
+      }
+    },
     showMeContactSection: function showMeContactSection() {
       var ContactSection = document.getElementById("_contact_us_section");
       ContactSection.classList.remove("d-none");
@@ -6063,7 +6074,7 @@ var render = function render() {
     staticClass: "img-wrap-single-apt"
   }, [_c("img", {
     attrs: {
-      src: "`https://help.iubenda.com/wp-content/plugins/accelerated-mobile-pages/images/SD-default-image.png`",
+      src: "https://help.iubenda.com/wp-content/plugins/accelerated-mobile-pages/images/SD-default-image.png",
       alt: ""
     }
   })]), _vm._v(" "), _c("div", {
@@ -6274,13 +6285,29 @@ var render = function render() {
     }
   })]), _vm._v(" "), _c("div", {
     staticClass: "col-12"
-  }, [_vm.isLogged ? _c("router-link", {
+  }, [_vm.isLogged ? _c("button", {
+    staticClass: "btn btn-primary",
+    attrs: {
+      id: "messageButton",
+      disabled: "",
+      type: "submit"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.sendMail();
+      }
+    }
+  }, [_c("router-link", {
     attrs: {
       to: {
         name: "admin-message-result"
       }
     }
-  }, [_c("button", {
+  }, [_c("span", {
+    staticClass: "text-white"
+  }, [_c("i", {
+    staticClass: "far fa-paper-plane"
+  })])])], 1) : _c("button", {
     staticClass: "btn btn-primary",
     attrs: {
       id: "messageButton",
@@ -6292,25 +6319,17 @@ var render = function render() {
         return _vm.sendMail();
       }
     }
-  }, [_vm._v("\n                        Send\n                    ")])]) : _c("router-link", {
+  }, [_c("router-link", {
     attrs: {
       to: {
         name: "message-result"
       }
     }
-  }, [_c("button", {
-    staticClass: "btn btn-primary",
-    attrs: {
-      id: "messageButton",
-      disabled: "",
-      type: "submit"
-    },
-    on: {
-      click: function click($event) {
-        return _vm.sendMail();
-      }
-    }
-  }, [_vm._v("\n                        Send\n                    ")])])], 1)])])]);
+  }, [_c("span", {
+    staticClass: "text-white"
+  }, [_c("i", {
+    staticClass: "far fa-paper-plane"
+  })])])], 1)])])])]);
 };
 
 var staticRenderFns = [function () {

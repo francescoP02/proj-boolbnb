@@ -12647,6 +12647,10 @@ fieldset:disabled .btn {
   }
 }
 
+._min_width {
+  min-width: 280px;
+}
+
 #_logo {
   width: 150px;
 }
@@ -12793,12 +12797,44 @@ fieldset:disabled .btn {
   cursor: pointer;
 }
 
+._my_card ._bg_dollar_icon {
+  padding: 3px 9px 0px;
+  background-color: green;
+  border-radius: 50%;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+._my_card ._bg_dollar_icon ._dollar_icon {
+  font-size: 1rem;
+  color: white;
+}
+
 #messagesSection li {
   border: 2px solid var(--primary-color);
 }
 
 #messagesSection li .date-time {
   font-size: 0.7rem;
+}
+
+._choose_file label {
+  background-color: var(--secondary-color);
+}
+
+._choose_file label:hover {
+  background-color: #ff5a5f;
+}
+
+._btn_brand,
+#submitButton {
+  background-color: var(--secondary-color);
+}
+
+._btn_brand:hover,
+#submitButton:hover {
+  background-color: #ff5a5f;
 }
 
 /*!

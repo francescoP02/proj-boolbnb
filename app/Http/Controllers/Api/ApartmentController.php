@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class ApartmentController extends Controller
 {
@@ -54,8 +55,18 @@ class ApartmentController extends Controller
 
         $ap_sp = [];
 
+        // foreach ($ap_with_op as $index => $apartment) {
+        //     if ($apartment->plans()->exists()) {
+        //         $ap_sp[] = $apartment;
+        //         unset($ap_with_op[$index]);
+        //     }
+        // };
+
+
         foreach ($ap_with_op as $index => $apartment) {
-            if ($apartment->plans()->exists()) {
+            $now = Carbon::now()->format('Y-m-d H:i:s');
+
+            if ($apartment->plans()->wherePivot('date_of_expiration', '>=', $now)->first()) {
                 $ap_sp[] = $apartment;
                 unset($ap_with_op[$index]);
             }

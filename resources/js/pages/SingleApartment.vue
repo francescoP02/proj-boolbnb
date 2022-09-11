@@ -9,7 +9,7 @@
             </div>
             <div class="img-wrap-single-apt" v-else>
                 <img
-                    src="`https://help.iubenda.com/wp-content/plugins/accelerated-mobile-pages/images/SD-default-image.png`"
+                    src="https://help.iubenda.com/wp-content/plugins/accelerated-mobile-pages/images/SD-default-image.png"
                     alt=""
                 />
             </div>
@@ -147,30 +147,33 @@
                     ></textarea>
                 </div>
                 <div class="col-12">
-                    <router-link
+                    <button
+                        id="messageButton"
+                        disabled
+                        @click="sendMail()"
+                        class="btn btn-primary"
+                        type="submit"
                         v-if="isLogged"
-                        :to="{ name: 'admin-message-result' }"
-                        ><button
-                            id="messageButton"
-                            @click="sendMail()"
-                            class="btn btn-primary"
-                            disabled
-                            type="submit"
-                        >
-                            Send
-                        </button></router-link
                     >
-                    <router-link v-else :to="{ name: 'message-result' }"
-                        ><button
-                            id="messageButton"
-                            @click="sendMail()"
-                            class="btn btn-primary"
-                            disabled
-                            type="submit"
-                        >
-                            Send
-                        </button></router-link
+                        <router-link :to="{ name: 'admin-message-result' }">
+                            <span class="text-white"
+                                ><i class="far fa-paper-plane"></i></span
+                        ></router-link>
+                    </button>
+
+                    <button
+                        v-else
+                        id="messageButton"
+                        @click="sendMail()"
+                        class="btn btn-primary"
+                        disabled
+                        type="submit"
                     >
+                        <router-link :to="{ name: 'message-result' }">
+                            <span class="text-white"
+                                ><i class="far fa-paper-plane"></i></span
+                        ></router-link>
+                    </button>
                 </div>
             </form>
         </div>
@@ -184,14 +187,21 @@ import Axios from "axios";
 
 export default {
     name: "SingleApartment",
+    props: {
+        isLogged: Boolean,
+        userLogged: Object,
+    },
     data() {
         return {
             apartment: Object,
 
             messageForm: {
-                name: this.userLogged.name,
-                surname: this.userLogged.surname,
-                email: this.userLogged.email,
+                // name: this.userLogged.name,
+                // surname: this.userLogged.surname,
+                // email: this.userLogged.email,
+                name: "",
+                surname: "",
+                email: "",
                 text: "",
                 apartment_id: null,
             },
@@ -205,12 +215,9 @@ export default {
             // logged_user: null,
         };
     },
-    props: {
-        isLogged: Boolean,
-        userLogged: Object,
-    },
     created() {
         this.getApartmentDetails();
+        this.ifLogged();
     },
     computed: {
         optionalName() {
@@ -223,6 +230,14 @@ export default {
         },
     },
     methods: {
+        ifLogged() {
+            if (this.userLogged) {
+                this.messageForm.name = this.userLogged.name;
+                this.messageForm.surname = this.userLogged.surname;
+                this.messageForm.email = this.userLogged.email;
+            }
+        },
+
         showMeContactSection() {
             const ContactSection = document.getElementById(
                 "_contact_us_section"

@@ -2,8 +2,6 @@
 
 @section('content')
 
-    <h1>Create a new apartment</h1>
-
     <form action="{{ route('admin.apartments.store') }}" method="POST" enctype="multipart/form-data">
         @method('POST')
         @csrf
@@ -19,51 +17,57 @@
         @endif
 
         <div class="mb-3">
-            <label for="title" class="form-label">Title(*):</label>
+            <label for="title" class="form-label fw-bold">Title *:</label>
             <input type="text" class="form-control" name="title" id="title" onkeyup="controlForm()">
         </div>
 
-        <div>
-            <label for="image">Image:</label>
-            <input type="file" id="image" name="image">
+        <div class="_choose_file">
+            <label for="image" class="btn text-light">Choose image</label>
+            <input type="file" id="image" name="image" onchange="imageupLoaded()" class="d-none">
+            <span id="uploaded" class="d-none"></span>
+        </div>
+
+        <div class="d-flex flex-wrap mt-2">
+            <div class="mb-3 me-2">
+                <label class="form-label fw-bold" for="rooms_number">Number of rooms *:</label>
+                <select class="form-select" aria-label="Default select example" name="rooms_number" id="rooms_number"
+                    onkeyup="controlForm()" onclick="controlForm()">
+                    <option value="null" selected>Open this select menu</option>
+                    @for ($i = 1; $i <= 10; $i++)
+                        <option value="{{ $i }}">{{ $i }}</option>
+                    @endfor
+                </select>
+            </div>
+            <div class="mb-3 me-2">
+                <label class="form-label fw-bold" for="beds_number">Number of beds *:</label>
+                <select class="form-select" aria-label="Default select example" name="beds_number" id="beds_number"
+                    onkeyup="controlForm()" onclick="controlForm()">
+                    <option value="null" selected class="text-secondary">Open this select menu</option>
+                    @for ($i = 1; $i <= 10; $i++)
+                        <option value="{{ $i }}">{{ $i }}</option>
+                    @endfor
+                </select>
+            </div>
+            <div class="mb-3 me-2">
+                <label class="form-label fw-bold" for="bathroom_number">Number of bathrooms *:</label>
+                <select class="form-select" aria-label="Default select example" name="bathroom_number" id="bathroom_number"
+                    onclick="controlForm()">
+                    <option value="null" selected>Open this select menu</option>
+                    @for ($i = 1; $i <= 10; $i++)
+                        <option value="{{ $i }}">{{ $i }}</option>
+                    @endfor
+                </select>
+            </div>
+
+            <div class="mb-3 me-2">
+                <label for="square_metres" class="form-label fw-bold">Square metres *:</label>
+                <input type="number" class="form-control" name="square_metres" id="square_metres" onkeyup="controlForm()">
+            </div>
+
         </div>
 
         <div class="mb-3">
-            <label for="rooms_number">Number of rooms(*):</label>
-            <select class="form-select" aria-label="Default select example" name="rooms_number" id="rooms_number"
-                onkeyup="controlForm()" onclick="controlForm()">
-                <option value="null" selected>Open this select menu</option>
-                @for ($i = 1; $i <= 10; $i++)
-                    <option value="{{ $i }}">{{ $i }}</option>
-                @endfor
-            </select>
-        </div>
-        <div class="mb-3">
-            <label for="beds_number">Number of beds(*):</label>
-            <select class="form-select" aria-label="Default select example" name="beds_number" id="beds_number"
-                onkeyup="controlForm()" onclick="controlForm()">
-                <option value="null" selected>Open this select menu</option>
-                @for ($i = 1; $i <= 10; $i++)
-                    <option value="{{ $i }}">{{ $i }}</option>
-                @endfor
-            </select>
-        </div>
-        <div class="mb-3">
-            <label for="bathroom_number">Number of bathrooms(*):</label>
-            <select class="form-select" aria-label="Default select example" name="bathroom_number" id="bathroom_number"
-                onclick="controlForm()">
-                <option value="null" selected>Open this select menu</option>
-                @for ($i = 1; $i <= 10; $i++)
-                    <option value="{{ $i }}">{{ $i }}</option>
-                @endfor
-            </select>
-        </div>
-        <div class="mb-3">
-            <label for="square_metres" class="form-label">Square metres(*):</label>
-            <input type="number" class="form-control" name="square_metres" id="square_metres" onkeyup="controlForm()">
-        </div>
-        <div class="mb-3">
-            <label for="addressSearch" class="form-label">Address(*):</label>
+            <label for="addressSearch" class="form-label fw-bold">Address *:</label>
             <input type="text" class="form-control" name="addressSearch" id="addressSearch"
                 onkeyup="addressApartment(); controlForm()">
             <div class="d-none" id="containerAddress">
@@ -81,8 +85,8 @@
 
 
         <div class="my-3">
-            <h4>Optionals(*):</h4>
-            <p>Select at least one</p>
+            <span class="fw-bold">Additional services *:</span>
+            <p class="text-secondary">Select at least one</p>
             @foreach ($optionals as $optional)
                 <div class="form-check">
 
@@ -103,7 +107,8 @@
                 value="1">
             <label class="form-check-label" for="flexSwitchCheckChecked">Visible</label>
         </div>
-        <button type="submit" class="btn btn-primary" disabled id="submitButton">Submit</button>
+        <button type="submit" class="btn _btn_brand" disabled id="submitButton"><span class="text-white"><i
+                    class="fas fa-share"></i></span></button>
     </form>
 
     <p class="text-center">* These fields are required</p>
@@ -114,6 +119,20 @@
 @endsection
 
 <script>
+    function imageupLoaded() {
+        span = document.getElementById('uploaded');
+        if (document.getElementById('image').value) {
+            uploadFile = document.getElementById('image').value;
+            span.classList.remove('d-none');
+            span.innerHTML = `File ${uploadFile} uploaded`;
+        } else {
+            span.innerHTML = "";
+            span.classList.add('d-none');
+        }
+    }
+
+
+
     function addressApartment() {
 
         document.getElementById('address').value = "";
@@ -128,7 +147,8 @@
 
             let addressApart = document.getElementById('addressSearch').value;
             const linkApi =
-                `https://api.tomtom.com/search/2/geocode/${addressApart}.json?key=Rdcw2GVNiNQGXTWrgewGKq9cwtVYNPRw`;
+                `
+            https://api.tomtom.com/search/2/geocode/${addressApart}.json?key=Rdcw2GVNiNQGXTWrgewGKq9cwtVYNPRw`;
 
             axios.get(linkApi).then(resp => {
 

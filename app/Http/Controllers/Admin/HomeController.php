@@ -10,7 +10,6 @@ class HomeController extends Controller
 {
     public function index()
     {
-
         $user = Auth::user();
         $is_logged = Auth::check();
         return view('admin.home', compact('user', 'is_logged'));
