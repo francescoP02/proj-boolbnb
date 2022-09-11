@@ -5,7 +5,7 @@
 
         <div id="_img_info_section" class="">
             <div class="img-wrap-single-apt" v-if="apartment.image">
-                <img :src="apartment.image" alt="" />
+                <img :src="`/storage/${apartment.image}`" alt="" />
             </div>
             <div class="img-wrap-single-apt" v-else>
                 <img

@@ -6053,7 +6053,7 @@ var render = function render() {
     staticClass: "img-wrap-single-apt"
   }, [_c("img", {
     attrs: {
-      src: _vm.apartment.image,
+      src: "/storage/".concat(_vm.apartment.image),
       alt: ""
     }
   })]) : _c("div", {
