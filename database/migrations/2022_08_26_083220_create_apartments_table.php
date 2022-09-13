@@ -21,7 +21,7 @@ class CreateApartmentsTable extends Migration
             $table->unsignedTinyInteger('beds_number');
             $table->unsignedTinyInteger('bathroom_number');
             $table->unsignedMediumInteger('square_metres');
-            $table->string('address', 255)->unique();
+            $table->string('address', 255);
             $table->decimal('latitude', 9, 6)->nullable();
             $table->decimal('longitude', 9, 6)->nullable();
             $table->text('image')->nullable();

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Apartment;
 use App\User;
+use App\Plan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
@@ -12,6 +13,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Optional;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Database\Eloquent\Relations;
 
 class ApartmentController extends Controller
 {
@@ -23,7 +25,7 @@ class ApartmentController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $apartments=$user->apartments;
+        $apartments = $user->apartments;
         // $apartments->user_id = $user->id;
         return view('admin.apartments.index', compact('apartments'));
     }
@@ -80,13 +82,16 @@ class ApartmentController extends Controller
         // // $apartment->longitude = $response->results[0]->position->lon;
 
         $apartment->user_id = $user->id;
+
+
         $apartment->save();
 
         if (isset($data['optionals'])) {
             $apartment->optionals()->sync($data['optionals']);
         }
 
-        return redirect()->route('admin.apartments.show', ['apartment' => $apartment->id]);
+
+        return redirect()->route('admin.apartments.index', ['apartment' => $apartment->id]);
     }
 
 
@@ -100,15 +105,16 @@ class ApartmentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    
-    {   
+
+    {
         $apartment = Apartment::findOrFail($id);
+        $plans = Plan::all();
         $response = Gate::inspect('view', $apartment);
- 
+
         if ($response->allowed()) {
-            return view('admin.apartments.show', compact('apartment'));
+            return view('admin.apartments.show', compact('apartment', 'plans'));
         } else {
-            return view('admin.policy',compact('response'));
+            return view('admin.policy', compact('response'));
         }
     }
 
@@ -128,7 +134,7 @@ class ApartmentController extends Controller
             $optionals = Optional::all();
             return view('admin.apartments.edit', compact('apartment', 'optionals'));
         } else {
-            return view('admin.policy',compact("response"));
+            return view('admin.policy', compact("response"));
         }
     }
 
@@ -141,11 +147,12 @@ class ApartmentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
+
         $request->validate($this->getValidationRules());
-        
+
         $data = $request->all();
-        
+
+
         $apartment = Apartment::findOrFail($id);
 
         if (isset($data['image'])) {
@@ -166,12 +173,16 @@ class ApartmentController extends Controller
 
         //     $apartment->latitude = $response->results[0]->position->lat;
         //     $apartment->longitude = $response->results[0]->position->lon;
-            
+
         // }
 
-        
+
         if ($data['title'] !== $apartment->title) {
             $apartment->slug = Apartment::generateApartmentSlugFromTitle($data["title"]);
+        }
+
+        if (!isset($data['visible'])) {
+            $data['visible'] = 0;
         }
 
         $apartment->update($data);
@@ -200,19 +211,22 @@ class ApartmentController extends Controller
         $response = Gate::inspect('update', $apartment);
 
         if ($response->allowed()) {
-            if($apartment->image) {
+            if ($apartment->image) {
                 Storage::delete($apartment->image);
             }
             $apartment->optionals()->sync([]);
             $apartment->delete();
             return redirect()->route('admin.apartments.index');
         } else {
-            return view('admin.policy',compact("response"));
+            return view('admin.policy', compact("response"));
         }
-
     }
 
-    private function getValidationRules() {
+
+
+
+    private function getValidationRules()
+    {
         return [
             'title' => 'required|max:255',
             'rooms_number' => 'required|numeric|between:1,10',
@@ -220,8 +234,8 @@ class ApartmentController extends Controller
             'bathroom_number' => 'required|numeric|between:0,10',
             'square_metres' => 'required|numeric',
             'address' => 'required|max:255',
-            'latitude' => 'required|numeric|between:-180,180',
-            'longitude' => 'required|numeric|between:-90,90',
+            'latitude' => 'required|numeric|between:-90,90',
+            'longitude' => 'required|numeric|between:-180,180',
             'image' => 'nullable|image|max:512',
             'visible' => 'nullable',
         ];

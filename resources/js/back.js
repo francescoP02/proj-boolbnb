@@ -26,7 +26,7 @@
  // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 
-import App from './views/App.vue';
+import AppLogged from './views/AppLogged.vue';
 import router from './router';
 
  /**
@@ -35,8 +35,9 @@ import router from './router';
   * or customize the JavaScript scaffolding to fit your unique needs.
   */
 
- const app = new Vue({
-     el: '#root',
-     render: h => h(App),
-     router
- });
+
+const appLogged = new Vue({
+  el: '#rootLogged',
+    render: h => h(AppLogged),
+    router
+});

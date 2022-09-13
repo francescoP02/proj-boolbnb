@@ -10,10 +10,11 @@ use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class ApartmentController extends Controller
 {
-    public function index(Request $request)
+    public function showAll(Request $request)
     {
         $rooms = $request->rooms;
         $beds = $request->beds;
@@ -39,15 +40,34 @@ class ApartmentController extends Controller
             } else $apartment->image = url('https://help.iubenda.com/wp-content/plugins/accelerated-mobile-pages/images/SD-default-image.png');
 
             $R = 6371; // km 
-            $dLat = ($apartment->latitude - $og_lat) * pi() / 180; 
-            $dLon = ($apartment->longitude - $og_lon) * pi() / 180; 
-            $lat1 = ($og_lat) * pi() / 180; 
-            $lat2 = ($apartment->latitude) * pi() / 180; 
-            $a = sin($dLat/2) * sin($dLat/2) +sin($dLon/2) * sin($dLon/2) * cos($lat1) * cos($lat2); 
-            $c = 2 * atan2(sqrt($a), sqrt(1-$a)); 
+            $dLat = ($apartment->latitude - $og_lat) * pi() / 180;
+            $dLon = ($apartment->longitude - $og_lon) * pi() / 180;
+            $lat1 = ($og_lat) * pi() / 180;
+            $lat2 = ($apartment->latitude) * pi() / 180;
+            $a = sin($dLat / 2) * sin($dLat / 2) + sin($dLon / 2) * sin($dLon / 2) * cos($lat1) * cos($lat2);
+            $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
             $d = $R * $c;
 
-            if ($og_lat && $og_lon && $d > $distance){
+            if ($og_lat && $og_lon && $d > $distance) {
+                unset($ap_with_op[$index]);
+            }
+        };
+
+        $ap_sp = [];
+
+        // foreach ($ap_with_op as $index => $apartment) {
+        //     if ($apartment->plans()->exists()) {
+        //         $ap_sp[] = $apartment;
+        //         unset($ap_with_op[$index]);
+        //     }
+        // };
+
+
+        foreach ($ap_with_op as $index => $apartment) {
+            $now = Carbon::now()->format('Y-m-d H:i:s');
+
+            if ($apartment->plans()->wherePivot('date_of_expiration', '>=', $now)->first()) {
+                $ap_sp[] = $apartment;
                 unset($ap_with_op[$index]);
             }
         };
@@ -66,7 +86,7 @@ class ApartmentController extends Controller
         //     $d = $R * $c;
         //     return $d; 
         // };
-    
+
         // Converts numbersc degrees to radians 
         // function toRad($Value) { 
         //     return $Value * pi() / 180; 
@@ -76,23 +96,24 @@ class ApartmentController extends Controller
             'success' => true,
             'results' => [
                 'apartments' => $ap_with_op,
+                'sposoredApartments' => $ap_sp,
                 'optionals' => $optionals,
             ]
         ]);
-        
     }
 
-    public function show($slug) {
+    public function showOne($slug)
+    {
         $apartment = Apartment::where('slug', '=', $slug)->with(['optionals'])->first();
         $user = $apartment->user;
-        $logged_user = Auth::check();
+        // $logged_user = Auth::check();
         if ($apartment) {
             return response()->json([
                 'success' => true,
                 'results' => [
                     'apartment' => $apartment,
-                    'user'=> $user, 
-                    'logged_user' => $logged_user
+                    'user' => $user,
+                    // 'logged_user' => $logged_user
                 ]
             ]);
         }
@@ -101,5 +122,4 @@ class ApartmentController extends Controller
             'results' => 'No apartment found',
         ]);
     }
-
 }

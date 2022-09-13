@@ -6,23 +6,30 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+
 class Apartment extends Model
 {
     use SoftDeletes;
-    
+
     public function optionals()
     {
         return $this->belongsToMany('App\Optional');
     }
 
     public function messages()
-        {
-            return $this->hasMany('App\Message');
-        }
+    {
+        return $this->hasMany('App\Message');
+    }
 
     public function user()
     {
         return $this->belongsTo('App\User');
+    }
+
+    public function plans()
+    {
+        return $this->belongsToMany('App\Plan');
+        // return $this->belongsToMany('App\Plan')->withPivot('date_of_expiration');
     }
 
     protected $fillable = [

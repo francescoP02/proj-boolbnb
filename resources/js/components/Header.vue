@@ -6,16 +6,11 @@
                   <img src="images/logoboolbnb.png" alt="" style="width:150px">
                   <!-- boolbnb -->
                 </a>
-                <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
-                </button> -->
+                </button>
                 <div class="collapse navbar-collapse right" id="navbarNav">
                     <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <div id="_user_btn" class="px-1">
-                                <a class="nav-link" href="/login"><i class="far fa-user"></i></a>
-                            </div>
-                        </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/login">Login</a>
                         </li>
