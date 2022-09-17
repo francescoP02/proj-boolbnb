@@ -143,11 +143,10 @@
             </div>
         </div>
 
-        <div class="position-relative mt-5">
+        <div class="position-relative mt-5" v-if="isSpNotEmpty()">
             <div class="sponsored-section-title">
                 <span class="text-light fw-bold fs-5">Sponsored Apartment</span>
             </div>
-
             <div
                 id="sponsoredSection"
                 class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 row-cols-xxl-5 pt-4 mb-4"
@@ -258,9 +257,21 @@ export default {
     },
     created() {
         this.getApartments();
+        this.isSpNotEmpty();
     },
 
     methods: {
+        isSpNotEmpty() {
+            let flag = 0;
+            if (this.apartmentsSp) {
+                this.apartmentsSp.forEach((element) => {
+                    if (element.visible) {
+                        flag = 1;
+                    }
+                });
+            }
+            return flag;
+        },
         getFilter() {
             const filterSection = document.getElementById("filterSection");
             const angleDown = document.getElementById("angleDown");

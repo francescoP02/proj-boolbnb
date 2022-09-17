@@ -5205,8 +5205,22 @@ __webpack_require__.r(__webpack_exports__);
   },
   created: function created() {
     this.getApartments();
+    this.isSpNotEmpty();
   },
   methods: {
+    isSpNotEmpty: function isSpNotEmpty() {
+      var flag = 0;
+
+      if (this.apartmentsSp) {
+        this.apartmentsSp.forEach(function (element) {
+          if (element.visible) {
+            flag = 1;
+          }
+        });
+      }
+
+      return flag;
+    },
     getFilter: function getFilter() {
       var filterSection = document.getElementById("filterSection");
       var angleDown = document.getElementById("angleDown");
@@ -5803,7 +5817,7 @@ var render = function render() {
         _vm.distance = $event.target.value;
       }
     }
-  })]) : _vm._e()])]), _vm._v(" "), _c("div", {
+  })]) : _vm._e()])]), _vm._v(" "), _vm.isSpNotEmpty() ? _c("div", {
     staticClass: "position-relative mt-5"
   }, [_vm._m(4), _vm._v(" "), _c("div", {
     staticClass: "row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 row-cols-xxl-5 pt-4 mb-4",
@@ -5843,7 +5857,7 @@ var render = function render() {
         apartment: apartment
       }
     })], 1)], 1) : _vm._e();
-  }), 0)]), _vm._v(" "), _c("div", {
+  }), 0)]) : _vm._e(), _vm._v(" "), _c("div", {
     staticClass: "row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 row-cols-xxl-5"
   }, _vm._l(_vm.apartments, function (apartment) {
     return apartment.visible ? _c("div", {
